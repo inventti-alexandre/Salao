@@ -32,6 +32,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 if (usuario != null)
                 {
                     FormsAuthentication.SetAuthCookie(usuario.Login, false);
+                    Session["IdUsuario"] = usuario.Id;
                     if (Url.IsLocalUrl(returnUrl)
                         && returnUrl.Length > 1
                         && returnUrl.StartsWith("/")

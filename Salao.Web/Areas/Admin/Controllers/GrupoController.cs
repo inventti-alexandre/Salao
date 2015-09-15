@@ -70,7 +70,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View();
+                return View(grupo);
             }
         }
 

@@ -124,6 +124,7 @@
     <Compile Include="Areas\Admin\Controllers\GrupoController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdmController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PermissaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Admin\Models\LoginUsuario.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -156,6 +157,11 @@
     <Content Include="Areas\Admin\Views\Grupo\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Grupo\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Grupo\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Permissao\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Permissao\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Permissao\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Permissao\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Permissao\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

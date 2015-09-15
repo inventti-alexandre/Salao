@@ -49,12 +49,14 @@
     <Compile Include="Abstract\Admin\ILogin.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
     <Compile Include="Models\Admin\Grupo.cs" />
+    <Compile Include="Models\Admin\Permissao.cs" />
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EFDbContext.cs" />
     <Compile Include="Repository\EFRepository.cs" />
     <Compile Include="Repository\IBaseRepository.cs" />
     <Compile Include="Service\Admin\GrupoService.cs" />
+    <Compile Include="Service\Admin\PermissaoService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>
