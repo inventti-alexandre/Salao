@@ -123,6 +123,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdmController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Admin\Models\LoginUsuario.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -144,6 +145,11 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdm\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

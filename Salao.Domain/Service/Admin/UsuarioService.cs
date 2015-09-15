@@ -39,6 +39,11 @@ namespace Salao.Domain.Service.Admin
                 throw new ArgumentException("Login já utilizado por outro usuário");
             }
 
+            if (repository.Listar().Where(x => x.Email == item.Email && x.Id != item.Id).Count() > 0)
+            {
+                throw new ArgumentException("Já existe um usuário cadastrado com este e-mail");
+            }
+
             // grava
             if (item.Id == 0)
             {
