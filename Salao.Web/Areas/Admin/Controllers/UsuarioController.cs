@@ -2,14 +2,13 @@
 using Salao.Domain.Models.Admin;
 using Salao.Domain.Service.Admin;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
+    [Authorize]
     public class UsuarioController : Controller
     {
 

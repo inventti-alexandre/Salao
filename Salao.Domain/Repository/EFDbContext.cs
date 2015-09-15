@@ -20,5 +20,6 @@ namespace Salao.Domain.Repository
 
         // DbSets
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Grupo> Grupo { get; set; }
     }
 }
