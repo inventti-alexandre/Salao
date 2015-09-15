@@ -16,11 +16,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+                <a class="navbar-brand" rel="home" href="/Home" title="ScrumToPractice">
+                    @*<img style="max-width:100px; margin-top: -7px; height:20px; width:20px;" src="~/Images/logo_top_menu.gif">*@
+                </a>
+                @*@Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li><a href="/Admin/Usuario">Usuários</a></li>
                 </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="pull-right top15">
+                        <span class="glyphicon glyphicon-user gray" aria-hidden="true"></span>
+                        <span class="gray">@User.Identity.Name.ToUpper()</span>
+                        <span class="left40"><a href="/Admin/Login/Logout" class="gray">Sair</a></span>
+                    </div>
+                }
             </div>
         </div>
     </div>
