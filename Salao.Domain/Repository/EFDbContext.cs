@@ -14,13 +14,15 @@ namespace Salao.Domain.Repository
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<UsuarioGrupo>().HasKey(x => new { x.IdUsuario, x.IdGrupo });
         }
 
         // DbSets
         public DbSet<Grupo> Grupo { get; set; }
         public DbSet<Permissao> Permissao { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }
     }
 }
