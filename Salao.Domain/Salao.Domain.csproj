@@ -84,6 +84,7 @@
     <Compile Include="Models\Admin\SistemaParametro.cs" />
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Admin\UsuarioGrupo.cs" />
+    <Compile Include="Models\Endereco\Endereco.cs" />
     <Compile Include="Models\Endereco\EnderecoBairro.cs" />
     <Compile Include="Models\Endereco\EnderecoCidade.cs" />
     <Compile Include="Models\Endereco\EnderecoEmail.cs" />
@@ -100,7 +101,12 @@
     <Compile Include="Service\Admin\SistemaParametroService.cs" />
     <Compile Include="Service\Admin\UsuarioGrupoService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
+    <Compile Include="Service\Endereco\BairroService.cs" />
+    <Compile Include="Service\Endereco\CidadeService.cs" />
+    <Compile Include="Service\Endereco\EmailService.cs" />
+    <Compile Include="Service\Endereco\EnderecoService.cs" />
     <Compile Include="Service\Endereco\EstadoService.cs" />
+    <Compile Include="Service\Endereco\TelefoneService.cs" />
     <Compile Include="Service\Endereco\TipoEnderecoService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Salao.Domain.Models.Admin;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +39,17 @@ namespace Salao.Domain.Models.Endereco
 
         [Required]
         [HiddenInput(DisplayValue=false)]
+        [Range(1, 999999999999, ErrorMessage = "Endereço inválido")]
         public int IdEndereco { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Usuario")]
+        public virtual Usuario Usuario
+        {
+            get
+            {
+                return new Salao.Domain.Service.Admin.UsuarioService().Find(AlteradoPor);
+            }
+        }
     }
 }

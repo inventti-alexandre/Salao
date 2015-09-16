@@ -27,6 +27,7 @@ namespace Salao.Domain.Models.Endereco
 
         [Required]
         [HiddenInput(DisplayValue = false)]
+        [Range(1,999999999999,ErrorMessage="Endereço inválido")]
         public int IdEndereco { get; set; }
 
         [NotMapped]

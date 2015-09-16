@@ -22,6 +22,7 @@ namespace Salao.Domain.Repository
         }
 
         // DbSets
+        public DbSet<Endereco> Endereco { get; set; }
         public DbSet<EnderecoBairro> EnderecoBairro { get; set; }
         public DbSet<EnderecoCidade> EnderecoCidade { get; set; }
         public DbSet<EnderecoEmail> EnderecoEmail { get; set; }

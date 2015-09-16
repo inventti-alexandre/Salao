@@ -1,11 +1,8 @@
 ﻿using Salao.Domain.Models.Admin;
+using Salao.Domain.Service.Endereco;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Salao.Domain.Models.Endereco
@@ -47,8 +44,7 @@ namespace Salao.Domain.Models.Endereco
         {
             get
             {
-                // TODO: ServiceEstado com retorno do estado aqui
-                throw new NotImplementedException();
+                return new EstadoService().Find(IdEstado);
             }
         }
     }
