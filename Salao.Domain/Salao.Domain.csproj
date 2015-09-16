@@ -53,6 +53,7 @@
     <Compile Include="Models\Admin\Grupo.cs" />
     <Compile Include="Models\Admin\GrupoPermissao.cs" />
     <Compile Include="Models\Admin\Permissao.cs" />
+    <Compile Include="Models\Admin\SistemaParametro.cs" />
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Admin\UsuarioGrupo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Service\Admin\GrupoPermissaoService.cs" />
     <Compile Include="Service\Admin\GrupoService.cs" />
     <Compile Include="Service\Admin\PermissaoService.cs" />
+    <Compile Include="Service\Admin\SistemaParametroService.cs" />
     <Compile Include="Service\Admin\UsuarioGrupoService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
   </ItemGroup>

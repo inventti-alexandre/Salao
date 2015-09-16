@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Admin\GrupoUnitTest.cs" />
     <Compile Include="Admin\PermissaoUnitTest.cs" />
+    <Compile Include="Admin\SistemaParametroUnitTest.cs" />
     <Compile Include="Admin\UsuarioGrupoUnitTest.cs" />
     <Compile Include="Admin\UsuarioUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

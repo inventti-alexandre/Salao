@@ -24,6 +24,7 @@ namespace Salao.Domain.Repository
         public DbSet<Grupo> Grupo { get; set; }
         public DbSet<GrupoPermissao> GrupoPermissao { get; set; }
         public DbSet<Permissao> Permissao { get; set; }
+        public DbSet<SistemaParametro> SistemaParametro { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }
     }
