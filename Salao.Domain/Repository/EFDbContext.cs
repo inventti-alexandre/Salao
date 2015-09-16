@@ -17,10 +17,12 @@ namespace Salao.Domain.Repository
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<UsuarioGrupo>().HasKey(x => new { x.IdUsuario, x.IdGrupo });
+            modelBuilder.Entity<GrupoPermissao>().HasKey(x => new { x.IdGrupo, x.IdPermissao });
         }
 
         // DbSets
         public DbSet<Grupo> Grupo { get; set; }
+        public DbSet<GrupoPermissao> GrupoPermissao { get; set; }
         public DbSet<Permissao> Permissao { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }

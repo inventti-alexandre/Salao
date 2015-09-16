@@ -3,10 +3,8 @@ using Salao.Domain.Abstract.Admin;
 using Salao.Domain.Models.Admin;
 using Salao.Domain.Service.Admin;
 using Salao.Web.Areas.Admin.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
@@ -31,6 +29,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             // usuario selecionado
             var usuario = serviceUsuario.Find(id);
+            
             // grupos disponiveis
             var grupos = serviceGrupo.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
 
@@ -52,9 +51,13 @@ namespace Salao.Web.Areas.Admin.Controllers
             return View(gruposUsuario);
         }
 
-        //[HttpPost]
-        //public ActionResult Index(FormCollection collection, int idUsuario)
-        //{
-        //}
+        [HttpPost]
+        public ActionResult Index(int[] selecionado, int idUsuario)
+        {
+            // grava grupos do usuario
+            serviceUsuarioGrupo.Gravar(idUsuario, selecionado);
+
+            return RedirectToAction("Index", "Usuario");
+        }
 	}
 }

@@ -2,12 +2,12 @@
 
 namespace Salao.Domain.Models.Admin
 {
-    public class UsuarioGrupo
+    public class GrupoPermissao
     {
         [Key]
-        public int IdUsuario { get; set; }
+        public int IdGrupo { get; set; }
 
         [Key]
-        public int IdGrupo { get; set; }
+        public int IdPermissao { get; set; }
     }
 }

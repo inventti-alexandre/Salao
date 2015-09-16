@@ -43,5 +43,26 @@ namespace Salao.Domain.Service.Admin
                 db.SaveChanges();
             }
         }
+
+        public void Gravar(int idUsuario, int[] grupos)
+        {
+            // remove todos os grupos do usuario
+            var gruposCadastrados = db.UsuarioGrupo.Where(x => x.IdUsuario == idUsuario).ToList();
+            if (gruposCadastrados.Count() > 0)
+            {
+                db.UsuarioGrupo.RemoveRange(gruposCadastrados);
+                db.SaveChanges();
+            }
+
+            // inclui novos grupos
+            if (grupos != null)
+            {
+                foreach (var item in grupos)
+                {
+                    db.UsuarioGrupo.Add(new UsuarioGrupo { IdUsuario = idUsuario, IdGrupo = item });
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

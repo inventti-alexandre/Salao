@@ -1,19 +1,19 @@
-﻿@model IEnumerable<Salao.Web.Areas.Admin.Models.GruposUsuario>
+﻿@model IEnumerable<Salao.Web.Areas.Admin.Models.PermissoesGrupo>
 
 @{
-    ViewBag.Title = "Grupos do usuário";
+    ViewBag.Title = "Permissões do grupo";
 }
 
-<h2>Grupos do usuário</h2>
+<h2>Permissões do grupo</h2>
 
 <div class="text-info">
-    <h3>@ViewBag.NomeUsuario</h3>
+    <h3>@ViewBag.NomeGrupo</h3>
 </div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("idUsuario", (object)ViewBag.IdUsuario)
+    @Html.Hidden("idGrupo", (object)ViewBag.IdGrupo)
     <table class="table">
         <tr>
             <th>
@@ -38,7 +38,7 @@
     </table>
     
     <div class="form-group">
-        <input type="submit" value="Gravar" class="btn btn-primary" />            
-        @Html.ActionLink("Voltar", "Index", "Usuario", null, new { @class="btn btn-primary" })
+        <input type="submit" value="Gravar" class="btn btn-primary"/>
+        @Html.ActionLink("Voltar", "Index", "Grupo", null, new { @class="btn btn-primary"})
     </div>
 }

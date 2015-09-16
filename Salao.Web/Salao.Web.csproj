@@ -122,6 +122,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\GrupoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GrupoPermissaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdmController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\PermissaoController.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Areas\Admin\Controllers\UsuarioGrupoController.cs" />
     <Compile Include="Areas\Admin\Models\GruposUsuario.cs" />
     <Compile Include="Areas\Admin\Models\LoginUsuario.cs" />
+    <Compile Include="Areas\Admin\Models\PermissoesGrupo.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -165,6 +167,7 @@
     <Content Include="Areas\Admin\Views\Permissao\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Permissao\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\UsuarioGrupo\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\GrupoPermissao\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

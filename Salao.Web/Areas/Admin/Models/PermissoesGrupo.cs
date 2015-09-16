@@ -2,11 +2,11 @@
 
 namespace Salao.Web.Areas.Admin.Models
 {
-    public class GruposUsuario
+    public class PermissoesGrupo
     {
         public int Id { get; set; }
-        
-        [Display(Name="Grupo")]
+
+        [Display(Name="Permissão")]
         public string Descricao { get; set; }
 
         public bool Selecionado { get; set; }

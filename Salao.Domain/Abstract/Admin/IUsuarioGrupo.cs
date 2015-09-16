@@ -8,5 +8,6 @@ namespace Salao.Domain.Abstract.Admin
         IQueryable<UsuarioGrupo> Listar();
         void Incluir(int idUsuario, int idGrupo);
         void Excluir(int idUsuario, int idGrupo);
+        void Gravar(int idUsuario, int[] grupos);
     }
 }

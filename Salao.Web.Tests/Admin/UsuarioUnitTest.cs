@@ -36,19 +36,19 @@ namespace Salao.Web.Tests.Admin
             // Arrange
             var usuario = new Usuario
             {
-                Email = "pedro.freitas@gmail.com",
-                Login = "pedro",
-                Nome = "Pedro Freitas",
+                Email = "jb.alessandro@gmail.com",
+                Login = "jose",
+                Nome = "Jose Batista",
                 Ramal = "1",
                 Senha = "123456",
-                Telefone = "99804-8177"
+                Telefone = "99721-8670"
             };
 
             // Act
             int id = service.Gravar(usuario);
 
             // Assert
-            Assert.AreEqual(2, id);
+            Assert.AreEqual(1, id);
         }
 
         [TestMethod]
