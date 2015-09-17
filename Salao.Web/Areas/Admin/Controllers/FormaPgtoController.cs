@@ -10,76 +10,76 @@ using System.Web.Mvc;
 namespace Salao.Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class PermissaoController : Controller
+    public class FormaPgtoController : Controller
     {
-        private IBaseService<Permissao> service;
+        private IBaseService<FormaPgto> service;
         private ILogin login;
 
-        public PermissaoController()
+        public FormaPgtoController()
         {
-            service = new PermissaoService();
+            service = new FormaPgtoService();
             login = new UsuarioService();
         }
 
         //
-        // GET: /Admin/Permissao/
+        // GET: /Admin/FormaPgto/
         public ActionResult Index()
         {
-            var permissoes = service.Listar()
+            var formas = service.Listar()
                 .OrderBy(x => x.Descricao);
 
-            return View(permissoes);
+            return View(formas);
         }
 
         //
-        // GET: /Admin/Permissao/Details/5
+        // GET: /Admin/FormaPgto/Details/5
         public ActionResult Details(int id)
         {
-            var permissao = service.Find(id);
+            var forma = service.Find(id);
 
-            if (permissao == null)
+            if (forma == null)
             {
                 return HttpNotFound();
             }
 
-            return View(permissao);
+            return View(forma);
         }
 
         //
-        // GET: /Admin/Permissao/Create
+        // GET: /Admin/FormaPgto/Create
         public ActionResult Create()
         {
-            return View(new Permissao());
+            return View(new FormaPgto());
         }
 
         //
-        // POST: /Admin/Permissao/Create
+        // POST: /Admin/FormaPgto/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="Descricao")] Permissao permissao)
+        public ActionResult Create([Bind(Include="Descricao")] FormaPgto forma)
         {
             try
             {
-                permissao.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-                permissao.AlteradoEm = DateTime.Now;
-                TryUpdateModel(permissao);
+                forma.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                forma.AlteradoEm = DateTime.Now;
+                TryUpdateModel(forma);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(permissao);
-                    return RedirectToAction("Index");
+                    service.Gravar(forma);
+                    return RedirectToAction("Index");                    
                 }
 
-                return View(permissao);
+                return View(forma);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(permissao);
+                return View(forma);
             }
         }
 
         //
-        // GET: /Admin/Permissao/Edit/5
+        // GET: /Admin/FormaPgto/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,43 +87,39 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var permissao = service.Find((int)id);
+            var forma = service.Find((int)id);
 
-            if (permissao == null)
+            if (forma == null)
             {
                 return HttpNotFound();
             }
 
-            return View(permissao);
+            return View(forma);
         }
 
         //
-        // POST: /Admin/Permissao/Edit/5
+        // POST: /Admin/FormaPgto/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include="Id,Descricao,Ativo")] Permissao permissao)
+        public ActionResult Edit([Bind(Include = "Id,Descricao,Ativo")] FormaPgto forma)
         {
             try
             {
-                permissao.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-                TryUpdateModel(permissao);
+                forma.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                forma.AlteradoEm = DateTime.Now;
+                TryUpdateModel(forma);
 
-                if (ModelState.IsValid)
-                {
-                    service.Gravar(permissao);
-                    return RedirectToAction("Index");
-                }
-
-                return View(permissao);
+                service.Gravar(forma);
+                return RedirectToAction("Index");
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(permissao);
+                return View(forma);
             }
         }
 
         //
-        // GET: /Admin/Permissao/Delete/5
+        // GET: /Admin/FormaPgto/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -131,18 +127,18 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var permissao = service.Find((int)id);
+            var forma = service.Find((int)id);
 
-            if (permissao == null)
+            if (forma == null)
             {
                 return HttpNotFound();
             }
 
-            return View(permissao);
+            return View(forma);
         }
 
         //
-        // POST: /Admin/Permissao/Delete/5
+        // POST: /Admin/FormaPgto/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -153,12 +149,12 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
             catch
             {
-                var permissao = service.Find(id);
-                if (permissao == null)
+                var forma = service.Find(id);
+                if (forma == null)
                 {
                     return HttpNotFound();
                 }
-                return View(permissao);
+                return View(forma);
             }
         }
     }

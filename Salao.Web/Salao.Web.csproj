@@ -121,6 +121,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\FormaPgtoController.cs" />
     <Compile Include="Areas\Admin\Controllers\GrupoController.cs" />
     <Compile Include="Areas\Admin\Controllers\GrupoPermissaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdmController.cs" />
@@ -174,6 +175,11 @@
     <Content Include="Areas\Admin\Views\SistemaParametro\Create.cshtml" />
     <Content Include="Areas\Admin\Views\SistemaParametro\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SistemaParametro\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\FormaPgto\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\FormaPgto\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\FormaPgto\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\FormaPgto\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\FormaPgto\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
+    [Authorize]
     public class SistemaParametroController : Controller
     {
         private IBaseService<SistemaParametro> service;
