@@ -17,7 +17,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Incluir()
+        public void SistemaParametroIncluir()
         {
             // Arrange
             var parametro = new SistemaParametro { AlteradoPor = 1, Codigo = "VALOR CODIGO", Descricao = "VALOR DESCRICAO", Valor = "VALOR VALOR" };
@@ -26,7 +26,7 @@ namespace Salao.Web.Tests.Admin
             int id = service.Gravar(parametro);
 
             // Assert
-            Assert.AreEqual(1, id);
+            Assert.AreNotEqual(0, id);
         }        
     }
 }

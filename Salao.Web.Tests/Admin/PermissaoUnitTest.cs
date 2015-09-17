@@ -18,7 +18,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Incluir()
+        public void PermissaoIncluir()
         {
             // Arrange
             var permissao = new Permissao
@@ -31,11 +31,11 @@ namespace Salao.Web.Tests.Admin
             int id = service.Gravar(permissao);
 
             // Assert
-            Assert.AreEqual(3, id);
+            Assert.AreNotEqual(0, id);
         }
 
         [TestMethod]
-        public void Alterar()
+        public void PermissaoAlterar()
         {
             // Arrange
             var permissao = service.Find(1);
@@ -50,7 +50,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Listar()
+        public void PermissaoListar()
         {
             // Arrange
             List<Permissao> permissoes;
@@ -59,11 +59,11 @@ namespace Salao.Web.Tests.Admin
             permissoes = service.Listar().ToList();
 
             // Assert
-            Assert.AreEqual(1, permissoes.Count());
+            Assert.AreNotEqual(0, permissoes.Count());
         }
 
         [TestMethod]
-        public void Excluir()
+        public void PermissaoExcluir()
         {
             // Arrange 
             Permissao permissao;

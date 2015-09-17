@@ -17,10 +17,10 @@ namespace Salao.Web.Tests.Endereco
         }
 
         [TestMethod]
-        public void IncluirTipoEndereco()
+        public void TipoEnderecoIncluir()
         {
             // Arrange
-            var tipo = new EnderecoTipoEndereco { AlteradoPor = 1, Descricao = "COMERCIAL" };
+            var tipo = new EnderecoTipoEndereco { Descricao = "COMERCIAL" };
 
             // Act
             int id = service.Gravar(tipo);
@@ -30,7 +30,7 @@ namespace Salao.Web.Tests.Endereco
         }
 
         [TestMethod]
-        public void AlterarTipoEndereco()
+        public void TipoEnderecoAlterar()
         {
             // Arrange
             var tipo = service.Find(1);

@@ -8,30 +8,30 @@ using System.Web.Mvc;
 namespace Salao.Domain.Service.Admin
 {
     [Authorize]
-    public class PermissaoService: IBaseService<Permissao>
+    public class FormaPgtoService: IBaseService<FormaPgto>
     {
-        private IBaseRepository<Permissao> repository;
+        private IBaseRepository<FormaPgto> repository;
 
-        public PermissaoService()
+        public FormaPgtoService()
         {
-            repository = new EFRepository<Permissao>();
+            repository = new EFRepository<FormaPgto>();
         }
 
-        public IQueryable<Permissao> Listar()
+        public IQueryable<FormaPgto> Listar()
         {
             return repository.Listar();
         }
 
-        public int Gravar(Permissao item)
+        public int Gravar(FormaPgto item)
         {
             // formata
-            item.Descricao = item.Descricao.ToUpper().Trim();
             item.AlteradoEm = DateTime.Now;
+            item.Descricao = item.Descricao.ToUpper().Trim();
 
             // valida
-            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count()> 0)
+            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)
             {
-                throw new ArgumentException("Já existe uma permissão cadastrada com esta descrição");
+                throw new ArgumentException("Já existe uma forma de pagamento cadastrada com esta descrição");
             }
 
             // grava
@@ -44,7 +44,7 @@ namespace Salao.Domain.Service.Admin
             return repository.Alterar(item).Id;
         }
 
-        public Permissao Excluir(int id)
+        public FormaPgto Excluir(int id)
         {
             try
             {
@@ -53,19 +53,18 @@ namespace Salao.Domain.Service.Admin
             catch (Exception)
             {
                 // BD nao permite exclusao por FK, inativo
-                var permissao = repository.Find(id);
-
-                if (permissao != null)
+                var forma = repository.Find(id);
+                if (forma != null)
                 {
-                    permissao.AlteradoEm = DateTime.Now;
-                    permissao.Ativo = false;
-                    return repository.Alterar(permissao);
+                    forma.Ativo = false;
+                    forma.AlteradoEm = DateTime.Now;
+                    return repository.Alterar(forma);
                 }
-                return permissao;
+                return forma;
             }
         }
 
-        public Permissao Find(int id)
+        public FormaPgto Find(int id)
         {
             return repository.Find(id);
         }

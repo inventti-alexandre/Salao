@@ -3,9 +3,11 @@ using Salao.Domain.Models.Endereco;
 using Salao.Domain.Repository;
 using System;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace Salao.Domain.Service.Endereco
 {
+    [Authorize]
     public class TipoEnderecoService: IBaseService<EnderecoTipoEndereco>
     {
         private IBaseRepository<EnderecoTipoEndereco> repository;
@@ -23,7 +25,6 @@ namespace Salao.Domain.Service.Endereco
         public int Gravar(EnderecoTipoEndereco item)
         {
             // formata
-            item.AlteradoEm = DateTime.Now;
             item.Descricao = item.Descricao.ToUpper().Trim();            
 
             // valida
@@ -55,7 +56,6 @@ namespace Salao.Domain.Service.Endereco
 
                 if (tipo != null)
                 {
-                    tipo.AlteradoEm = DateTime.Now;
                     tipo.Ativo = false;
                     return repository.Alterar(tipo);
                 }

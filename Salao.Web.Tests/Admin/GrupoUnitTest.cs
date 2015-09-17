@@ -18,7 +18,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Incluir()
+        public void GrupoIncluir()
         {
             // Arrange
             var grupo = new Grupo { Descricao = "USUARIO PADRAO" };
@@ -31,7 +31,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Alterar()
+        public void GrupoAlterar()
         {
             // Arrange
             Grupo grupo;
@@ -44,7 +44,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Excluir()
+        public void GrupoExcluir()
         {
             // Arrange
             Grupo grupo;

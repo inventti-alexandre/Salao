@@ -8,30 +8,30 @@ using System.Web.Mvc;
 namespace Salao.Domain.Service.Admin
 {
     [Authorize]
-    public class PermissaoService: IBaseService<Permissao>
+    public class SubAreaService: IBaseService<SubArea>
     {
-        private IBaseRepository<Permissao> repository;
+        private IBaseRepository<SubArea> repository;
 
-        public PermissaoService()
+        public SubAreaService()
         {
-            repository = new EFRepository<Permissao>();
+            repository = new EFRepository<SubArea>();
         }
 
-        public IQueryable<Permissao> Listar()
+        public IQueryable<SubArea> Listar()
         {
             return repository.Listar();
         }
 
-        public int Gravar(Permissao item)
+        public int Gravar(SubArea item)
         {
             // formata
             item.Descricao = item.Descricao.ToUpper().Trim();
             item.AlteradoEm = DateTime.Now;
 
             // valida
-            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count()> 0)
+            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)
             {
-                throw new ArgumentException("Já existe uma permissão cadastrada com esta descrição");
+                throw new ArgumentException("Já existe uma sub área deste serviço cadastrada");
             }
 
             // grava
@@ -40,11 +40,10 @@ namespace Salao.Domain.Service.Admin
                 item.Ativo = true;
                 return repository.Incluir(item).Id;
             }
-
             return repository.Alterar(item).Id;
         }
 
-        public Permissao Excluir(int id)
+        public SubArea Excluir(int id)
         {
             try
             {
@@ -53,19 +52,19 @@ namespace Salao.Domain.Service.Admin
             catch (Exception)
             {
                 // BD nao permite exclusao por FK, inativo
-                var permissao = repository.Find(id);
-
-                if (permissao != null)
+                var subArea = repository.Find(id);
+                if (subArea != null)
                 {
-                    permissao.AlteradoEm = DateTime.Now;
-                    permissao.Ativo = false;
-                    return repository.Alterar(permissao);
+                    subArea.Ativo = false;
+                    subArea.AlteradoEm = DateTime.Now;
+                    return repository.Alterar(subArea);
                 }
-                return permissao;
+                return subArea;
+                throw;
             }
         }
 
-        public Permissao Find(int id)
+        public SubArea Find(int id)
         {
             return repository.Find(id);
         }

@@ -31,7 +31,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Incluir()
+        public void UsuarioIncluir()
         {
             // Arrange
             var usuario = new Usuario
@@ -52,7 +52,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Gravar()
+        public void UsuarioGravar()
         {
             // Arrange
             var usuario = service.Find(1);
@@ -66,7 +66,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void ValidaLogin()
+        public void UsuarioValidaLogin()
         {
             // Arrange
             var login = "jose";
@@ -80,7 +80,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void GetIdUsuario()
+        public void UsuarioGetIdUsuario()
         {
             // Arrange
             var login = "jose";

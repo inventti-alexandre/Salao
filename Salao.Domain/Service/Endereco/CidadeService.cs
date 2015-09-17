@@ -3,9 +3,11 @@ using Salao.Domain.Models.Endereco;
 using Salao.Domain.Repository;
 using System;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace Salao.Domain.Service.Endereco
 {
+    [Authorize]
     public class CidadeService: IBaseService<EnderecoCidade>
     {
         private IBaseRepository<EnderecoCidade> repository;
@@ -24,7 +26,6 @@ namespace Salao.Domain.Service.Endereco
         {
             // formata
             item.Descricao = item.Descricao.ToUpper().Trim();
-            item.AlteradoEm = DateTime.Now;
             
             // valida
             if (item.IdEstado == 0)
@@ -60,7 +61,6 @@ namespace Salao.Domain.Service.Endereco
 
                 if (cidade != null)
                 {
-                    cidade.AlteradoEm = DateTime.Now;
                     cidade.Ativo = false;
                     return repository.Alterar(cidade);
                 }

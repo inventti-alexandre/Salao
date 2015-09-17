@@ -17,7 +17,7 @@ namespace Salao.Web.Tests.Endereco
         }
 
         [TestMethod]
-        public void IncluirEndereco()
+        public void EnderecoIncluir()
         {
             // Arrange
             var endereco = new Salao.Domain.Models.Endereco.Endereco
@@ -25,7 +25,6 @@ namespace Salao.Web.Tests.Endereco
                 IdBairro = 1,
                 IdCidade = 1,
                 IdEstado = 1,
-                AlteradoPor = 1,
                 IdTipoEndereco = 1,
                 Logradouro = "RUA LUIS GOIS",
                 Numero = "1850",

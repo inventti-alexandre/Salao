@@ -1,7 +1,4 @@
-﻿using Salao.Domain.Models.Admin;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace Salao.Domain.Models.Endereco
@@ -20,25 +17,10 @@ namespace Salao.Domain.Models.Endereco
         public bool Ativo { get; set; }
 
         [Required]
-        public int AlteradoPor { get; set; }
-
-        [Required]
-        public DateTime AlteradoEm { get; set; }
-
-        [Required]
         [HiddenInput(DisplayValue = false)]
         [Range(1,999999999999,ErrorMessage="Endereço inválido")]
         public int IdEndereco { get; set; }
 
-        [NotMapped]
-        [Display(Name = "Usuario")]
-        public virtual Usuario Usuario
-        {
-            get
-            {
-                return new Salao.Domain.Service.Admin.UsuarioService().Find(AlteradoPor);
-            }
-        }
 
     }
 }

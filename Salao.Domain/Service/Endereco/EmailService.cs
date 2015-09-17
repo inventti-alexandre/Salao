@@ -3,9 +3,11 @@ using Salao.Domain.Models.Endereco;
 using Salao.Domain.Repository;
 using System;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace Salao.Domain.Service.Endereco
 {
+    [Authorize]
     public class EmailService: IBaseService<EnderecoEmail>
     {
         private IBaseRepository<EnderecoEmail> repository;
@@ -23,7 +25,6 @@ namespace Salao.Domain.Service.Endereco
         public int Gravar(EnderecoEmail item)
         {
             // formata
-            item.AlteradoEm = DateTime.Now;
             item.Email = item.Email.ToLower().Trim();
 
             // valida
@@ -55,7 +56,6 @@ namespace Salao.Domain.Service.Endereco
 
                 if (email != null)
                 {
-                    email.AlteradoEm = DateTime.Now;
                     email.Ativo = false;
                     return repository.Alterar(email);
                 }

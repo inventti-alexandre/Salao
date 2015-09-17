@@ -15,10 +15,10 @@ namespace Salao.Web.Tests.Endereco
         }
 
         [TestMethod]
-        public void IncluirEstado()
+        public void EstadoIncluir()
         {
             // Arrange
-            var estado = new EnderecoEstado { AlteradoPor = 1, Descricao = "SAO PAULO", UF = "SP" };
+            var estado = new EnderecoEstado { Descricao = "SAO PAULO", UF = "SP" };
             
             // Act
             int id = service.Gravar(estado);

@@ -18,13 +18,13 @@ namespace Salao.Web.Tests.Endereco
         public void BairroIncluir()
         {
             // Arrange
-            var bairro = new EnderecoBairro { AlteradoPor = 1, IdCidade = 1, Descricao = "MIRANDOPOLIS" };
+            var bairro = new EnderecoBairro { IdCidade = 1, Descricao = "MIRANDOPOLIS" };
 
             // Act
             var id = service.Gravar(bairro);
 
             // Assert
-            Assert.AreEqual(1, id);
+            Assert.AreNotEqual(0, id);
         }
     }
 }

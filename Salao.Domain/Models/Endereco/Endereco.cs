@@ -1,7 +1,4 @@
-﻿using Salao.Domain.Models.Admin;
-using Salao.Domain.Service.Admin;
-using Salao.Domain.Service.Endereco;
-using System;
+﻿using Salao.Domain.Service.Endereco;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
@@ -33,12 +30,6 @@ namespace Salao.Domain.Models.Endereco
 
         public bool Ativo { get; set; }
 
-        [Required]
-        public int AlteradoPor { get; set; }
-
-        [Required]
-        public DateTime AlteradoEm { get; set; }
-
         [Required(ErrorMessage = "Selecione o bairro")]
         [Range(0,9999999999,ErrorMessage="Selecione o bairro")]
         [HiddenInput(DisplayValue=false)]
@@ -58,16 +49,6 @@ namespace Salao.Domain.Models.Endereco
         [Range(0, 9999999999, ErrorMessage = "Selecione o tipo de endereço")]
         [HiddenInput(DisplayValue = false)]
         public int IdTipoEndereco { get; set; }
-
-        [NotMapped]
-        [Display(Name = "Usuario")]
-        public virtual Usuario Usuario
-        {
-            get
-            {
-                return new UsuarioService().Find(AlteradoPor);
-            }
-        }
 
         [NotMapped]
         [Display(Name = "Bairro")]

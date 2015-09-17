@@ -1,6 +1,4 @@
-﻿using Salao.Domain.Models.Admin;
-using Salao.Domain.Service.Endereco;
-using System;
+﻿using Salao.Domain.Service.Endereco;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
@@ -20,24 +18,8 @@ namespace Salao.Domain.Models.Endereco
         public bool Ativo { get; set; }
 
         [Required]
-        public int AlteradoPor { get; set; }
-
-        [Required]
-        public DateTime AlteradoEm { get; set; }
-
-        [Required]
         [HiddenInput(DisplayValue = false)]
         public int IdCidade { get; set; }
-
-        [NotMapped]
-        [Display(Name = "Usuario")]
-        public virtual Usuario Usuario
-        {
-            get
-            {
-                return new Salao.Domain.Service.Admin.UsuarioService().Find(AlteradoPor);
-            }
-        }
 
         [NotMapped]
         [Display(Name = "Cidade")]

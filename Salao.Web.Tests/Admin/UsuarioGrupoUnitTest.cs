@@ -16,7 +16,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Incluir()
+        public void UsuarioGrupoIncluir()
         {
             // Arrange
             var idUsuario = 1;
@@ -31,7 +31,7 @@ namespace Salao.Web.Tests.Admin
         }
 
         [TestMethod]
-        public void Excluir()
+        public void UsuarioGrupoExcluir()
         {
             // Arrange
             var idUsuario = 1;

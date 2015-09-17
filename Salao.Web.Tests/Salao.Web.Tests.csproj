@@ -91,6 +91,9 @@
     <Compile Include="Admin\GrupoUnitTest.cs" />
     <Compile Include="Admin\PermissaoUnitTest.cs" />
     <Compile Include="Admin\SistemaParametroUnitTest.cs" />
+    <Compile Include="Admin\FormaPgtoUnitTest.cs" />
+    <Compile Include="Admin\AreaUnitTest.cs" />
+    <Compile Include="Admin\PreContatoUnitTest.cs" />
     <Compile Include="Admin\UsuarioGrupoUnitTest.cs" />
     <Compile Include="Admin\UsuarioUnitTest.cs" />
     <Compile Include="Endereco\TipoEnderecoUnitTest.cs" />

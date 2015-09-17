@@ -1,7 +1,4 @@
-﻿using Salao.Domain.Models.Admin;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Salao.Domain.Models.Endereco
 {
@@ -15,23 +12,6 @@ namespace Salao.Domain.Models.Endereco
         [Display(Name="Tipo de endereço")]
         public string Descricao { get; set; }
 
-        public bool Ativo { get; set; }
-        
-        [Required]
-        public int AlteradoPor { get; set; }
-
-        [Required]
-        public DateTime AlteradoEm { get; set; }
-
-        [NotMapped]
-        [Display(Name = "Usuario")]
-        public virtual Usuario Usuario
-        {
-            get
-            {
-                return new Salao.Domain.Service.Admin.UsuarioService().Find(AlteradoPor);
-            }
-            set { }
-        }
+        public bool Ativo { get; set; }        
     }
 }

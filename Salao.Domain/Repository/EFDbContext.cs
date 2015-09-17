@@ -21,7 +21,7 @@ namespace Salao.Domain.Repository
             modelBuilder.Entity<GrupoPermissao>().HasKey(x => new { x.IdGrupo, x.IdPermissao });
         }
 
-        // DbSets
+        // DbSets - admin - endereco
         public DbSet<Endereco> Endereco { get; set; }
         public DbSet<EnderecoBairro> EnderecoBairro { get; set; }
         public DbSet<EnderecoCidade> EnderecoCidade { get; set; }
@@ -29,10 +29,16 @@ namespace Salao.Domain.Repository
         public DbSet<EnderecoEstado> EnderecoEstado { get; set; }
         public DbSet<EnderecoTelefone> EnderecoTelefone { get; set; }
         public DbSet<EnderecoTipoEndereco> EnderecoTipoEndereco { get; set; }
+
+        // DbSets - admin - outros
+        public DbSet<Area> Area { get; set; }
+        public DbSet<FormaPgto> FormaPgto { get; set; }
         public DbSet<Grupo> Grupo { get; set; }
         public DbSet<GrupoPermissao> GrupoPermissao { get; set; }
         public DbSet<Permissao> Permissao { get; set; }
+        public DbSet<PreContato> PreContato { get; set; }
         public DbSet<SistemaParametro> SistemaParametro { get; set; }
+        public DbSet<SubArea> SubArea { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }
     }

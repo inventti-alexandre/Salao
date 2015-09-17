@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Salao.Domain.Abstract;
+﻿using Salao.Domain.Abstract;
 using Salao.Domain.Repository;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Salao.Domain.Service.Endereco
 {
+    [Authorize]
     public class EnderecoService: IBaseService<Salao.Domain.Models.Endereco.Endereco>
     {
         private IBaseRepository<Salao.Domain.Models.Endereco.Endereco> repository;
@@ -52,7 +51,6 @@ namespace Salao.Domain.Service.Endereco
 
                 if (endereco != null)
                 {
-                    endereco.AlteradoEm = DateTime.Now;
                     endereco.Ativo = false;
                     return repository.Alterar(endereco);
                 }

@@ -25,7 +25,6 @@ namespace Salao.Domain.Service.Endereco
             // formata
             item.Descricao = item.Descricao.ToUpper().Trim();
             item.UF = item.UF.ToUpper().Trim();
-            item.AlteradoEm = DateTime.Now;
 
             // valida
             if (repository.Listar().Where(x => x.UF == item.UF && x.Id != item.Id).Count() > 0)
@@ -61,7 +60,6 @@ namespace Salao.Domain.Service.Endereco
 
                 if (estado != null)
                 {
-                    estado.AlteradoEm = DateTime.Now;
                     estado.Ativo = false;
                     return repository.Alterar(estado);
                 }
