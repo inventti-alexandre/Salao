@@ -23,7 +23,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/Admin/Usuario">Usuários</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Admin/Area">Áreas</a></li>
+                            <li><a href="/Admin/FormaPgto">Formas de pagamento</a></li>
+                            <li><a href="/Admin/Grupo">Grupos de usuários</a></li>
+                            <li><a href="/Admin/Permissao">Permissões</a></li>
+                            <li><a href="/Admin/SistemaParametro">Parâmetros</a></li>
+                            <li><a href="/Admin/Usuario">Usuários</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 @if (User.Identity.IsAuthenticated)
                 {
