@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Salao.Domain.Models.Admin.SubArea>
+
+@{
+    ViewBag.Title = "Serviços - Sub áreas";
+}
+
+<h2>Serviços - sub áreas</h2>
+
+<div class="text-info">
+    <h3>@ViewBag.NomeArea</h3>
+</div>
+<p>
+    @Html.ActionLink("Nova sub área", "Create", new { IdArea = @ViewBag.IdArea })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlteradoPor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlteradoEm)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("Voltar", "Index", "Area")
+</p>

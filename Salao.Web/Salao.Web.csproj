@@ -114,7 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Area\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +129,7 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\PermissaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\SistemaParametroController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SubAreaController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioGrupoController.cs" />
     <Compile Include="Areas\Admin\Models\GruposUsuario.cs" />
@@ -182,6 +182,16 @@
     <Content Include="Areas\Admin\Views\FormaPgto\Create.cshtml" />
     <Content Include="Areas\Admin\Views\FormaPgto\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\FormaPgto\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SubArea\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Area\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Area\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Area\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Area\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Area\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SubArea\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\SubArea\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SubArea\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SubArea\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

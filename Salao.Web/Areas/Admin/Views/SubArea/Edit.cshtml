@@ -1,10 +1,10 @@
-﻿@model Salao.Domain.Models.Admin.Grupo
+﻿@model Salao.Domain.Models.Admin.SubArea
 
 @{
-    ViewBag.Title = "Grupo de usuários";
+    ViewBag.Title = "Serviços - Sub áreas";
 }
 
-<h2>Grupo de usuário - alteração</h2>
+<h2>Serviços - Sub áreas - alteração</h2>
 
 @using (Html.BeginForm())
 {
@@ -14,6 +14,7 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IdArea)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Descricao, new { @class = "control-label col-md-2" })
@@ -32,6 +33,13 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.IdArea, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Area.Descricao)
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Gravar" class="btn btn-primary" />
             </div>
@@ -40,5 +48,5 @@
 }
 
 <div>
-    @Html.ActionLink("Voltar", "Index")
+    @Html.ActionLink("Voltar", "Index", new { idArea = Model.IdArea })
 </div>
