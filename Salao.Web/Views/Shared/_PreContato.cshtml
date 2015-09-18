@@ -1,0 +1,56 @@
+﻿@model Salao.Domain.Models.Admin.PreContato
+
+<div class="text-info">
+    <h4>VOCÊ ESTA A UM PASSO DE TER SEU EMPREENDIMENTO VISÍVEL PARA NOVOS CLIENTES</h4>
+</div>
+
+<h4>Simples e prático:</h4>
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nome, new { @class = "form-control", placeholder = "Enter your name here..." })
+                @Html.ValidationMessageFor(model => model.Nome)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NomeSalao, new { @Placeholder = "Input UserName" })
+                @Html.ValidationMessageFor(model => model.NomeSalao)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome", style="color:red;" } })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Telefone,new { @class = "form-control", placeholder = "short name", required = "required" })
+                @Html.ValidationMessageFor(model => model.Telefone)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cidade, new { placeholder = Html.DisplayNameFor(n => n.Cidade) })
+                @Html.ValidationMessageFor(model => model.Cidade)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Enviar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

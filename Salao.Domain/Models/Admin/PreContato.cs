@@ -11,12 +11,12 @@ namespace Salao.Domain.Models.Admin
 
         [Required(ErrorMessage = "Informe seu nome")]
         [StringLength(1000, ErrorMessage = "Máximo de 100 caracteres")]
-        [Display(Name = "Sub área do serviço")]
+        [Display(Name = "Nome", Prompt="Nome")]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Informe o nome do seu salão de beleza, spa, estabelecimento")]
         [StringLength(100, ErrorMessage = "Máximo de 100 caracteres")]
-        [Display(Name = "Nome do salão")]
+        [Display(Name = "Nome do salão", Prompt="Nome do salão de beleza, spa...")]
         public string NomeSalao { get; set; }
 
         [Required(ErrorMessage = "Informe seu e-mail")]

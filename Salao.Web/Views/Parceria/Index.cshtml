@@ -1,0 +1,14 @@
+﻿@using Salao.Domain.Models.Admin;
+@model Salao.Domain.Models.Admin.PreContato
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<h4>TEXTO E PÁGINA SOBRE PARCERIA</h4>
+
+<p>
+    @Html.Partial("_PreContato", (Salao.Domain.Models.Admin.PreContato)@Model)
+</p>
