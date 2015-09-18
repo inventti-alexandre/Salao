@@ -2,11 +2,9 @@
 using Salao.Domain.Repository;
 using System;
 using System.Linq;
-using System.Web.Mvc;
 
 namespace Salao.Domain.Service.Endereco
 {
-    [Authorize]
     public class EnderecoService: IBaseService<Salao.Domain.Models.Endereco.Endereco>
     {
         private IBaseRepository<Salao.Domain.Models.Endereco.Endereco> repository;

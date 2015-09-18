@@ -3,11 +3,9 @@ using Salao.Domain.Models.Admin;
 using Salao.Domain.Repository;
 using System;
 using System.Linq;
-using System.Web.Mvc;
 
 namespace Salao.Domain.Service.Admin
 {
-    [Authorize]
     public class AreaService: IBaseService<Area>
     {
         private IBaseRepository<Area> repository;
