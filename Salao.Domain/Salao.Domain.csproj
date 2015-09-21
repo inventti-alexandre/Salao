@@ -78,6 +78,7 @@
     <Compile Include="Abstract\Admin\IGrupoPermissao.cs" />
     <Compile Include="Abstract\Admin\ILogin.cs" />
     <Compile Include="Abstract\Admin\IUsuarioGrupo.cs" />
+    <Compile Include="Abstract\Endereco\IEndereco.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
     <Compile Include="Models\Admin\Area.cs" />
     <Compile Include="Models\Admin\FormaPgto.cs" />

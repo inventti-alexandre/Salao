@@ -1,4 +1,5 @@
 ﻿using Salao.Domain.Abstract;
+using Salao.Domain.Abstract.Endereco;
 using Salao.Domain.Models.Endereco;
 using Salao.Domain.Repository;
 using System;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Salao.Domain.Service.Endereco
 {
-    public class TelefoneService: IBaseService<EnderecoTelefone>
+    public class TelefoneService: IEnderecoService<EnderecoTelefone>
     {
         private IBaseRepository<EnderecoTelefone> repository;
 
@@ -61,6 +62,11 @@ namespace Salao.Domain.Service.Endereco
         public EnderecoTelefone Find(int id)
         {
             return repository.Find(id);
+        }
+
+        public int GetId(string descricao, int idOrigem = 0)
+        {
+            throw new NotImplementedException();
         }
     }
 }

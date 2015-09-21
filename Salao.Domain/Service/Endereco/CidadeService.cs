@@ -1,4 +1,5 @@
 ﻿using Salao.Domain.Abstract;
+using Salao.Domain.Abstract.Endereco;
 using Salao.Domain.Models.Endereco;
 using Salao.Domain.Repository;
 using System;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Salao.Domain.Service.Endereco
 {
-    public class CidadeService: IBaseService<EnderecoCidade>
+    public class CidadeService: IEnderecoService<EnderecoCidade>
     {
         private IBaseRepository<EnderecoCidade> repository;
 
@@ -70,6 +71,24 @@ namespace Salao.Domain.Service.Endereco
         public EnderecoCidade Find(int id)
         {
             return repository.Find(id);
+        }
+
+        public int GetId(string descricao, int idOrigem = 0)
+        {
+            if (string.IsNullOrEmpty(descricao))
+	        {
+		        return 0;
+	        }
+
+            descricao = descricao.ToUpper().Trim();
+            var cidade = repository.Listar().Where(x => x.Descricao == descricao && x.IdEstado == idOrigem).FirstOrDefault();
+            if (cidade == null)
+            {
+                // inclui nova cidade
+                return Gravar(new EnderecoCidade { Descricao = descricao, IdEstado = idOrigem });
+            }
+
+            return cidade.Id;
         }
     }
 }

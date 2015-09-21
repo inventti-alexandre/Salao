@@ -8,16 +8,19 @@ using Salao.Domain.Models.Cliente;
 using Salao.Domain.Models.Endereco;
 using Salao.Domain.Service.Endereco;
 using Salao.Domain.Service.Cliente;
+using Salao.Domain.Abstract.Admin;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
     public class EmpresaController : Controller
     {
         IBaseService<Empresa> serviceEmpresa;
+        ICadastroEmpresa serviceCadastro;
 
         public EmpresaController()
         {
             serviceEmpresa = new EmpresaService();
+            serviceCadastro = new CadastroEmpresaService();
         }
         //
         // GET: /Admin/Empresa/
@@ -63,6 +66,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     // TODO - gravar empresa
+                    
 
                     // TODO - inclusao do salao
 

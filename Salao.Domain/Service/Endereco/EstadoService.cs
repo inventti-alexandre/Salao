@@ -1,4 +1,5 @@
 ﻿using Salao.Domain.Abstract;
+using Salao.Domain.Abstract.Endereco;
 using Salao.Domain.Models.Endereco;
 using Salao.Domain.Repository;
 using System;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Salao.Domain.Service.Endereco
 {
-    public class EstadoService: IBaseService<EnderecoEstado>
+    public class EstadoService : IBaseService<EnderecoEstado>
     {
         private IBaseRepository<EnderecoEstado> repository;
 
