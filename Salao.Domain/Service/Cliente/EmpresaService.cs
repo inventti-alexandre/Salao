@@ -30,7 +30,7 @@ namespace Salao.Domain.Service.Cliente
             item.AlteradoEm = DateTime.Now;
 
             // valida
-            if (item.TipoPessoa == 1 && string.IsNullOrEmpty(item.Cnpj))
+            if (item.TipoPessoa == 2 && string.IsNullOrEmpty(item.Cnpj))
             {
                 throw new ArgumentException("Informe o CNPJ");
             }

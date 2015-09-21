@@ -70,7 +70,18 @@ namespace Salao.Domain.Service.Endereco
 
         public int GetId(string descricao, int idOrigem = 0)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(descricao))
+            {
+                return 0;
+            }
+
+            descricao = descricao.ToUpper().Trim();
+            var bairro = repository.Listar().Where(x => x.Descricao == descricao && x.IdCidade == idOrigem).FirstOrDefault();
+            if (bairro == null)
+            {
+                return Gravar(new EnderecoBairro { Descricao = descricao, IdCidade = idOrigem });
+            }
+            return bairro.Id;
         }
     }
 }

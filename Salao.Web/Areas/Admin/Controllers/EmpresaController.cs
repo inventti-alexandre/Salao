@@ -9,18 +9,22 @@ using Salao.Domain.Models.Endereco;
 using Salao.Domain.Service.Endereco;
 using Salao.Domain.Service.Cliente;
 using Salao.Domain.Abstract.Admin;
+using Salao.Domain.Service.Admin;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
+    [Authorize]
     public class EmpresaController : Controller
     {
         IBaseService<Empresa> serviceEmpresa;
         ICadastroEmpresa serviceCadastro;
+        ILogin login;
 
         public EmpresaController()
         {
             serviceEmpresa = new EmpresaService();
             serviceCadastro = new CadastroEmpresaService();
+            login = new UsuarioService();
         }
         //
         // GET: /Admin/Empresa/
@@ -63,13 +67,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
+                cadastro.CadastradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                
                 if (ModelState.IsValid)
                 {
-                    // TODO - gravar empresa
-                    
-
+                    serviceCadastro.Cadastrar(cadastro);
                     // TODO - inclusao do salao
-
                     return RedirectToAction("Index");
                 }
 

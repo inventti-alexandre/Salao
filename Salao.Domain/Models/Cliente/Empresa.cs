@@ -31,11 +31,9 @@ namespace Salao.Domain.Models.Cliente
         [HiddenInput(DisplayValue=false)]
         public Int16 TipoPessoa { get; set; }
 
-        [StringLength(16, ErrorMessage = "O CNPJ é composto por 16 números",MinimumLength=16)]
         [Display(Name = "CNPJ")]
         public string Cnpj { get; set; }
 
-        [StringLength(11, ErrorMessage = "O CPF é composto por 11 números",MinimumLength=11)]
         [Display(Name = "CPF")]
         public string Cpf { get; set; }
 

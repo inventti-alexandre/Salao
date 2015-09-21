@@ -47,13 +47,13 @@
                 @Html.DisplayFor(modelItem => item.Fantasia)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Endereco.Telefone)
+                @Html.DisplayFor(modelItem => item.Endereco.Telefone.DDD) - @Html.DisplayFor(modelItem => item.Endereco.Telefone.Telefone)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Contato)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Endereco.Email)
+                @Html.DisplayFor(modelItem => item.Endereco.Email.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Exibir)
