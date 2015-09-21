@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Salao\" />
     <Folder Include="Models\" />
     <Folder Include="Views\PreContato\" />
   </ItemGroup>
@@ -123,12 +124,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AreaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmpresaController.cs" />
     <Compile Include="Areas\Admin\Controllers\FormaPgtoController.cs" />
     <Compile Include="Areas\Admin\Controllers\GrupoController.cs" />
     <Compile Include="Areas\Admin\Controllers\GrupoPermissaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdmController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\PermissaoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SalaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\SistemaParametroController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubAreaController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
@@ -194,6 +197,8 @@
     <Content Include="Areas\Admin\Views\SubArea\Create.cshtml" />
     <Content Include="Areas\Admin\Views\SubArea\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SubArea\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Empresa\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Empresa\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -218,6 +223,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Parceria\Index.cshtml" />
     <Content Include="Views\Shared\_PreContato.cshtml" />
+    <Content Include="Views\Shared\_ContatoThanks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Salao.Domain\Salao.Domain.csproj">

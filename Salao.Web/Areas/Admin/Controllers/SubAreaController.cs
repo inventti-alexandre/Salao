@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Salao.Domain.Abstract;
+﻿using Salao.Domain.Abstract;
 using Salao.Domain.Abstract.Admin;
 using Salao.Domain.Models.Admin;
 using Salao.Domain.Service.Admin;
+using System;
+using System.Linq;
 using System.Net;
+using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {

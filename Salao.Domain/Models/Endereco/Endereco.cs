@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Salao.Domain.Models.Endereco
 {
@@ -48,6 +49,7 @@ namespace Salao.Domain.Models.Endereco
         [Required(ErrorMessage="Selecione o tipo de endereço")]
         [Range(0, 9999999999, ErrorMessage = "Selecione o tipo de endereço")]
         [HiddenInput(DisplayValue = false)]
+        [Display(Name="Tipo endereço")]
         public int IdTipoEndereco { get; set; }
 
         [NotMapped]
@@ -81,12 +83,30 @@ namespace Salao.Domain.Models.Endereco
         }
 
         [NotMapped]
-        [Display(Name = "Usuario")]
+        [Display(Name = "Tipo endereço")]
         public virtual EnderecoTipoEndereco TipoEndereco
         {
             get
             {
                 return new TipoEnderecoService().Find(IdTipoEndereco);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Telefone")]
+        public virtual EnderecoTelefone Telefone
+        {
+            get {
+                return new TelefoneService().Listar().FirstOrDefault(x => x.IdEndereco == Id);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "E-mail")]
+        public virtual EnderecoEmail Email
+        {
+            get{
+                return new EmailService().Listar().FirstOrDefault(x => x.IdEndereco == Id);
             }
         }
     }

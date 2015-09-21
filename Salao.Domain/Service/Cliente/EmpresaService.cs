@@ -24,6 +24,7 @@ namespace Salao.Domain.Service.Cliente
         {
             // formata
             item.Fantasia = item.Fantasia.ToUpper().Trim();
+            item.RazaoSocial = item.RazaoSocial.ToUpper().Trim();
             item.Contato = item.Contato.ToUpper().Trim();
             item.Observ = item.Observ.ToUpper().Trim();
             item.AlteradoEm = DateTime.Now;

@@ -13,6 +13,7 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Nome, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Nome, new { @class = "form-control", placeholder = "Enter your name here..." })
                 @Html.ValidationMessageFor(model => model.Nome)
@@ -20,6 +21,7 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.NomeSalao, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NomeSalao, new { @Placeholder = "Input UserName" })
                 @Html.ValidationMessageFor(model => model.NomeSalao)
@@ -27,6 +29,7 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome", style="color:red;" } })
                 @Html.ValidationMessageFor(model => model.Email)
@@ -34,6 +37,7 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Telefone, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Telefone,new { @class = "form-control", placeholder = "short name", required = "required" })
                 @Html.ValidationMessageFor(model => model.Telefone)
@@ -41,9 +45,17 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Cidade, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Cidade, new { placeholder = Html.DisplayNameFor(n => n.Cidade) })
                 @Html.ValidationMessageFor(model => model.Cidade)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Estado, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdEstado", (List<SelectListItem>)@ViewBag.Estados)
             </div>
         </div>
 

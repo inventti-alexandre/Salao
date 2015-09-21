@@ -1,5 +1,6 @@
 ﻿using Salao.Domain.Models.Admin;
 using Salao.Domain.Models.Endereco;
+using Salao.Domain.Models.Cliente;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -41,5 +42,8 @@ namespace Salao.Domain.Repository
         public DbSet<SubArea> SubArea { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }
+
+        // DbSets - cliente
+        public DbSet<Empresa> Empresa { get; set; }
     }
 }

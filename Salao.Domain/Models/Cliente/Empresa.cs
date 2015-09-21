@@ -16,6 +16,10 @@ namespace Salao.Domain.Models.Cliente
         [Display(Name="Nome fantasia")]
         public string Fantasia { get; set; }
 
+        [StringLength(60, ErrorMessage = "Máximo de 100 caracteres")]
+        [Display(Name = "Razão social")]
+        public string RazaoSocial { get; set; }
+
         [Required]
         [Range(1,999999999,ErrorMessage="Endereço inválido")]
         [HiddenInput(DisplayValue=false)]
@@ -31,7 +35,7 @@ namespace Salao.Domain.Models.Cliente
         [Display(Name = "CNPJ")]
         public string Cnpj { get; set; }
 
-        [StringLength(12, ErrorMessage = "O CPF é composto por 12 números",MinimumLength=12)]
+        [StringLength(11, ErrorMessage = "O CPF é composto por 11 números",MinimumLength=11)]
         [Display(Name = "CPF")]
         public string Cpf { get; set; }
 

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Salao.Domain.Models.Cliente.Empresa>
+
+@{
+    ViewBag.Title = "Empresas";
+}
+
+<h2>Empresas</h2>
+
+<p>
+    @Html.ActionLink("Nova empresa", "Create")
+</p>
+
+@using (@Html.BeginForm())
+{
+    <p class="top10">
+        Pesquisar: <input type="text" id="fantasia" name="fantasia" placeholder="Nome fantasia" />
+        <input type="submit" value="Pesquisar" id="Pesquisar" class="btn btn-primary" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fantasia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endereco.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endereco.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Exibir)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fantasia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco.Telefone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contato)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exibir)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
