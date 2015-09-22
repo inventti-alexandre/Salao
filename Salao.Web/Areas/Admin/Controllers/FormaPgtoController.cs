@@ -147,8 +147,9 @@ namespace Salao.Web.Areas.Admin.Controllers
                 service.Excluir(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (ArgumentException ex)
             {
+                ModelState.AddModelError(string.Empty, ex.Message);
                 var forma = service.Find(id);
                 if (forma == null)
                 {

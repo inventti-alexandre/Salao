@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Salao.Domain.Abstract;
+using Salao.Domain.Abstract.Admin;
+using Salao.Domain.Models.Cliente;
+using Salao.Domain.Service.Admin;
+using Salao.Domain.Service.Cliente;
+using Salao.Domain.Service.Endereco;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net;
 using System.Web.Mvc;
-using Salao.Domain.Abstract;
-using Salao.Domain.Models.Cliente;
-using Salao.Domain.Models.Endereco;
-using Salao.Domain.Service.Endereco;
-using Salao.Domain.Service.Cliente;
-using Salao.Domain.Abstract.Admin;
-using Salao.Domain.Service.Admin;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
@@ -43,7 +42,14 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/Empresa/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var cadastro = serviceCadastro.Find(id);
+
+            if (cadastro == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(cadastro);
         }
 
         //
@@ -71,7 +77,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 
                 if (ModelState.IsValid)
                 {
-                    serviceCadastro.Cadastrar(cadastro);
+                    serviceCadastro.Incluir(cadastro);
                     // TODO - inclusao do salao
                     return RedirectToAction("Index");
                 }
@@ -117,25 +123,42 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Empresa/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var cadastro = serviceCadastro.Find((int)id);
+            
+            if (cadastro == null)
+	        {
+                return HttpNotFound();
+	        }
+
+            return View(cadastro);
         }
 
         //
         // POST: /Admin/Empresa/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                serviceCadastro.Excluir(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (ArgumentException ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                var cadastro = serviceCadastro.Find(id);
+                if (cadastro == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(cadastro);
             }
         }
 

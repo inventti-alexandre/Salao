@@ -46,10 +46,23 @@ namespace Salao.Web.Tests.Cliente
             };
             
             // Act
-            int id = service.Cadastrar(cadastro);
+            int id = service.Incluir(cadastro);
 
             // Assert
             Assert.AreNotEqual(0, id);
+        }
+
+        [TestMethod]
+        public void EmpresaFind()
+        {
+            // Arrange
+            CadastroEmpresa cadastro;
+
+            // Act
+            cadastro = service.Find(11);
+
+            // Assert
+            Assert.AreNotEqual(null, cadastro);
         }
     }
 }

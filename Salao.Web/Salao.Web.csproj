@@ -199,6 +199,8 @@
     <Content Include="Areas\Admin\Views\SubArea\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Empresa\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Empresa\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Empresa\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Empresa\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
