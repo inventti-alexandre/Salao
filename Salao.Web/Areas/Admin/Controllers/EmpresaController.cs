@@ -74,11 +74,12 @@ namespace Salao.Web.Areas.Admin.Controllers
             try
             {
                 cadastro.CadastradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-                
+                cadastro.Id = 0;
+
                 if (ModelState.IsValid)
                 {
                     serviceCadastro.Incluir(cadastro);
-                    // TODO - inclusao do salao
+                    // TODO - redirect to inclusao do salao
                     return RedirectToAction("Index");
                 }
 
@@ -99,25 +100,70 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Empresa/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            try
+            {
+                var cadastro = serviceCadastro.Find((int)id);
+
+                if (cadastro == null)
+                {
+                    return HttpNotFound();
+                }
+
+                ViewBag.TipoPessoa = GetTipoPessoa(cadastro.TipoPessoa);
+                ViewBag.TipoEndereco = GetTipoEndereco(cadastro.TipoEndereco);
+                ViewBag.Estados = GetEstados(cadastro.IdEstado);
+                return View(cadastro);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return RedirectToAction("Index");
+            }
         }
 
         //
         // POST: /Admin/Empresa/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include = "Id,Fantasia,RazaoSocial,TipoPessoa,Cnpj,Cpf,TipoEndereco,Cep,Logradouro,Numero,Bairro,Cidade,IdEstado,Contato,Email,DDD,Telefone,Observ,Cortesia,Desconto,DescontoCarencia")] CadastroEmpresa cadastro)
         {
             try
             {
-                // TODO: Add update logic here
+                cadastro.CadastradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                if (string.IsNullOrEmpty(cadastro.Cnpj))
+                {
+                    cadastro.Cnpj = "";
+                }
+                if (string.IsNullOrEmpty(cadastro.Cpf))
+                {
+                    cadastro.Cpf = "";   
+                }
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    serviceCadastro.Alterar(cadastro);
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.TipoPessoa = GetTipoPessoa(cadastro.TipoPessoa);
+                ViewBag.TipoEndereco = GetTipoEndereco(cadastro.TipoEndereco);
+                ViewBag.Estados = GetEstados(cadastro.IdEstado);
+                return View(cadastro);
+                
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, ex.Message);
+                ViewBag.TipoPessoa = GetTipoPessoa(cadastro.TipoPessoa);
+                ViewBag.TipoEndereco = GetTipoEndereco(cadastro.TipoEndereco);
+                ViewBag.Estados = GetEstados(cadastro.IdEstado);
+                return View(cadastro);
             }
         }
 
@@ -131,11 +177,11 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
 
             var cadastro = serviceCadastro.Find((int)id);
-            
+
             if (cadastro == null)
-	        {
+            {
                 return HttpNotFound();
-	        }
+            }
 
             return View(cadastro);
         }
