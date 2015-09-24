@@ -134,6 +134,7 @@
     <Compile Include="Areas\Admin\Controllers\SalaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\SistemaParametroController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubAreaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TipoEnderecoController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioGrupoController.cs" />
     <Compile Include="Areas\Admin\Models\GruposUsuario.cs" />
@@ -202,6 +203,7 @@
     <Content Include="Areas\Admin\Views\Empresa\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Empresa\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Empresa\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TipoEndereco\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
