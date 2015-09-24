@@ -46,7 +46,7 @@ namespace Salao.Web.Tests.Cliente
             };
             
             // Act
-            int id = service.Incluir(cadastro);
+            int id = service.Gravar(cadastro);
 
             // Assert
             Assert.AreNotEqual(0, id);

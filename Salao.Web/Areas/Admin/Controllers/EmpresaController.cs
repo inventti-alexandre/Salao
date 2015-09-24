@@ -78,7 +78,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    serviceCadastro.Incluir(cadastro);
+                    serviceCadastro.Gravar(cadastro);
                     // TODO - redirect to inclusao do salao
                     return RedirectToAction("Index");
                 }
@@ -131,7 +131,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         //
         // POST: /Admin/Empresa/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Fantasia,RazaoSocial,TipoPessoa,Cnpj,Cpf,TipoEndereco,Cep,Logradouro,Numero,Bairro,Cidade,IdEstado,Contato,Email,DDD,Telefone,Observ,Cortesia,Desconto,DescontoCarencia")] CadastroEmpresa cadastro)
+        public ActionResult Edit([Bind(Include = "Id,IdEndereco,Fantasia,RazaoSocial,TipoPessoa,Cnpj,Cpf,TipoEndereco,Cep,Logradouro,Numero,Bairro,Cidade,IdEstado,Contato,Email,DDD,Telefone,Observ,Cortesia,Desconto,DescontoCarencia")] CadastroEmpresa cadastro)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    serviceCadastro.Alterar(cadastro);
+                    serviceCadastro.Gravar(cadastro);
                     return RedirectToAction("Index");
                 }
 
@@ -212,7 +212,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             var tipos = new List<SelectListItem>();
             tipos.Add(new SelectListItem { Text = "FÍSICA", Value = "1", Selected = (tipo == 1) });
-            tipos.Add(new SelectListItem { Text = "JURÍDICA", Value = "2", Selected = (tipo == 1) });
+            tipos.Add(new SelectListItem { Text = "JURÍDICA", Value = "2", Selected = (tipo == 2) });
             return tipos;
         }
 

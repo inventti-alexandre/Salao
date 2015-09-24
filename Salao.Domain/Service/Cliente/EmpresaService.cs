@@ -30,17 +30,21 @@ namespace Salao.Domain.Service.Cliente
             item.AlteradoEm = DateTime.Now;
 
             // valida
-            if (item.TipoPessoa == 2 && string.IsNullOrEmpty(item.Cnpj))
+            if (item.TipoPessoa == 2)
             {
-                throw new ArgumentException("Informe o CNPJ");
+                if (string.IsNullOrEmpty(item.Cnpj))
+                {
+                    throw new ArgumentException("Informe o CNPJ");
+                }
             }
-            else
+            else if (item.TipoPessoa == 1)
             {
                 if (string.IsNullOrEmpty(item.Cpf))
                 {
                     throw new ArgumentException("CPF inválido");
                 }
             }
+
             if (item.Desconto > 0 && item.DescontoCarencia == 0)
             {
                 throw new ArgumentException("Informe o número de meses de carência para desconto");

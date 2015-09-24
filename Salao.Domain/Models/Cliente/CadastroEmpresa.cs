@@ -8,6 +8,7 @@ namespace Salao.Domain.Models.Cliente
     public class CadastroEmpresa
     {
         public int Id { get; set; }
+        public int IdEndereco { get; set; }
 
         [Required(ErrorMessage = "Informe o nome fantasia da empresa")]
         [StringLength(60, ErrorMessage = "Máximo de 60 caracteres")]
