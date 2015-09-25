@@ -125,6 +125,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AreaController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmpresaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EstadoController.cs" />
     <Compile Include="Areas\Admin\Controllers\FormaPgtoController.cs" />
     <Compile Include="Areas\Admin\Controllers\GrupoController.cs" />
     <Compile Include="Areas\Admin\Controllers\GrupoPermissaoController.cs" />
@@ -204,6 +205,15 @@
     <Content Include="Areas\Admin\Views\Empresa\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Empresa\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TipoEndereco\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TipoEndereco\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TipoEndereco\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TipoEndereco\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TipoEndereco\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Estado\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Estado\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Estado\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Estado\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Estado\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -1,18 +1,21 @@
-﻿@model IEnumerable<Salao.Domain.Models.Endereco.EnderecoTipoEndereco>
+﻿@model IEnumerable<Salao.Domain.Models.Endereco.EnderecoEstado>
 
 @{
-    ViewBag.Title = "Tipos de endereços";
+    ViewBag.Title = "Estados";
 }
 
-<h2>Tipos de endereços</h2>
+<h2>Estados</h2>
 
-<p class="top20">
-    @Html.ActionLink("Novo tipo", "Create")
+<p>
+    @Html.ActionLink("Novo Estado", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UF)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Ativo)
@@ -24,6 +27,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UF)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Ativo)

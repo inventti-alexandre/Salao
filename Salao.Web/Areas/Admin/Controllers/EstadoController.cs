@@ -1,82 +1,78 @@
-﻿using Salao.Domain.Abstract;
-using Salao.Domain.Abstract.Admin;
-using Salao.Domain.Models.Endereco;
-using Salao.Domain.Service.Admin;
-using Salao.Domain.Service.Endereco;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using Salao.Domain.Abstract.Endereco;
+using Salao.Domain.Models.Endereco;
+using Salao.Domain.Service.Endereco;
+using Salao.Domain.Service.Admin;
+using Salao.Domain.Abstract;
+using Salao.Domain.Abstract.Admin;
+using System.Net;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class TipoEnderecoController : Controller
+    public class EstadoController : Controller
     {
-        IBaseService<EnderecoTipoEndereco> service;
-        private ILogin login;
+        private IBaseService<EnderecoEstado> service;
 
-        public TipoEnderecoController()
+        public EstadoController()
         {
-            service = new TipoEnderecoService();
-            login = new UsuarioService();
+            service = new EstadoService();
         }
 
-        //
-        // GET: /Admin/TipoEndereco/
+        // GET: Admin/Estado
         public ActionResult Index()
         {
-            var tipos = service.Listar()
-                .OrderBy(x => x.Descricao);
+            var estados = service.Listar()
+                .OrderBy(x => x.Descricao)
+                .ToList();
 
-            return View(tipos);
+            return View(estados);
         }
 
-        //
-        // GET: /Admin/TipoEndereco/Details/5
+        // GET: Admin/Estado/Details/5
         public ActionResult Details(int id)
         {
-            var tipo = service.Find(id);
+            var estado = service.Find(id);
 
-            if (tipo == null)
+            if (estado == null)
             {
                 return HttpNotFound();
             }
 
-            return View(tipo);
+            return View(estado);
         }
 
-        //
-        // GET: /Admin/TipoEndereco/Create
+        // GET: Admin/Estado/Create
         public ActionResult Create()
         {
-            return View(new EnderecoTipoEndereco { Ativo = true });
+            return View(new EnderecoEstado { Ativo = true });
         }
 
-        //
-        // POST: /Admin/TipoEndereco/Create
+        // POST: Admin/Estado/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="Descricao,Ativo")] EnderecoTipoEndereco tipo)
+        public ActionResult Create([Bind(Include="Descricao,UF")] EnderecoEstado estado)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(tipo);
-                    return RedirectToAction("Index");
+                    service.Gravar(estado);
+                    return RedirectToAction("Index");                    
                 }
-
-                return View(tipo);
+                return View(estado);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View();
+                return View(estado);
             }
         }
 
-        //
-        // GET: /Admin/TipoEndereco/Edit/5
+        // GET: Admin/Estado/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -84,39 +80,37 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var tipo = service.Find((int)id);
+            var estado = service.Find((int)id);
 
-            if (tipo == null)
+            if (estado == null)
             {
                 return HttpNotFound();
             }
 
-            return View(tipo);
+            return View(estado);
         }
 
-        //
-        // POST: /Admin/TipoEndereco/Edit/5
+        // POST: Admin/Estado/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include="Id,Descricao,Ativo")] EnderecoTipoEndereco tipo)
+        public ActionResult Edit([Bind(Include="Id,Descricao,UF,Ativo")] EnderecoEstado estado)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(tipo);
+                    service.Gravar(estado);
                     return RedirectToAction("Index");                    
                 }
-                return View(tipo);
+                return View(estado);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(tipo);
+                return View(estado);
             }
         }
 
-        //
-        // GET: /Admin/TipoEndereco/Delete/5
+        // GET: Admin/Estado/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -124,18 +118,17 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var tipo = service.Find((int)id);
+            var estado = service.Find((int)id);
 
-            if (tipo == null)
+            if (estado == null)
             {
                 return HttpNotFound();
             }
 
-            return View(tipo);
+            return View(estado);
         }
 
-        //
-        // POST: /Admin/TipoEndereco/Delete/5
+        // POST: Admin/Estado/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -147,12 +140,12 @@ namespace Salao.Web.Areas.Admin.Controllers
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var tipo = service.Find(id);
-                if (tipo == null)
+                var estado = service.Find(id);
+                if (estado == null)
                 {
                     return HttpNotFound();
                 }
-                return View(tipo);
+                return View(estado);
             }
         }
     }

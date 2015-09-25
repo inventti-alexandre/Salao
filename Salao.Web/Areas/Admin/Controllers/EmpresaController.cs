@@ -57,9 +57,9 @@ namespace Salao.Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             // TODO: desconto, descontocarencia -> not hard code            
-            var cadastro = new CadastroEmpresa { Desconto = 100, DescontoCarencia = 3, Cortesia = true };
+            var cadastro = new CadastroEmpresa { Desconto = 100, DescontoCarencia = 3, Cortesia = true, TipoPessoa = 2 };
 
-            ViewBag.TipoPessoa = GetTipoPessoa(1);
+            ViewBag.TipoPessoa = GetTipoPessoa(2);
             ViewBag.TipoEndereco = GetTipoEndereco();
             ViewBag.Estados = GetEstados();
 
