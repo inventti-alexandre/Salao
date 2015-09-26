@@ -1,0 +1,113 @@
+﻿@model Salao.Domain.Models.Admin.PreContato
+
+@{
+    ViewBag.Title = "Pré contato";
+}
+
+<h2>Pré contato</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeSalao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeSalao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdEstado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado.UF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContatoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContatoEm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Atendido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Atendido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AtendidoPor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AtendidoPorUsuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Assinou)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Assinou)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContatarNovamente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContatarNovamente)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index", new { email = Model.Email })
+</p>

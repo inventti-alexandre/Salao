@@ -25,7 +25,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/SistemaParametro/
         public ActionResult Index()
         {
-            var parametros = service.Listar().OrderBy(x => x.Descricao);
+            var parametros = service.Listar().OrderBy(x => x.Codigo);
 
             return View(parametros);
         }

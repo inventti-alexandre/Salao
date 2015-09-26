@@ -65,5 +65,19 @@ namespace Salao.Domain.Models.Admin
                 return new Salao.Domain.Service.Endereco.EstadoService().Find(IdEstado);
             }
         }
+
+        [NotMapped]
+        [Display(Name="Atendido por")]
+        public virtual string AtendidoPorUsuario
+        {
+            get
+            {
+                if (AtendidoPor.HasValue)
+                {
+                    return new Salao.Domain.Service.Admin.UsuarioService().Find((int)AtendidoPor).Nome;                    
+                }
+                return string.Empty;
+            }
+        }
     }
 }

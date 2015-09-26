@@ -92,6 +92,7 @@
     <Compile Include="Models\Admin\UsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\CadastroEmpresa.cs" />
     <Compile Include="Models\Cliente\Empresa.cs" />
+    <Compile Include="Models\Cliente\Promocao.cs" />
     <Compile Include="Models\Endereco\Endereco.cs" />
     <Compile Include="Models\Endereco\EnderecoBairro.cs" />
     <Compile Include="Models\Endereco\EnderecoCidade.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cliente\CadastroEmpresaService.cs" />
     <Compile Include="Service\Cliente\EmpresaService.cs" />
+    <Compile Include="Service\Cliente\PromocaoService.cs" />
     <Compile Include="Service\Endereco\BairroService.cs" />
     <Compile Include="Service\Endereco\CidadeService.cs" />
     <Compile Include="Service\Endereco\EmailService.cs" />

@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TipoPessoa, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TipoPessoa", (List<SelectListItem>)@ViewBag.TipoPessoa, string.Empty, new { onChange = "exibirTipoPessoa();" })
+                @Html.DropDownList("TipoPessoa")
             </div>
         </div>
 
@@ -58,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TipoEndereco, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TipoEndereco", (List<SelectListItem>)@ViewBag.TipoEndereco, stringemp, null)
+                @Html.DropDownList("TipoEndereco")
             </div>
         </div>
 

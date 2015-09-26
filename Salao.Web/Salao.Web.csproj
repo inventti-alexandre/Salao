@@ -132,6 +132,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeAdmController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\PermissaoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PreContatoController.cs" />
     <Compile Include="Areas\Admin\Controllers\SalaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\SistemaParametroController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubAreaController.cs" />
@@ -214,6 +215,10 @@
     <Content Include="Areas\Admin\Views\Estado\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Estado\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Estado\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PreContato\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PreContato\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PreContato\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PreContato\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

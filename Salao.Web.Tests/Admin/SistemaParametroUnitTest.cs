@@ -20,13 +20,16 @@ namespace Salao.Web.Tests.Admin
         public void SistemaParametroIncluir()
         {
             // Arrange
-            var parametro = new SistemaParametro { AlteradoPor = 1, Codigo = "VALOR CODIGO", Descricao = "VALOR DESCRICAO", Valor = "VALOR VALOR" };
+            var parametro1 = new SistemaParametro { AlteradoPor = 1, Codigo = "PROMO_DESCONTO", Descricao = "DESCONTO PRADRAO NA PROMOCAO", Valor = "100" };
+            var parametro2 = new SistemaParametro { AlteradoPor = 1, Codigo = "PROMO_CARENCIA", Descricao = "MESES DE CARENCIA NA PROMOCAO", Valor = "3" };
 
             // Act
-            int id = service.Gravar(parametro);
+            int id1 = service.Gravar(parametro1);
+            int id2 = service.Gravar(parametro2);
 
             // Assert
-            Assert.AreNotEqual(0, id);
+            Assert.IsTrue(id1 > 0);
+            Assert.IsTrue(id2 > 0);
         }        
     }
 }

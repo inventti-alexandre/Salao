@@ -56,10 +56,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/Empresa/Create
         public ActionResult Create()
         {
-            // TODO: desconto, descontocarencia -> not hard code            
-            var cadastro = new CadastroEmpresa { Desconto = 100, DescontoCarencia = 3, Cortesia = true, TipoPessoa = 2 };
+            // promocao padrao da empresa
+            var promocao = new PromocaoService().Get();
 
-            ViewBag.TipoPessoa = GetTipoPessoa(2);
+            var cadastro = new CadastroEmpresa { Desconto = promocao.Desconto, DescontoCarencia = promocao.DescontoCarencia, Cortesia = true, TipoPessoa = 2 };
+
+            ViewBag.TipoPessoa = GetTipoPessoa(cadastro.TipoPessoa);
             ViewBag.TipoEndereco = GetTipoEndereco();
             ViewBag.Estados = GetEstados();
 

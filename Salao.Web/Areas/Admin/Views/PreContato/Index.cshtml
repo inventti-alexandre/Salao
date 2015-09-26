@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Salao.Domain.Models.Admin.PreContato>
+
+@{
+    ViewBag.Title = "Pré contatos";
+}
+
+<h2>Pré contatos</h2>
+
+<p>
+    @Html.ActionLink("Novo pré contato", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p class="top20">
+        Pesquisar: <input id="email" name="email" type="text" placeholder="E-mail" />
+        <input type="submit" value="Pesquisar" class="btn btn-primary" />
+    </p>
+}
+<table class="table top20">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeSalao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Atendido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Assinou)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContatarNovamente)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeSalao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Atendido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assinou)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContatarNovamente)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
