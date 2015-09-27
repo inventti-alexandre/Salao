@@ -124,6 +124,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AreaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DescontoController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmpresaController.cs" />
     <Compile Include="Areas\Admin\Controllers\EstadoController.cs" />
     <Compile Include="Areas\Admin\Controllers\FormaPgtoController.cs" />
@@ -219,6 +220,8 @@
     <Content Include="Areas\Admin\Views\PreContato\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PreContato\Details.cshtml" />
     <Content Include="Areas\Admin\Views\PreContato\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PreContato\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Desconto\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

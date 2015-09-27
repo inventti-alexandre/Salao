@@ -57,20 +57,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             return View(new PreContato());
         }
 
-        private List<SelectListItem> GetEstados(int id = 0)
-        {
-            var estados = new EstadoService().Listar()
-                .Where(x => x.Ativo == true)
-                .OrderBy(x => x.UF);
-
-            var lista = new List<SelectListItem>();
-            foreach (var item in estados)
-            {
-                lista.Add(new SelectListItem { Text = item.UF, Value = item.Id.ToString(), Selected = (item.Id == id) });
-            }
-            return lista;
-        }
-
         // POST: Admin/PreContato/Create
         [HttpPost]
         public ActionResult Create(PreContato contato)
@@ -123,7 +109,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     service.Gravar(contato);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { email = contato.Email });
                 }
                 ViewBag.Estados = GetEstados(contato.IdEstado);    
                 return View(contato);
@@ -185,6 +171,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         public ActionResult Rejeitados()
         {
             return View();
+        }
+        
+        private SelectList GetEstados(int id = 0)
+        {
+            return new SelectList(new EstadoService().Listar().Where(x => x.Ativo == true).OrderBy(x => x.UF),
+                "Id", "UF", id);
         }
     }
 }

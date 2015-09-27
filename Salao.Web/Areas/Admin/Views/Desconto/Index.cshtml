@@ -1,0 +1,46 @@
+﻿@model Salao.Domain.Models.Cliente.Promocao
+
+@{
+    ViewBag.Title = "Desconto";
+}
+
+<h2>Desconto</h2>
+
+<p class="text-info top20">
+    @ViewBag.Mensagem
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Desconto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Desconto)
+                @Html.ValidationMessageFor(model => model.Desconto)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DescontoCarencia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DescontoCarencia)
+                @Html.ValidationMessageFor(model => model.DescontoCarencia)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Gravar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
