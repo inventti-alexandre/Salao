@@ -25,6 +25,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             serviceCadastro = new CadastroEmpresaService();
             login = new UsuarioService();
         }
+
         //
         // GET: /Admin/Empresa/
         public ActionResult Index(string fantasia = "")
@@ -32,7 +33,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             fantasia = fantasia.ToUpper().Trim();
 
             var empresas = serviceEmpresa.Listar()
-                .Where(x => fantasia == "" || x.Fantasia.Contains(fantasia))
+                .Where(x => x.Fantasia.Contains(fantasia))
                 .OrderBy(x => x.Fantasia);
 
             return View(empresas);
@@ -210,6 +211,9 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
         }
 
+
+        #region [ Privates ]
+
         private List<SelectListItem> GetTipoPessoa(int tipo = 1)
         {
             var tipos = new List<SelectListItem>();
@@ -245,5 +249,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
             return lista;
         }
+
+        #endregion
     }
 }

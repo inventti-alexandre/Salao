@@ -6,5 +6,6 @@ namespace Salao.Domain.Abstract.Cliente
     {
         CliUsuario ValidaLogin(string email, string senha);
         int GetIdCliUsuario(string email);
+        int GetIdUsuarioByNome(string nome, int idEmpresa);
     }
 }

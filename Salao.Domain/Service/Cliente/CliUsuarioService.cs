@@ -39,6 +39,7 @@ namespace Salao.Domain.Service.Cliente
             {
                 item.Ativo = true;
                 item.CadastradoEm = DateTime.Now;
+                // TODO: quando incluir um novo usuario tem que enviar e-mail com a senha para ele
                 return repository.Incluir(item).Id;
             }
 
@@ -86,6 +87,18 @@ namespace Salao.Domain.Service.Cliente
             email = email.ToLower().Trim();
 
             var usuario = repository.Listar().Where(x => x.Ativo == true && x.Email == email).FirstOrDefault();
+
+            if (usuario != null)
+            {
+                return usuario.Id;
+            }
+
+            return 0;
+        }
+
+        public int GetIdUsuarioByNome(string nome, int idEmpresa)
+        {
+            var usuario = repository.Listar().Where(x => x.Nome == nome && x.IdEmpresa == idEmpresa).FirstOrDefault();
 
             if (usuario != null)
             {
