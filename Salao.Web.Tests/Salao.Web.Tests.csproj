@@ -97,6 +97,7 @@
     <Compile Include="Admin\UsuarioGrupoUnitTest.cs" />
     <Compile Include="Admin\UsuarioUnitTest.cs" />
     <Compile Include="Cliente\CadastroUnitTest.cs" />
+    <Compile Include="Cliente\CliUsuarioUnitTest.cs" />
     <Compile Include="Endereco\TipoEnderecoUnitTest.cs" />
     <Compile Include="Endereco\EstadoUnitTest.cs" />
     <Compile Include="Endereco\CidadeUnitTest.cs" />

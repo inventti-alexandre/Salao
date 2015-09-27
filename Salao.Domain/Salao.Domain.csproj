@@ -78,6 +78,7 @@
     <Compile Include="Abstract\Admin\IGrupoPermissao.cs" />
     <Compile Include="Abstract\Admin\ILogin.cs" />
     <Compile Include="Abstract\Admin\IUsuarioGrupo.cs" />
+    <Compile Include="Abstract\Cliente\ILogin.cs" />
     <Compile Include="Abstract\Endereco\IEndereco.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
     <Compile Include="Models\Admin\Area.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Admin\UsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\CadastroEmpresa.cs" />
+    <Compile Include="Models\Cliente\CliUsuario.cs" />
     <Compile Include="Models\Cliente\Empresa.cs" />
     <Compile Include="Models\Cliente\Promocao.cs" />
     <Compile Include="Models\Endereco\Endereco.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="Service\Admin\UsuarioGrupoService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cliente\CadastroEmpresaService.cs" />
+    <Compile Include="Service\Cliente\CliUsuarioService.cs" />
     <Compile Include="Service\Cliente\EmpresaService.cs" />
     <Compile Include="Service\Cliente\PromocaoService.cs" />
     <Compile Include="Service\Endereco\BairroService.cs" />
@@ -129,9 +132,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstract\Cliente\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
