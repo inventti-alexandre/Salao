@@ -6,32 +6,28 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
-namespace Salao.Web.Areas.Cliente.Controllers
+namespace Salao.Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class PermissaoController : Controller
+    public class CliPermissaoController : Controller
     {
         private IBaseService<CliPermissao> service;
 
-        public PermissaoController()
+        public CliPermissaoController()
         {
             service = new CliPermissaoService();
         }
 
-        //
-        // GET: /Cliente/Permissao/
-        public ActionResult Index(int idEmpresa)
+        // GET: Admin/CliPermissao
+        public ActionResult Index()
         {
             var permissoes = service.Listar()
-                .Where(x => x.IdEmpresa == idEmpresa)
-                .ToList();
+                .OrderBy(x => x.Descricao);
 
-            ViewBag.IdEmpresa = idEmpresa;
             return View(permissoes);
         }
 
-        //
-        // GET: /Cliente/Permissao/Details/5
+        // GET: Admin/CliPermissao/Details/5
         public ActionResult Details(int id)
         {
             var permissao = service.Find(id);
@@ -44,17 +40,15 @@ namespace Salao.Web.Areas.Cliente.Controllers
             return View(permissao);
         }
 
-        //
-        // GET: /Cliente/Permissao/Create
-        public ActionResult Create(int idEmpresa)
+        // GET: Admin/CliPermissao/Create
+        public ActionResult Create()
         {
-            return View(new CliPermissao { IdEmpresa = idEmpresa });
+            return View(new CliPermissao());
         }
 
-        //
-        // POST: /Cliente/Permissao/Create
+        // POST: Admin/CliPermissao/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="IdEmpresa,Descricao")] CliPermissao permissao)
+        public ActionResult Create([Bind(Include="Descricao")] CliPermissao permissao)
         {
             try
             {
@@ -64,20 +58,18 @@ namespace Salao.Web.Areas.Cliente.Controllers
                 if (ModelState.IsValid)
                 {
                     service.Gravar(permissao);
-                    return RedirectToAction("Index", new { idEmpresa = permissao.IdEmpresa });
+                    return RedirectToAction("Index");
                 }
-
                 return View(permissao);
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
                 return View(permissao);
             }
         }
 
-        //
-        // GET: /Cliente/Permissao/Edit/5
+        // GET: Admin/CliPermissao/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,10 +87,9 @@ namespace Salao.Web.Areas.Cliente.Controllers
             return View(permissao);
         }
 
-        //
-        // POST: /Cliente/Permissao/Edit/5
+        // POST: Admin/CliPermissao/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include="Id,IdEmpresa,Descricao,Ativo")] CliPermissao permissao)
+        public ActionResult Edit([Bind(Include="Id,Descricao,Ativo")] CliPermissao permissao)
         {
             try
             {
@@ -108,10 +99,9 @@ namespace Salao.Web.Areas.Cliente.Controllers
                 if (ModelState.IsValid)
                 {
                     service.Gravar(permissao);
-                    return RedirectToAction("Index", new { idEmpresa = permissao.IdEmpresa });
+                    return RedirectToAction("Index");
                 }
-
-                return View(permissao);
+                return View(service);
             }
             catch (ArgumentException e)
             {
@@ -120,8 +110,7 @@ namespace Salao.Web.Areas.Cliente.Controllers
             }
         }
 
-        //
-        // GET: /Cliente/Permissao/Delete/5
+        // GET: Admin/CliPermissao/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -139,23 +128,23 @@ namespace Salao.Web.Areas.Cliente.Controllers
             return View(permissao);
         }
 
-        //
-        // POST: /Cliente/Permissao/Delete/5
+        // POST: Admin/CliPermissao/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
             try
             {
-                var permissao = service.Excluir(id);
-                return RedirectToAction("Index", new { idEmpresa = permissao.IdEmpresa});
+                service.Excluir(id);
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
                 var permissao = service.Find(id);
                 if (permissao == null)
                 {
                     return HttpNotFound();
                 }
+                ModelState.AddModelError(string.Empty, e.Message);
                 return View(permissao);
             }
         }

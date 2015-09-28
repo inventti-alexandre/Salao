@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Salao.Domain.Models.Cliente.CliGrupo>
+﻿@model IEnumerable<Salao.Domain.Models.Cliente.CliPermissao>
 
 @{
-    ViewBag.Title = "Grupos de usuários";
+    ViewBag.Title = "Permissões";
 }
 
-<h2>Grupos de usuários</h2>
+<h2>Permissões do cliente</h2>
 
 <p>
-    @Html.ActionLink("Novo grupo", "Create", new { idEmpresa = @ViewBag.IdEmpresa })
+    @Html.ActionLink("Nova permissão", "Create")
 </p>
 <table class="table">
     <tr>
@@ -37,8 +37,7 @@
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Permissões", "Index", "GrupoPermissao", new { idEmpresa = @ViewBag.IdEmpresa }, null)
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

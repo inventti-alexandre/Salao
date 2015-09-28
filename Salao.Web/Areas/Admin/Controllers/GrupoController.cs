@@ -52,7 +52,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         //
         // POST: /Admin/Grupo/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="Descricao")] Grupo grupo)
+        public ActionResult Create([Bind(Include = "Descricao")] Grupo grupo)
         {
             try
             {
@@ -60,10 +60,10 @@ namespace Salao.Web.Areas.Admin.Controllers
                 TryUpdateModel(grupo);
 
                 if (ModelState.IsValid)
-	            {
+                {
                     service.Gravar(grupo);
-                    return RedirectToAction("Index");		 
-	            }
+                    return RedirectToAction("Index");
+                }
 
                 return View(grupo);
             }
@@ -79,16 +79,16 @@ namespace Salao.Web.Areas.Admin.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-	        {
-		        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-	        }
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             var grupo = service.Find((int)id);
 
             if (grupo == null)
-	        {
-		        return HttpNotFound();
-	        }
+            {
+                return HttpNotFound();
+            }
 
             return View(grupo);
         }
@@ -96,16 +96,19 @@ namespace Salao.Web.Areas.Admin.Controllers
         //
         // POST: /Admin/Grupo/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include="Id,Descricao,Ativo")] Grupo grupo)
+        public ActionResult Edit([Bind(Include = "Id,Descricao,Ativo")] Grupo grupo)
         {
             try
             {
+                grupo.AlteradoEm = DateTime.Now;
+                TryUpdateModel(grupo);
+
                 if (ModelState.IsValid)
                 {
                     service.Gravar(grupo);
                     return RedirectToAction("Index");
                 }
-                
+
                 return View(grupo);
             }
             catch (ArgumentException e)
@@ -118,7 +121,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         //
         // GET: /Admin/Grupo/Delete/5
         public ActionResult Delete(int? id)
-        {            
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -144,13 +147,14 @@ namespace Salao.Web.Areas.Admin.Controllers
                 service.Excluir(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
                 var grupo = service.Find(id);
                 if (grupo == null)
-	            {
-		                return HttpNotFound();
-	            }
+                {
+                    return HttpNotFound();
+                }
+                ModelState.AddModelError(string.Empty, e.Message);
                 return View(grupo);
             }
         }

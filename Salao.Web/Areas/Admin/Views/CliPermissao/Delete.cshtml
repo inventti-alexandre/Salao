@@ -1,21 +1,18 @@
-﻿@model Salao.Domain.Models.Cliente.CliGrupo
+﻿@model Salao.Domain.Models.Cliente.CliPermissao
 
 @{
-    ViewBag.Title = "Grupos de usuários";
+    ViewBag.Title = "Permissões";
 }
 
-<h2>Grupos de usuários - exclusão</h2>
+<h2>Permissões do cliente</h2>
 
 <p class="text-danger">
-    <h4>Confirma a exclusão deste grupo?</h4>
+    <h4>Confirma a exclusão desta permissão?</h4>
 </p>
+
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dd>
-            @Html.DisplayFor(model => model.IdEmpresa)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Descricao)
         </dt>
@@ -47,7 +44,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Excluir" class="btn btn-danger" /> |
-            @Html.ActionLink("Voltar", "Index", new { idEmpresa=Model.IdEmpresa })
+            @Html.ActionLink("Voltar", "Index")
         </div>
     }
 </div>

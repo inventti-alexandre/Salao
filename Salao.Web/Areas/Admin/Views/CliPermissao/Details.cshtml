@@ -1,14 +1,10 @@
 ﻿@model Salao.Domain.Models.Cliente.CliPermissao
 
 @{
-    ViewBag.Title = "Permissão";
+    ViewBag.Title = "Permissões";
 }
 
-<h2>Permissão - exclusão</h2>
-
-<p class="text-danger">
-    <h4>Confirma a exclusão desta permissão?</h4>
-</p>
+<h2>Permissões do cliente</h2>
 
 <div>
     <hr />
@@ -38,13 +34,8 @@
         </dd>
 
     </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Excluir" class="btn btn-danger" /> |
-            @Html.ActionLink("Voltar", "Index", new { idEmpresa = Model.IdEmpresa })
-        </div>
-    }
 </div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Salao.Domain.Models.Cliente.CliPermissao>
+﻿@model IEnumerable<Salao.Domain.Models.Cliente.CliGrupo>
 
 @{
-    ViewBag.Title = "Permissões";
+    ViewBag.Title = "Grupos";
 }
 
-<h2>Permissões</h2>
+<h2>Grupos de usuários para clientes</h2>
 
 <p>
-    @Html.ActionLink("Nova permissão", "Create", new { idEmpresa=@ViewBag.IdEmpresa })
+    @Html.ActionLink("Novo grupo", "Create")
 </p>
 <table class="table">
     <tr>

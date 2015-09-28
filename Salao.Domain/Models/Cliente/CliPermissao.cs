@@ -9,10 +9,6 @@ namespace Salao.Domain.Models.Cliente
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [HiddenInput(DisplayValue = false)]
-        public int IdEmpresa { get; set; }
-
         [Required(ErrorMessage = "Informe a permissão")]
         [StringLength(100, ErrorMessage = "A permissão é composta por no máximo 100 caracteres")]
         [Display(Name = "Permissão")]

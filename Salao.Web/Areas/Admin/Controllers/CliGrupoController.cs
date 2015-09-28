@@ -6,30 +6,28 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
-namespace Salao.Web.Areas.Cliente.Controllers
+namespace Salao.Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class GrupoController : Controller
+    public class CliGrupoController : Controller
     {
         private IBaseService<CliGrupo> service;
 
-        public GrupoController()
+        public CliGrupoController()
         {
             service = new CliGrupoService();
         }
 
-        // GET: Cliente/Grupo
-        public ActionResult Index(int idEmpresa)
+        // GET: Admin/CliGrupo
+        public ActionResult Index()
         {
             var grupos = service.Listar()
-                .Where(x => x.IdEmpresa == idEmpresa)
                 .OrderBy(x => x.Descricao);
 
-            ViewBag.IdEmpresa = idEmpresa;
             return View(grupos);
         }
 
-        // GET: Cliente/Grupo/Details/5
+        // GET: Admin/CliGrupo/Details/5
         public ActionResult Details(int id)
         {
             var grupo = service.Find(id);
@@ -42,15 +40,15 @@ namespace Salao.Web.Areas.Cliente.Controllers
             return View(grupo);
         }
 
-        // GET: Cliente/Grupo/Create
-        public ActionResult Create(int idEmpresa)
+        // GET: Admin/CliGrupo/Create
+        public ActionResult Create()
         {
-            return View(new CliGrupo { IdEmpresa = idEmpresa});
+            return View(new CliGrupo());
         }
 
-        // POST: Cliente/Grupo/Create
+        // POST: Admin/CliGrupo/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="IdEmpresa,Descricao")] CliGrupo grupo)
+        public ActionResult Create([Bind(Include="Descricao")] CliGrupo grupo)
         {
             try
             {
@@ -60,19 +58,17 @@ namespace Salao.Web.Areas.Cliente.Controllers
                 if (ModelState.IsValid)
                 {
                     service.Gravar(grupo);
-                    return RedirectToAction("Index", new { idEmpresa = grupo.IdEmpresa });
+                    return RedirectToAction("Index");
                 }
-
                 return View(grupo);
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
-                ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(string.Empty, e.Message);
             }
         }
 
-        // GET: Cliente/Grupo/Edit/5
+        // GET: Admin/CliGrupo/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,9 +86,9 @@ namespace Salao.Web.Areas.Cliente.Controllers
             return View(grupo);
         }
 
-        // POST: Cliente/Grupo/Edit/5
+        // POST: Admin/CliGrupo/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include="Id,IdEmpresa,Descricao,Ativo")] CliGrupo grupo)
+        public ActionResult Edit([Bind(Include="Id,Descricao,Ativo")] CliGrupo grupo)
         {
             try
             {
@@ -100,20 +96,20 @@ namespace Salao.Web.Areas.Cliente.Controllers
                 TryUpdateModel(grupo);
 
                 if (ModelState.IsValid)
-	            {
+                {
                     service.Gravar(grupo);
-                    return RedirectToAction("Index", new { idEmpresa = grupo.IdEmpresa });
+                    return RedirectToAction("Index");
                 }
                 return View(grupo);
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
                 return View(grupo);
             }
         }
 
-        // GET: Cliente/Grupo/Delete/5
+        // GET: Admin/CliGrupo/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -131,22 +127,23 @@ namespace Salao.Web.Areas.Cliente.Controllers
             return View(grupo);
         }
 
-        // POST: Cliente/Grupo/Delete/5
+        // POST: Admin/CliGrupo/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
             try
             {
-                var grupo = service.Excluir(id);
-                return RedirectToAction("Index", new { idEmpresa = grupo.IdEmpresa });
+                service.Excluir(id);
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
                 var grupo = service.Find(id);
                 if (grupo == null)
                 {
                     return HttpNotFound();
                 }
+                ModelState.AddModelError(string.Empty, e.Message);
                 return View(grupo);
             }
         }
