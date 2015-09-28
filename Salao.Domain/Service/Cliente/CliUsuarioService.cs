@@ -29,7 +29,7 @@ namespace Salao.Domain.Service.Cliente
             item.Telefone = item.Telefone.ToUpper().Trim();
 
             // valida
-            if (repository.Listar().Where(x => x.Email == item.Email && x.IdEmpresa == item.IdEmpresa).Count() > 0)
+            if (repository.Listar().Where(x => x.Email == item.Email && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
             {
                 throw new ArgumentException("Já existe um usuário cadastrado com este e-mail nesta empresa");
             }

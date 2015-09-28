@@ -116,6 +116,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Salao\" />
     <Folder Include="Areas\Cliente\Models\" />
+    <Folder Include="Areas\Cliente\Views\Grupo\" />
     <Folder Include="Models\" />
     <Folder Include="Views\PreContato\" />
   </ItemGroup>
@@ -145,6 +146,7 @@
     <Compile Include="Areas\Admin\Models\LoginUsuario.cs" />
     <Compile Include="Areas\Admin\Models\PermissoesGrupo.cs" />
     <Compile Include="Areas\Cliente\ClienteAreaRegistration.cs" />
+    <Compile Include="Areas\Cliente\Controllers\GrupoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />

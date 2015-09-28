@@ -44,7 +44,9 @@ namespace Salao.Domain.Repository
         public DbSet<UsuarioGrupo> UsuarioGrupo { get; set; }
 
         // DbSets - cliente
+        public DbSet<CliGrupo> CliGrupo { get; set; }
         public DbSet<CliUsuario> CliUsuario { get; set; }
+        public DbSet<CliUsuarioGrupo> CliUsuarioGrupo { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
     }
 }

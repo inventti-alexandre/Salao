@@ -64,7 +64,7 @@ namespace Salao.Web.Areas.Cliente.Controllers
 
         // POST: Cliente/Usuario/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="IdEmpresa,Nome,Email,Password,Telefone,Password")] CliUsuario usuario)
+        public ActionResult Create([Bind(Include = "IdEmpresa,Nome,Email,Password,Telefone,Password")] CliUsuario usuario)
         {
             try
             {
@@ -104,19 +104,24 @@ namespace Salao.Web.Areas.Cliente.Controllers
 
             return View(usuario);
         }
-        
+
         // POST: Cliente/Usuario/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "IdEmpresa,Nome,Email,Telefone,Password,CadastradoEm")] CliUsuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,IdEmpresa,Nome,Email,Telefone,CadastradoEm")] CliUsuario usuario)
         {
             try
             {
-                if (ModelState.IsValid)
+                var usuarioDb = new CliUsuarioService().Find(usuario.Id);
+                if (usuarioDb == null)
                 {
-                    service.Gravar(usuario);
-                    return RedirectToAction("Index", new { idEmpresa = usuario.IdEmpresa });
+                    return HttpNotFound();
                 }
-                return View(usuario);
+                usuario.Password = usuarioDb.Password;
+                TryUpdateModel(usuario);
+
+                service.Gravar(usuario);
+                return RedirectToAction("Index", new { idEmpresa = usuario.IdEmpresa });
+                //return View(usuario);
             }
             catch (ArgumentException e)
             {
@@ -167,19 +172,6 @@ namespace Salao.Web.Areas.Cliente.Controllers
                 }
                 return View(usuario);
             }
-        }
-
-        // POST: Cliente/Usuario/Situacao/5
-        public ActionResult Situacao(int? id)
-        {
-            return View();
-        }
-
-        // POST: Cliente/Usuario/Situacao/5
-        [HttpPost]
-        public ActionResult Situacao(int idUsuario, bool Ativo)
-        {
-            return View();
         }
 
     }

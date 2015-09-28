@@ -78,6 +78,7 @@
     <Compile Include="Abstract\Admin\IGrupoPermissao.cs" />
     <Compile Include="Abstract\Admin\ILogin.cs" />
     <Compile Include="Abstract\Admin\IUsuarioGrupo.cs" />
+    <Compile Include="Abstract\Cliente\ICliUsuarioGrupo.cs" />
     <Compile Include="Abstract\Cliente\ILogin.cs" />
     <Compile Include="Abstract\Endereco\IEndereco.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
@@ -92,7 +93,9 @@
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Admin\UsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\CadastroEmpresa.cs" />
+    <Compile Include="Models\Cliente\CliGrupo.cs" />
     <Compile Include="Models\Cliente\CliUsuario.cs" />
+    <Compile Include="Models\Cliente\CliUsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\Empresa.cs" />
     <Compile Include="Models\Cliente\Promocao.cs" />
     <Compile Include="Models\Endereco\Endereco.cs" />
@@ -117,6 +120,8 @@
     <Compile Include="Service\Admin\UsuarioGrupoService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cliente\CadastroEmpresaService.cs" />
+    <Compile Include="Service\Cliente\CliGrupoService.cs" />
+    <Compile Include="Service\Cliente\CliUsuarioGrupoService.cs" />
     <Compile Include="Service\Cliente\CliUsuarioService.cs" />
     <Compile Include="Service\Cliente\EmpresaService.cs" />
     <Compile Include="Service\Cliente\PromocaoService.cs" />
