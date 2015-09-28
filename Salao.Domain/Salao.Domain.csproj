@@ -94,6 +94,7 @@
     <Compile Include="Models\Admin\UsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\CadastroEmpresa.cs" />
     <Compile Include="Models\Cliente\CliGrupo.cs" />
+    <Compile Include="Models\Cliente\CliPermissao.cs" />
     <Compile Include="Models\Cliente\CliUsuario.cs" />
     <Compile Include="Models\Cliente\CliUsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\Empresa.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cliente\CadastroEmpresaService.cs" />
     <Compile Include="Service\Cliente\CliGrupoService.cs" />
+    <Compile Include="Service\Cliente\CliPermissaoService.cs" />
     <Compile Include="Service\Cliente\CliUsuarioGrupoService.cs" />
     <Compile Include="Service\Cliente\CliUsuarioService.cs" />
     <Compile Include="Service\Cliente\EmpresaService.cs" />

@@ -116,7 +116,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Salao\" />
     <Folder Include="Areas\Cliente\Models\" />
-    <Folder Include="Areas\Cliente\Views\Grupo\" />
     <Folder Include="Models\" />
     <Folder Include="Views\PreContato\" />
   </ItemGroup>
@@ -147,6 +146,7 @@
     <Compile Include="Areas\Admin\Models\PermissoesGrupo.cs" />
     <Compile Include="Areas\Cliente\ClienteAreaRegistration.cs" />
     <Compile Include="Areas\Cliente\Controllers\GrupoController.cs" />
+    <Compile Include="Areas\Cliente\Controllers\PermissaoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
@@ -235,6 +235,16 @@
     <Content Include="Areas\Cliente\Views\Usuario\Create.cshtml" />
     <Content Include="Areas\Cliente\Views\Usuario\Edit.cshtml" />
     <Content Include="Areas\Cliente\Views\Usuario\Delete.cshtml" />
+    <Content Include="Areas\Cliente\Views\Grupo\Index.cshtml" />
+    <Content Include="Areas\Cliente\Views\Grupo\Details.cshtml" />
+    <Content Include="Areas\Cliente\Views\Grupo\Create.cshtml" />
+    <Content Include="Areas\Cliente\Views\Grupo\Edit.cshtml" />
+    <Content Include="Areas\Cliente\Views\Grupo\Delete.cshtml" />
+    <Content Include="Areas\Cliente\Views\Permissao\Index.cshtml" />
+    <Content Include="Areas\Cliente\Views\Permissao\Details.cshtml" />
+    <Content Include="Areas\Cliente\Views\Permissao\Create.cshtml" />
+    <Content Include="Areas\Cliente\Views\Permissao\Edit.cshtml" />
+    <Content Include="Areas\Cliente\Views\Permissao\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

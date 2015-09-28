@@ -65,7 +65,8 @@
                 @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Excluir", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Usuários", "Index", "Usuario", new { Area = "Cliente", idEmpresa = item.Id }, null)
+                @Html.ActionLink("Usuários", "Index", "Usuario", new { Area = "Cliente", idEmpresa = item.Id }, null) |
+                @Html.ActionLink("Grupos", "Index", "CliGrupo", new { Area = "Cliente", idEmpresa = item.Id }, null)
             </td>
         </tr>
     }
