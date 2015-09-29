@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Salao.Web.Areas.Admin.Models.GruposUsuario>
+
+@{
+    ViewBag.Title = "Grupos do usuário";
+}
+
+<h2>Grupos do usuário</h2>
+
+<div class="text-info">
+    <h3>@ViewBag.NomeUsuario</h3>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("idUsuario", (object)@ViewBag.IdUsuario)
+                                                         
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Selecionado)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+	    {
+		    <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Descricao)
+                </td>
+                <td>
+                    <input type="checkbox" value="@item.Id" id="selecionado" name="selecionado" checked="@item.Selecionado" />
+                </td>
+            </tr>
+	    }
+    </table>
+    
+    <div class="form-group">
+        <input type="submit" value="Gravar" class="btn btn-primary" />
+        @Html.ActionLink("Voltar", "Index", "Usuario", null, new { Area = "Cliente", @class = "btn btn-primary" })
+    </div>
+}
