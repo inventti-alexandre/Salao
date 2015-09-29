@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Salao.Web.Areas.Admin.Models.CliPermissoesGrupo>
+
+@{
+    ViewBag.Title = "Permissões do grupo";
+}
+
+<h2>Permissões do grupo</h2>
+
+<div class="text-info">
+    <h3>@ViewBag.NomeGrupo</h3>
+</div>
+
+@using (@Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("idGrupo", (object)@ViewBag.IdGrupo)
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Selecionado)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+	    {
+		    <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Descricao)
+                </td>
+                <td>
+                    <input type="checkbox" value="@item.Id" name="selecionado" id="selecionado" checked="@item.Selecionado" />
+                </td>
+            </tr>
+	    }
+    </table>
+    
+    <div class="form-group">
+        <input type="submit" value="Gravar" class="btn btn-primary" />
+        @Html.ActionLink("Voltar", "Index", "CliGrupo", null, new { @class="btn btn-primary" })
+    </div>
+}

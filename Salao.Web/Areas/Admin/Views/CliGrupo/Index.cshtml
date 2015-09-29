@@ -37,7 +37,8 @@
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) |
+            @Html.ActionLink("Permissões", "Index", "CliGrupoPermissao", new { id=item.Id }, null)
         </td>
     </tr>
 }

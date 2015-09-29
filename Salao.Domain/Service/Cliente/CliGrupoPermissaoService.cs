@@ -1,50 +1,50 @@
-﻿using Salao.Domain.Abstract.Admin;
-using Salao.Domain.Models.Admin;
+﻿using Salao.Domain.Abstract.Cliente;
+using Salao.Domain.Models.Cliente;
 using Salao.Domain.Repository;
 using System;
 using System.Linq;
 
-namespace Salao.Domain.Service.Admin
+namespace Salao.Domain.Service.Cliente
 {
-    public class GrupoPermissaoService : IGrupoPermissao
+    public class CliGrupoPermissaoService: IGrupoPermissao
     {
         private EFDbContext db;
 
-        public GrupoPermissaoService()
+        public CliGrupoPermissaoService()
         {
             db = new EFDbContext();
         }
 
-        public IQueryable<Models.Admin.GrupoPermissao> Listar()
+        public IQueryable<CliGrupoPermissao> Listar()
         {
-            return db.GrupoPermissao;
+            return db.CliGrupoPermissao;
         }
 
         public void Incluir(int idGrupo, int idPermissao)
         {
             // valida
-            if (db.Grupo.ToList().Where(x => x.Id == idGrupo).Count() == 0)
+            if (db.CliGrupo.Find(idGrupo) == null)
             {
                 throw new ArgumentException("Grupo inválido");
             }
 
-            if (db.Permissao.ToList().Where(x => x.Id == idPermissao).Count() == 0)
+            if (db.CliPermissao.Find(idPermissao) == null)
             {
                 throw new ArgumentException("Permissão inválida");
             }
 
             // grava
-            db.GrupoPermissao.Add(new GrupoPermissao { IdGrupo = idGrupo, IdPermissao = idPermissao });
+            db.CliGrupoPermissao.Add(new CliGrupoPermissao { IdGrupo = idGrupo, IdPermissao = idPermissao });
             db.SaveChanges();
         }
 
         public void Excluir(int idGrupo, int idPermissao)
         {
-            var grupoPermissao = db.GrupoPermissao.Where(x => x.IdGrupo == idGrupo && x.IdPermissao == idPermissao).FirstOrDefault();
+            var grupoPermissao = db.CliGrupoPermissao.Where(x => x.IdGrupo == idGrupo && x.IdPermissao == idPermissao).FirstOrDefault();
 
             if (grupoPermissao != null)
             {
-                db.GrupoPermissao.Remove(grupoPermissao);
+                db.CliGrupoPermissao.Remove(grupoPermissao);
                 db.SaveChanges();
             }
         }
@@ -52,19 +52,19 @@ namespace Salao.Domain.Service.Admin
         public void Gravar(int idGrupo, int[] permissoes)
         {
             // remove permissoes do grupo
-            var permissoesCadastradas = db.GrupoPermissao.Where(x => x.IdGrupo == idGrupo).ToList();
+            var permissoesCadastradas = db.CliGrupoPermissao.Where(x => x.IdGrupo == idGrupo).ToList();
             if (permissoesCadastradas.Count > 0)
             {
-                db.GrupoPermissao.RemoveRange(permissoesCadastradas);
+                db.CliGrupoPermissao.RemoveRange(permissoesCadastradas);
                 db.SaveChanges();
             }
-
+            
             // inclui novas permissoes
             if (permissoes.Count() > 0)
             {
                 foreach (var item in permissoes)
                 {
-                    db.GrupoPermissao.Add(new GrupoPermissao { IdGrupo = idGrupo, IdPermissao = item });
+                    db.CliGrupoPermissao.Add(new CliGrupoPermissao { IdGrupo = idGrupo, IdPermissao = item });
                     db.SaveChanges();
                 }
             }

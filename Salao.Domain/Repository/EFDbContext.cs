@@ -18,9 +18,10 @@ namespace Salao.Domain.Repository
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<UsuarioGrupo>().HasKey(x => new { x.IdUsuario, x.IdGrupo });
-            modelBuilder.Entity<GrupoPermissao>().HasKey(x => new { x.IdGrupo, x.IdPermissao });
+            modelBuilder.Entity<CliGrupoPermissao>().HasKey(x => new { x.IdGrupo, x.IdPermissao });
             modelBuilder.Entity<CliUsuarioGrupo>().HasKey(x => new { x.IdUsuario, x.IdGrupo });
+            modelBuilder.Entity<GrupoPermissao>().HasKey(x => new { x.IdGrupo, x.IdPermissao });
+            modelBuilder.Entity<UsuarioGrupo>().HasKey(x => new { x.IdUsuario, x.IdGrupo });
         }
 
         // DbSets - admin - endereco
@@ -46,6 +47,7 @@ namespace Salao.Domain.Repository
 
         // DbSets - cliente
         public DbSet<CliGrupo> CliGrupo { get; set; }
+        public DbSet<CliGrupoPermissao> CliGrupoPermissao { get; set; }
         public DbSet<CliPermissao> CliPermissao { get; set; }
         public DbSet<CliUsuario> CliUsuario { get; set; }
         public DbSet<CliUsuarioGrupo> CliUsuarioGrupo { get; set; }

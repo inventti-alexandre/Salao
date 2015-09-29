@@ -126,6 +126,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AreaController.cs" />
     <Compile Include="Areas\Admin\Controllers\CliGrupoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CliGrupoPermissaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\CliPermissaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\DescontoController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmpresaController.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Areas\Admin\Controllers\TipoEnderecoController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioGrupoController.cs" />
+    <Compile Include="Areas\Admin\Models\CliPermissoesGrupo.cs" />
     <Compile Include="Areas\Admin\Models\GruposUsuario.cs" />
     <Compile Include="Areas\Admin\Models\LoginUsuario.cs" />
     <Compile Include="Areas\Admin\Models\PermissoesGrupo.cs" />
@@ -245,6 +247,7 @@
     <Content Include="Areas\Admin\Views\CliPermissao\Create.cshtml" />
     <Content Include="Areas\Admin\Views\CliPermissao\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CliPermissao\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CliGrupoPermissao\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
