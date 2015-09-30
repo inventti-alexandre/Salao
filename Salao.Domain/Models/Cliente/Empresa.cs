@@ -46,6 +46,7 @@ namespace Salao.Domain.Models.Cliente
         public string Observ { get; set; }
         
         public bool Cortesia { get; set; }
+
         public decimal Desconto { get; set; }
 
         [Display(Name="Carência (meses)")]
