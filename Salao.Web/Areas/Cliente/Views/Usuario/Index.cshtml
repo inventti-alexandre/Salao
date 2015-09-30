@@ -44,9 +44,14 @@
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Grupos", "Grupos", new { id=item.Id, idEmpresa=item.IdEmpresa }, null) |
+            @Html.ActionLink("Grupos", "Index", "CliGrupo", new { Area = "Admin", id=item.Id, idEmpresa=item.IdEmpresa }, null)
         </td>
     </tr>
 }
 
 </table>
+
+<div class="form-group">
+    @Html.ActionLink("Voltar", "Index", "Empresa", new { Area = "Admin" }, new { @class = "btn btn-primary" })
+</div>
+

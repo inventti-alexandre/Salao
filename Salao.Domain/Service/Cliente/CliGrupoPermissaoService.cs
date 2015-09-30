@@ -60,7 +60,7 @@ namespace Salao.Domain.Service.Cliente
             }
             
             // inclui novas permissoes
-            if (permissoes.Count() > 0)
+            if (permissoes != null)
             {
                 foreach (var item in permissoes)
                 {
