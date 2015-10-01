@@ -131,6 +131,7 @@
     <Compile Include="Service\Cliente\CliUsuarioService.cs" />
     <Compile Include="Service\Cliente\EmpresaService.cs" />
     <Compile Include="Service\Cliente\PromocaoService.cs" />
+    <Compile Include="Service\Cliente\SalaoService.cs" />
     <Compile Include="Service\Endereco\BairroService.cs" />
     <Compile Include="Service\Endereco\CidadeService.cs" />
     <Compile Include="Service\Endereco\EmailService.cs" />

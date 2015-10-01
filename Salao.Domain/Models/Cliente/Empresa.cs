@@ -90,7 +90,7 @@ namespace Salao.Domain.Models.Cliente
         {
             get
             {
-                return new Salao.Domain.Service.Endereco.EnderecoService().Find(IdEndereco);
+                return new Service.Endereco.EnderecoService().Find(IdEndereco);
             }
         }
 
@@ -100,7 +100,7 @@ namespace Salao.Domain.Models.Cliente
         {
             get
             {
-                return new Salao.Domain.Service.Admin.UsuarioService().Find(CadastradoPor);
+                return new Service.Admin.UsuarioService().Find(CadastradoPor);
             }
         }
     }

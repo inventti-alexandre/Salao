@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Salao.Domain.Models.Cliente
 {
@@ -30,6 +31,13 @@ namespace Salao.Domain.Models.Cliente
         [Display(Name = "CPF")]
         public string Cpf { get; set; }
 
+        public bool Aprovado { get; set; }
+
+        [Display(Name="Exibir site")]
+        public bool Exibir { get; set; }
+
+        public bool Ativo { get; set; }
+
         [Required(ErrorMessage = "Informe o nome para contato na empresa")]
         [StringLength(60, ErrorMessage = "O nome do contato é composto por no máximo 60 caracteres")]
         public string Contato { get; set; }
@@ -51,8 +59,12 @@ namespace Salao.Domain.Models.Cliente
         [Display(Name = "Carência (meses)")]
         public int DescontoCarencia { get; set; }
 
+        [DisplayFormat(DataFormatString="{0:N6}")]
+        [Range(-90, 90, ErrorMessage="A latitude varia entre -90 e 90 graus")]
         public double Latitude { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N6}")]
+        [Range(-179, 180, ErrorMessage="A longitude varia entre -179 e 180 graus")]
         public double Longitude { get; set; }
 
         [Required]

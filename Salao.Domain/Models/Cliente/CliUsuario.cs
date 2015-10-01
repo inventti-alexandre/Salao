@@ -43,7 +43,7 @@ namespace Salao.Domain.Models.Cliente
         {
             get
             {
-                return new Salao.Domain.Service.Cliente.EmpresaService().Find(IdEmpresa);
+                return new Service.Cliente.EmpresaService().Find(IdEmpresa);
             }
         }
     }
