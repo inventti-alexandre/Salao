@@ -150,6 +150,7 @@
     <Compile Include="Areas\Admin\Models\LoginUsuario.cs" />
     <Compile Include="Areas\Admin\Models\PermissoesGrupo.cs" />
     <Compile Include="Areas\Cliente\ClienteAreaRegistration.cs" />
+    <Compile Include="Areas\Cliente\Controllers\SalaoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
@@ -250,6 +251,12 @@
     <Content Include="Areas\Admin\Views\CliPermissao\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\CliGrupoPermissao\Index.cshtml" />
     <Content Include="Areas\Admin\Views\CliUsuarioGrupo\Index.cshtml" />
+    <Content Include="Areas\Cliente\Views\Salao\Index.cshtml" />
+    <Content Include="Areas\Cliente\Views\Salao\Details.cshtml" />
+    <Content Include="Areas\Cliente\Views\Shared\_Telefone.cshtml" />
+    <Content Include="Areas\Cliente\Views\Shared\_Email.cshtml" />
+    <Content Include="Areas\Cliente\Views\Shared\_Endereco.cshtml" />
+    <Content Include="Areas\Cliente\Views\Salao\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

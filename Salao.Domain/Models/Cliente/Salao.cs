@@ -84,5 +84,14 @@ namespace Salao.Domain.Models.Cliente
                 return new Service.Cliente.EmpresaService().Find(IdEmpresa);
             }
         }
+
+        [NotMapped]
+        public virtual Endereco.Endereco Endereco
+        {
+            get
+            {
+                return new Service.Endereco.EnderecoService().Find(IdEndereco);
+            }
+        }
     }
 }

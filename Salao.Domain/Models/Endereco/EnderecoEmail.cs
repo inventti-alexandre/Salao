@@ -9,7 +9,7 @@ namespace Salao.Domain.Models.Endereco
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Bairro")]
+        [Display(Name = "Email")]
         [StringLength(100, ErrorMessage = "O endereço de e-mail é composto por no máximo 100 caracteres")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

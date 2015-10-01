@@ -1,0 +1,46 @@
+﻿@model Salao.Domain.Models.Endereco.Endereco
+
+<dt>
+    @Html.DisplayNameFor(model => model.Logradouro)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Logradouro)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Bairro.Descricao)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Bairro.Descricao)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Cidade.Descricao)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Cidade.Descricao)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Estado.UF)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Estado.UF)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Cep)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Cep)
+</dd>
+
+@Html.Partial("_Telefone", (Salao.Domain.Models.Endereco.EnderecoTelefone)Model.Telefone)
+
+@Html.Partial("_Email", (Salao.Domain.Models.Endereco.EnderecoEmail)Model.Email)
+
