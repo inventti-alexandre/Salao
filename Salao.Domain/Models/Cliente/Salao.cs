@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ namespace Salao.Domain.Models.Cliente
         [Required]
         [Range(0,999999999999,ErrorMessage="Selecione a empresa")]
         public int IdEmpresa { get; set; }
+
+        [Required]
+        [Range(0, 999999999999, ErrorMessage = "Endereço inválido")]
+        public int IdEndereco { get; set; }
 
         public string Fantasia { get; set; }
 
@@ -71,7 +76,13 @@ namespace Salao.Domain.Models.Cliente
         [Display(Name = "Alterado em")]
         public DateTime AlteradoEm { get; set; }
 
-        [Display(Name = "Alterado por")]
-        public int? AlteradoPor { get; set; }
+        [NotMapped]
+        public virtual Empresa Empresa
+        {
+            get
+            {
+                return new Service.Cliente.EmpresaService().Find(IdEmpresa);
+            }
+        }
     }
 }
