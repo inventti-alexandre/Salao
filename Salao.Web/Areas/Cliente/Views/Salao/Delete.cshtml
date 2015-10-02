@@ -36,11 +36,15 @@
             }
         </dd>
 
-        @Html.Partial("_Endereco", (Salao.Domain.Models.Endereco.Endereco)Model.Endereco))
+        @Html.Partial("_Endereco", (Salao.Domain.Models.Endereco.Endereco)Model.Endereco)
 
         <dt>
             @Html.DisplayNameFor(model => model.Aprovado)
         </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aprovado)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Contato)

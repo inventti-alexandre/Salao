@@ -1,10 +1,10 @@
-﻿@model Salao.Web.Areas.Cliente.Models.SalaoModel
+﻿@model Salao.Domain.Models.Cliente.CadastroSalao
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Salão";
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.EmpresaFantasia</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TipoPessoa, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TipoPessoa")
+                @Html.DropDownList("TipoPessoa", null, new { onChange = "exibirTipoPessoa();" })
             </div>
         </div>
 
@@ -167,9 +167,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Estado, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdEstado, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Estados")
+                @Html.DropDownList("IdEstado")
             </div>
         </div>
 

@@ -46,6 +46,8 @@ namespace Salao.Domain.Service.Cliente
                 idEndereco = gravarEndereco(cadastro);
                 idEmail = gravarEmail(cadastro, idEndereco);
                 idTelefone = gravarTelefone(cadastro, idEndereco);
+
+                // grava empresa
                 return gravarEmpresa(cadastro, idEndereco);
             }
             catch (Exception ex)
@@ -58,6 +60,63 @@ namespace Salao.Domain.Service.Cliente
 
             throw new ArgumentException("Não foi possível cadastrar esta empresa");
         }
+
+        public Empresa Excluir(int id)
+        {
+            return serviceEmpresa.Excluir(id);
+        }
+
+        public CadastroEmpresa Find(int id)
+        {
+            // apenas empresas que ainda possuem cadastro sujeito a aprovacao
+            var empresa = serviceEmpresa.Find(id);
+
+            if (empresa != null)
+            {
+                if (empresa.Aprovado == true || (empresa.Aprovado == false && empresa.AlteradoPor != 0))
+                {
+                    // esta empresa ja foi avalida
+                    throw new ArgumentException("Esta empresa já foi avalida anteriormente. Acesse o cadastro de empresas.");
+
+                }
+
+                var endereco = empresa.Endereco;
+                var telefone = endereco.Telefone;
+                var email = endereco.Email;
+
+                return new CadastroEmpresa
+                {
+                    Bairro = endereco.Bairro.Descricao,
+                    CadastradoPor = empresa.CadastradoPor,
+                    Cep = endereco.Cep,
+                    Cidade = endereco.Cidade.Descricao,
+                    Cnpj = empresa.Cnpj,
+                    Complemento = endereco.Complemento,
+                    Contato = empresa.Contato,
+                    Cortesia = empresa.Cortesia,
+                    Cpf = empresa.Cpf,
+                    DDD = telefone.DDD,
+                    Desconto = empresa.Desconto,
+                    DescontoCarencia = empresa.DescontoCarencia,
+                    Email = email.Email,
+                    Fantasia = empresa.Fantasia,
+                    Id = empresa.Id,
+                    IdEndereco = empresa.IdEndereco,
+                    IdEstado = endereco.IdEstado,
+                    Logradouro = endereco.Logradouro,
+                    Numero = endereco.Numero,
+                    Observ = empresa.Observ,
+                    RazaoSocial = empresa.RazaoSocial,
+                    Telefone = endereco.Telefone.Telefone,
+                    TipoEndereco = endereco.TipoEndereco.Id,
+                    TipoPessoa = empresa.TipoPessoa
+                };
+            }
+
+            return null;
+        }
+
+        #region [ privates ]
 
         private int gravarEmpresa(CadastroEmpresa cadastro, int idEndereco)
         {
@@ -140,60 +199,6 @@ namespace Salao.Domain.Service.Cliente
             return serviceEndereco.Gravar(endereco);
         }
 
-        public Empresa Excluir(int id)
-        {
-            return serviceEmpresa.Excluir(id);
-        }
-
-        public CadastroEmpresa Find(int id)
-        {
-            // apenas empresas que ainda possuem cadastro sujeito a aprovacao
-            var empresa = serviceEmpresa.Find(id);
-
-            if (empresa != null)
-            {
-                if (empresa.Aprovado == true || (empresa.Aprovado == false && empresa.AlteradoPor != 0))
-                {
-                    // esta empresa ja foi avalida
-                    throw new ArgumentException("Esta empresa já foi avalida anteriormente. Acesse o cadastro de empresas.");
-
-                }
-
-                var endereco = empresa.Endereco;
-                var telefone = endereco.Telefone;
-                var email = endereco.Email;
-
-                return new CadastroEmpresa
-                {
-                    Bairro = endereco.Bairro.Descricao,
-                    CadastradoPor = empresa.CadastradoPor,
-                    Cep = endereco.Cep,
-                    Cidade = endereco.Cidade.Descricao,
-                    Cnpj = empresa.Cnpj,
-                    Complemento = endereco.Complemento,
-                    Contato = empresa.Contato,
-                    Cortesia = empresa.Cortesia,
-                    Cpf = empresa.Cpf,
-                    DDD = telefone.DDD,
-                    Desconto = empresa.Desconto,
-                    DescontoCarencia = empresa.DescontoCarencia,
-                    Email = email.Email,
-                    Fantasia = empresa.Fantasia,
-                    Id = empresa.Id,
-                    IdEndereco = empresa.IdEndereco,
-                    IdEstado = endereco.IdEstado,
-                    Logradouro = endereco.Logradouro,
-                    Numero = endereco.Numero,
-                    Observ = empresa.Observ,
-                    RazaoSocial = empresa.RazaoSocial,
-                    Telefone = endereco.Telefone.Telefone,
-                    TipoEndereco = endereco.TipoEndereco.Id,
-                    TipoPessoa = empresa.TipoPessoa
-                };
-            }
-
-            return null;
-        }
-
+        #endregion
     }
 }

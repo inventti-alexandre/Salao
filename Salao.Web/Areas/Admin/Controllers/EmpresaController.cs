@@ -78,6 +78,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             {
                 cadastro.CadastradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 cadastro.Id = 0;
+                TryUpdateModel(cadastro);
 
                 if (ModelState.IsValid)
                 {

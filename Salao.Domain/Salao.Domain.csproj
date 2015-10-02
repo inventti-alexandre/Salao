@@ -74,10 +74,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\Admin\ICadastroEmpresa.cs" />
+    <Compile Include="Abstract\Cliente\ICadastroEmpresa.cs" />
     <Compile Include="Abstract\Admin\IGrupoPermissao.cs" />
     <Compile Include="Abstract\Admin\ILogin.cs" />
     <Compile Include="Abstract\Admin\IUsuarioGrupo.cs" />
+    <Compile Include="Abstract\Cliente\ICadastroSalao.cs" />
     <Compile Include="Abstract\Cliente\ICliUsuarioGrupo.cs" />
     <Compile Include="Abstract\Cliente\IGrupoPermissao.cs" />
     <Compile Include="Abstract\Cliente\ILogin.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Admin\UsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\CadastroEmpresa.cs" />
+    <Compile Include="Models\Cliente\CadastroSalao.cs" />
     <Compile Include="Models\Cliente\CliGrupo.cs" />
     <Compile Include="Models\Cliente\CliGrupoPermissao.cs" />
     <Compile Include="Models\Cliente\CliPermissao.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Service\Admin\UsuarioGrupoService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cliente\CadastroEmpresaService.cs" />
+    <Compile Include="Service\Cliente\CadastroSalaoService.cs" />
     <Compile Include="Service\Cliente\CliGrupoPermissaoService.cs" />
     <Compile Include="Service\Cliente\CliGrupoService.cs" />
     <Compile Include="Service\Cliente\CliPermissaoService.cs" />

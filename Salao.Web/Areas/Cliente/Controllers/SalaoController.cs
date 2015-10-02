@@ -1,27 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Salao.Domain.Abstract;
+﻿using Salao.Domain.Abstract;
 using Salao.Domain.Abstract.Cliente;
 using Salao.Domain.Models.Cliente;
 using Salao.Domain.Service.Cliente;
 using Salao.Domain.Service.Endereco;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
-using Salao.Web.Areas.Cliente.Models;
+using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Cliente.Controllers
 {
+    [Authorize]
     public class SalaoController : Controller
     {
         IBaseService<Salao.Domain.Models.Cliente.Salao> service;
         IBaseService<Empresa> serviceEmpresa;
+        ICadastroSalao cadastro;
 
         public SalaoController()
         {
             service = new Salao.Domain.Service.Cliente.SalaoService();
             serviceEmpresa = new EmpresaService();
+            cadastro = new Salao.Domain.Service.Cliente.CadastroSalaoService();
         }
 
         //
@@ -73,7 +74,7 @@ namespace Salao.Web.Areas.Cliente.Controllers
             // promocao padrao da empresa
             var promocao = new PromocaoService().Get();
 
-            var model = new SalaoModel();
+            var model = new CadastroSalao();
             model.Cortesia = true;
             model.Desconto = promocao.Desconto;
             model.DescontoCarencia = promocao.DescontoCarencia;
@@ -82,7 +83,8 @@ namespace Salao.Web.Areas.Cliente.Controllers
 
             ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
             ViewBag.TipoEndereco = GetTipoEndereco();
-            ViewBag.Estados = GetEstados();
+            ViewBag.IdEstado = GetEstados();
+            ViewBag.EmpresaFantasia = empresa.Fantasia ;
 
             return View(model);
         }
@@ -90,41 +92,92 @@ namespace Salao.Web.Areas.Cliente.Controllers
         //
         // POST: /Cliente/Salao/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CadastroSalao model)
         {
             try
             {
-                // TODO: Add insert logic here
+                model.AlteradoEm = DateTime.Now;
+                model.Aprovado = false;
+                model.Ativo = true;
+                model.CadastradoEm = DateTime.Now;
+                if (ModelState.IsValid)
+                {
+                    cadastro.Gravar(model);
+                    return RedirectToAction("Index", new { idEmpresa = model.IdEmpresa });    
+                }
 
-                return RedirectToAction("Index");
+                ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
+                ViewBag.TipoEndereco = GetTipoEndereco();
+                ViewBag.IdEstado = GetEstados();
+                ViewBag.EmpresaFantasia = new EmpresaService().Find(model.IdEmpresa);
+
+                return View(model);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
+                ViewBag.TipoEndereco = GetTipoEndereco();
+                ViewBag.IdEstado = GetEstados();
+                ViewBag.EmpresaFantasia = new EmpresaService().Find(model.IdEmpresa);
+
+                return View(model);
             }
         }
 
         //
         // GET: /Cliente/Salao/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var model = cadastro.Find((int)id);
+
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
+            ViewBag.TipoEndereco = GetTipoEndereco();
+            ViewBag.IdEstado = GetEstados();
+            ViewBag.EmpresaFantasia = new EmpresaService().Find(model.IdEmpresa).Fantasia;
+
+            return View(model);
         }
 
         //
         // POST: /Cliente/Salao/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(CadastroSalao model)
         {
             try
             {
-                // TODO: Add update logic here
+                model.AlteradoEm = DateTime.Now;
+                if (ModelState.IsValid)
+                {
+                    cadastro.Gravar(model);
+                    return RedirectToAction("Index", new { idEmpresa = model.IdEmpresa });
+                }
 
-                return RedirectToAction("Index");
+                ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
+                ViewBag.TipoEndereco = GetTipoEndereco();
+                ViewBag.IdEstado = GetEstados();
+                ViewBag.EmpresaFantasia = new EmpresaService().Find(model.IdEmpresa);
+
+                return View(model);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
+                ViewBag.TipoEndereco = GetTipoEndereco();
+                ViewBag.IdEstado = GetEstados();
+                ViewBag.EmpresaFantasia = new EmpresaService().Find(model.IdEmpresa);
+
+                return View(model);
             }
         }
 
