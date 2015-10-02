@@ -82,6 +82,7 @@
     <Compile Include="Abstract\Cliente\ICliUsuarioGrupo.cs" />
     <Compile Include="Abstract\Cliente\IGrupoPermissao.cs" />
     <Compile Include="Abstract\Cliente\ILogin.cs" />
+    <Compile Include="Abstract\Cliente\ISalaoFormaPgto.cs" />
     <Compile Include="Abstract\Endereco\IEndereco.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
     <Compile Include="Models\Admin\Area.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Models\Cliente\Empresa.cs" />
     <Compile Include="Models\Cliente\Promocao.cs" />
     <Compile Include="Models\Cliente\Salao.cs" />
+    <Compile Include="Models\Cliente\SalaoFormaPgto.cs" />
     <Compile Include="Models\Endereco\Endereco.cs" />
     <Compile Include="Models\Endereco\EnderecoBairro.cs" />
     <Compile Include="Models\Endereco\EnderecoCidade.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="Service\Cliente\CliUsuarioService.cs" />
     <Compile Include="Service\Cliente\EmpresaService.cs" />
     <Compile Include="Service\Cliente\PromocaoService.cs" />
+    <Compile Include="Service\Cliente\SalaoFormaPgtoService.cs" />
     <Compile Include="Service\Cliente\SalaoService.cs" />
     <Compile Include="Service\Endereco\BairroService.cs" />
     <Compile Include="Service\Endereco\CidadeService.cs" />

@@ -22,6 +22,7 @@ namespace Salao.Domain.Repository
             modelBuilder.Entity<CliUsuarioGrupo>().HasKey(x => new { x.IdUsuario, x.IdGrupo });
             modelBuilder.Entity<GrupoPermissao>().HasKey(x => new { x.IdGrupo, x.IdPermissao });
             modelBuilder.Entity<UsuarioGrupo>().HasKey(x => new { x.IdUsuario, x.IdGrupo });
+            modelBuilder.Entity<SalaoFormaPgto>().HasKey(x => new { x.IdFormaPgto, x.IdSalao });
         }
 
         // DbSets - admin - endereco
@@ -53,5 +54,6 @@ namespace Salao.Domain.Repository
         public DbSet<CliUsuarioGrupo> CliUsuarioGrupo { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
         public DbSet<Models.Cliente.Salao> Salao { get; set; }
+        public DbSet<SalaoFormaPgto> SalaoFormaPgto { get; set; }
     }
 }
