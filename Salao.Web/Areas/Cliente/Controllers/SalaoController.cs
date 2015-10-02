@@ -9,6 +9,7 @@ using Salao.Domain.Models.Cliente;
 using Salao.Domain.Service.Cliente;
 using Salao.Domain.Service.Endereco;
 using System.Net;
+using Salao.Web.Areas.Cliente.Models;
 
 namespace Salao.Web.Areas.Cliente.Controllers
 {
@@ -39,6 +40,7 @@ namespace Salao.Web.Areas.Cliente.Controllers
                 .OrderBy(x => x.Fantasia);
 
             ViewBag.Fantasia = empresa.Fantasia;
+            ViewBag.IdEmpresa = idEmpresa;
 
             return View(saloes);
         }
@@ -59,9 +61,30 @@ namespace Salao.Web.Areas.Cliente.Controllers
 
         //
         // GET: /Cliente/Salao/Create
-        public ActionResult Create()
+        public ActionResult Create(int idEmpresa)
         {
-            return View();
+            // empresa
+            var empresa = new EmpresaService().Find(idEmpresa);
+            if (empresa == null)
+	        {
+		        return HttpNotFound();
+        	}
+
+            // promocao padrao da empresa
+            var promocao = new PromocaoService().Get();
+
+            var model = new SalaoModel();
+            model.Cortesia = true;
+            model.Desconto = promocao.Desconto;
+            model.DescontoCarencia = promocao.DescontoCarencia;
+            model.TipoPessoa = empresa.TipoPessoa;
+            model.IdEmpresa = idEmpresa;
+
+            ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
+            ViewBag.TipoEndereco = GetTipoEndereco();
+            ViewBag.Estados = GetEstados();
+
+            return View(model);
         }
 
         //
@@ -127,18 +150,63 @@ namespace Salao.Web.Areas.Cliente.Controllers
         //
         // POST: /Cliente/Salao/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, int idEmpresa)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                service.Excluir(id);
+                return RedirectToAction("Index", new { idEmpresa = idEmpresa });
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                var salao = service.Find(id);
+                if (salao == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(salao);
             }
         }
+
+        #region [ Privates ]
+
+        private List<SelectListItem> GetTipoPessoa(int tipo = 1)
+        {
+            var tipos = new List<SelectListItem>();
+            tipos.Add(new SelectListItem { Text = "FÍSICA", Value = "1", Selected = (tipo == 1) });
+            tipos.Add(new SelectListItem { Text = "JURÍDICA", Value = "2", Selected = (tipo == 2) });
+            return tipos;
+        }
+
+        private List<SelectListItem> GetTipoEndereco(int id = 0)
+        {
+            var tipos = new TipoEnderecoService().Listar()
+                .Where(x => x.Ativo == true).OrderBy(x => x.Descricao);
+
+            var lista = new List<SelectListItem>();
+            foreach (var item in tipos)
+            {
+                lista.Add(new SelectListItem { Text = item.Descricao, Value = item.Id.ToString(), Selected = (item.Id == id) });
+            }
+
+            return lista;
+        }
+
+        private List<SelectListItem> GetEstados(int id = 0)
+        {
+            var estados = new EstadoService().Listar()
+                .Where(x => x.Ativo == true)
+                .OrderBy(x => x.UF);
+
+            var lista = new List<SelectListItem>();
+            foreach (var item in estados)
+            {
+                lista.Add(new SelectListItem { Text = item.UF, Value = item.Id.ToString(), Selected = (item.Id == id) });
+            }
+            return lista;
+        }
+
+        #endregion
     }
 }

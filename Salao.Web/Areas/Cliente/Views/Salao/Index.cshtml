@@ -7,7 +7,7 @@
 <h2 class="lead">@ViewBag.Fantasia - Salões</h2>
 
 <p>
-    @Html.ActionLink("Novo salão", "Create")
+    @Html.ActionLink("Novo salão", "Create", new { idEmpresa = @ViewBag.IdEmpresa })
 </p>
 <table class="table">
     <tr>

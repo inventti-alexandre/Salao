@@ -146,7 +146,8 @@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
+        @Html.HiddenFor(model => model.IdEmpresa)
+        
         <div class="form-actions no-color">
             <input type="submit" value="Excluir" class="btn btn-danger" /> |
             @Html.ActionLink("Voltar", "Index", new { idEmpresa = Model.IdEmpresa })
