@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Salao.Web.Areas.Cliente.Models.SalaoFormaPgtoModel>
+
+@{
+    ViewBag.Title = "Formas de pagamento";
+}
+
+<h2>Formas de pagamento</h2>
+
+<div class="text-info">
+    <h3>@ViewBag.Fantasia</h3>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("IdSalao", (object)@ViewBag.IdSalao)
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Selecionado)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+	    {
+		    <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FomaPgto)
+                </td>
+                <td>
+                    <input type="checkbox" name="selecionado" id="selecionado" checked="@item.Selecionado" />
+                </td>
+            </tr>
+	    }
+    </table>
+
+    <div class="form-group">
+        <input type="submit" value="Gravar" class="btn btn-primary">
+        @Html.ActionLink("Voltar", "Index", "SalaoFormaPgto", null, { idEmpresa = ViewBag.IdEmpresa })
+    </div>}

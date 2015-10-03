@@ -67,9 +67,14 @@
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) |
+            @Html.ActionLink("Forma de pagamento", "Index", SalaoFormaPgto, new { id=item.Id; })
         </td>
     </tr>
 }
 
 </table>
+
+<div class="form-group">
+    @Html.ActionLink("Voltar", "Index", "Empresa", new { Area = "Admin" }, new { fantasia = @ViewBag.Fantasia, @class = "btn btn-primary" })
+</div>

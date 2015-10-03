@@ -50,7 +50,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/TipoEndereco/Create
         public ActionResult Create()
         {
-            return View(new EnderecoTipoEndereco { Ativo = true });
+            return View(new EnderecoTipoEndereco());
         }
 
         //

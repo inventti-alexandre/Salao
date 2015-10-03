@@ -115,8 +115,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Salao\" />
-    <Folder Include="Areas\Cliente\Models\" />
-    <Folder Include="Areas\Cliente\Views\SalaoFormaPgto\" />
     <Folder Include="Models\" />
     <Folder Include="Views\PreContato\" />
   </ItemGroup>
@@ -154,7 +152,9 @@
     <Compile Include="Areas\Cliente\Controllers\ICadastroSalao.cs" />
     <Compile Include="Areas\Cliente\Controllers\SalaoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\SalaoFormaPgtoController.cs" />
+    <Compile Include="Areas\Cliente\Controllers\SalaoFormaPgtoService.cs" />
     <Compile Include="Areas\Cliente\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\Cliente\Models\SalaoFormaPgtoModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -262,6 +262,7 @@
     <Content Include="Areas\Cliente\Views\Salao\Delete.cshtml" />
     <Content Include="Areas\Cliente\Views\Salao\Create.cshtml" />
     <Content Include="Areas\Cliente\Views\Salao\Edit.cshtml" />
+    <Content Include="Areas\Cliente\Views\SalaoFormaPgto\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

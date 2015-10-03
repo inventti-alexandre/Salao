@@ -44,7 +44,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             // grupos disponiveis
             var grupos = serviceGrupo.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
 
-            // lista retorn
+            // lista retorno
             var gruposUsuario = new List<GruposUsuario>();
             foreach (var item in grupos)
             {

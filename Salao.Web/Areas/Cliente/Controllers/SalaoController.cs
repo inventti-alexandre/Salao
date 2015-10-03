@@ -172,6 +172,7 @@ namespace Salao.Web.Areas.Cliente.Controllers
             }
             catch (ArgumentException e)
             {
+                ModelState.AddModelError(string.Empty, e.Message);
                 ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
                 ViewBag.TipoEndereco = GetTipoEndereco();
                 ViewBag.IdEstado = GetEstados();
