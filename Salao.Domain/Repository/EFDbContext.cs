@@ -56,5 +56,6 @@ namespace Salao.Domain.Repository
         public DbSet<Profissional> Profissional { get; set; }
         public DbSet<Models.Cliente.Salao> Salao { get; set; }
         public DbSet<SalaoFormaPgto> SalaoFormaPgto { get; set; }
+        public DbSet<Servico> Servico { get; set; }
     }
 }

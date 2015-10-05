@@ -21,7 +21,7 @@ namespace Salao.Domain.Models.Cliente
         public string RazaoSocial { get; set; }
 
         [Required]
-        [Range(1,999999999,ErrorMessage="Endereço inválido")]
+        [Range(1, int.MaxValue,ErrorMessage="Endereço inválido")]
         [HiddenInput(DisplayValue=false)]
         public int IdEndereco { get; set; }
 

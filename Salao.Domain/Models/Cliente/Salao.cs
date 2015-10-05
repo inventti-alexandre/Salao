@@ -15,11 +15,11 @@ namespace Salao.Domain.Models.Cliente
         public int Id { get; set; }
 
         [Required]
-        [Range(0,999999999999,ErrorMessage="Selecione a empresa")]
+        [Range(0, int.MaxValue,ErrorMessage="Selecione a empresa")]
         public int IdEmpresa { get; set; }
 
         [Required]
-        [Range(0, 999999999999, ErrorMessage = "Endereço inválido")]
+        [Range(0, int.MaxValue, ErrorMessage = "Endereço inválido")]
         public int IdEndereco { get; set; }
 
         public string Fantasia { get; set; }

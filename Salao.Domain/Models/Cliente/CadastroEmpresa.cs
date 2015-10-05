@@ -66,7 +66,7 @@ namespace Salao.Domain.Models.Cliente
 
         [Required]
         [Display(Name = "Estado")]
-        [Range(1,99999,ErrorMessage="Selecione o Estado")]
+        [Range(1,int.MaxValue,ErrorMessage="Selecione o Estado")]
         public int IdEstado { get; set; }
 
         [Required(ErrorMessage = "Informe o nome para contato na empresa")]

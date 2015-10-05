@@ -18,7 +18,7 @@ namespace Salao.Domain.Models.Admin
         public bool Ativo { get; set; }
 
         [HiddenInput(DisplayValue=false)]
-        [Range(1,9999999999, ErrorMessage="Selecione a área do serviço")]
+        [Range(1,int.MaxValue, ErrorMessage="Selecione a área do serviço")]
         public int IdArea { get; set; }
 
         [Required]

@@ -62,7 +62,7 @@ namespace Salao.Domain.Models.Cliente
         public int IdEndereco { get; set; }
 
         [Required(ErrorMessage = "Selecione o tipo de endereço")]
-        [Range(0, 9999999999, ErrorMessage = "Selecione o tipo de endereço")]
+        [Range(0, int.MaxValue, ErrorMessage = "Selecione o tipo de endereço")]
         [Display(Name = "Tipo endereço")]
         public int TipoEndereco { get; set; }
 
@@ -94,7 +94,7 @@ namespace Salao.Domain.Models.Cliente
 
         [Required]
         [Display(Name = "Estado")]
-        [Range(1, 9999, ErrorMessage = "Selecione o Estado")]
+        [Range(1, int.MaxValue, ErrorMessage = "Selecione o Estado")]
         public int IdEstado { get; set; }
 
         [Required(ErrorMessage = "Informe o email")]

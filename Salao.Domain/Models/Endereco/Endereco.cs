@@ -32,22 +32,22 @@ namespace Salao.Domain.Models.Endereco
         public bool Ativo { get; set; }
 
         [Required(ErrorMessage = "Selecione o bairro")]
-        [Range(0,9999999999,ErrorMessage="Selecione o bairro")]
+        [Range(0,int.MaxValue,ErrorMessage="Selecione o bairro")]
         [HiddenInput(DisplayValue=false)]
         public int IdBairro { get; set; }
 
         [Required(ErrorMessage = "Selecione a cidade")]
-        [Range(0, 9999999999, ErrorMessage = "Selecione a cidade")]
+        [Range(0, int.MaxValue, ErrorMessage = "Selecione a cidade")]
         [HiddenInput(DisplayValue = false)]
         public int IdCidade { get; set; }
 
         [Required(ErrorMessage = "Selecione o Estado")]
-        [Range(0, 9999999999, ErrorMessage = "Selecione o Estado")]
+        [Range(0, int.MaxValue, ErrorMessage = "Selecione o Estado")]
         [HiddenInput(DisplayValue = false)]
         public int IdEstado { get; set; }
 
         [Required(ErrorMessage="Selecione o tipo de endereço")]
-        [Range(0, 9999999999, ErrorMessage = "Selecione o tipo de endereço")]
+        [Range(0, int.MaxValue, ErrorMessage = "Selecione o tipo de endereço")]
         [HiddenInput(DisplayValue = false)]
         [Display(Name="Tipo endereço")]
         public int IdTipoEndereco { get; set; }
