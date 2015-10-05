@@ -82,6 +82,7 @@
     <Compile Include="Abstract\Cliente\ICliUsuarioGrupo.cs" />
     <Compile Include="Abstract\Cliente\IGrupoPermissao.cs" />
     <Compile Include="Abstract\Cliente\ILogin.cs" />
+    <Compile Include="Abstract\Cliente\IProfissionalServico.cs" />
     <Compile Include="Abstract\Cliente\ISalaoFormaPgto.cs" />
     <Compile Include="Abstract\Endereco\IEndereco.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Models\Cliente\CliUsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\Empresa.cs" />
     <Compile Include="Models\Cliente\Profissional.cs" />
+    <Compile Include="Models\Cliente\ProfissionalServico.cs" />
     <Compile Include="Models\Cliente\Promocao.cs" />
     <Compile Include="Models\Cliente\Salao.cs" />
     <Compile Include="Models\Cliente\SalaoFormaPgto.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="Service\Cliente\CliUsuarioService.cs" />
     <Compile Include="Service\Cliente\EmpresaService.cs" />
     <Compile Include="Service\Cliente\ProfissionalService.cs" />
+    <Compile Include="Service\Cliente\ProfissionalServicoService.cs" />
     <Compile Include="Service\Cliente\PromocaoService.cs" />
     <Compile Include="Service\Cliente\SalaoFormaPgtoService.cs" />
     <Compile Include="Service\Cliente\SalaoService.cs" />
