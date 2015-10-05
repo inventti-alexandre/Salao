@@ -29,7 +29,7 @@ namespace Salao.Web.Tests.Cliente
                 IdSubArea = 1,
                 Preco = 80M,
                 PrecoSemDesconto = 100M,
-                Tempo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 40, 0)
+                Tempo = new TimeSpan(0, 40, 0)
             };
 
             // Act

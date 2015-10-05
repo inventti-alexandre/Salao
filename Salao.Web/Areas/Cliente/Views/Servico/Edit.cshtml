@@ -4,16 +4,17 @@
     ViewBag.Title = "Serviço";
 }
 
-<h2>@Model.Salao.Fantasia - Novo serviço</h2>
+<h2>@Model.Salao.Fantasia - Alteração de serviço</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => Model.IdSalao)
     
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IdSalao)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Area, new { @class = "control-label col-md-2" })
@@ -32,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Descricao, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Descricao, new { @placeholder = "teste" })
+                @Html.EditorFor(model => model.Descricao)
                 @Html.ValidationMessageFor(model => model.Descricao)
             </div>
         </div>
@@ -70,8 +71,16 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Ativo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ativo)
+                @Html.ValidationMessageFor(model => model.Ativo)
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Incluir" class="btn btn-primary" />
+                <input type="submit" value="Gravar" class="btn btn-primary" />
             </div>
         </div>
     </div>

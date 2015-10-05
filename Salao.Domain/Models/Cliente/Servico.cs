@@ -25,7 +25,7 @@ namespace Salao.Domain.Models.Cliente
         public int IdSalao { get; set; }
 
         [Required(ErrorMessage="Informe a descrição do serviço")]
-        [Display(Name="Descrição")]
+        [Display(Name="Descrição", Prompt="Descrição do serviço/tratamento")]
         [StringLength(60, ErrorMessage="Máximo de 60 caracteres")]
         public string Descricao { get; set; }
 
@@ -35,14 +35,18 @@ namespace Salao.Domain.Models.Cliente
 
         [Required(ErrorMessage="Informe o tempo para realização do serviço")]
         [Display(Name="Duração do serviço")]
-        public DateTime? Tempo { get; set; }
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        public TimeSpan? Tempo { get; set; }
 
         [Required(ErrorMessage="Informe o preço sem desconto")]
         [Display(Name="Preço sem desconto")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal PrecoSemDesconto { get; set; }
 
         [Required(ErrorMessage="Informe o preço final de venda")]
         [Display(Name="Preço final de venda")]
+        [DisplayFormat(DataFormatString="{0:c}")]
         public decimal Preco { get; set; }
 
         [Required]

@@ -27,12 +27,6 @@ namespace Salao.Domain.Service.Cliente
             item.Descricao = item.Descricao.ToUpper().Trim();
 
             // valida
-            var agora = DateTime.Now;
-            if (item.Tempo > new DateTime(agora.Year, agora.Month, agora.Day, 12,0,0))
-            {
-                throw new ArgumentException("Tempo de duração do serviço inválido");
-            }
-
             if (repository.Listar().Where(x => x.IdSalao == item.IdSalao && x.IdSubArea == item.IdSubArea && x.Descricao == item.Descricao && x.Id != item.Id).Count()> 0)
             {
                 throw new ArgumentException("Já existe um serviço cadastrado com esta descrição");

@@ -49,6 +49,8 @@ namespace Salao.Web.Areas.Cliente.Controllers
 
             ViewBag.IdSalao = idSalao;
             ViewBag.Fantasia = salao.Fantasia;
+            ViewBag.IdEmpresa = salao.IdEmpresa;
+
             return View(servicos);
         }
 
@@ -119,25 +121,54 @@ namespace Salao.Web.Areas.Cliente.Controllers
 
         //
         // GET: /Cliente/Servico/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return HttpNotFound();    
+            }
+
+            var servico = service.Find((int)id);
+
+            if (servico == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ViewBag.Areas = GetAreas(servico.Area.Id);
+            ViewBag.SubAreas = GetSubAreas(servico.Area.Id, servico.IdSubArea);
+
+            return View(servico);
         }
 
         //
         // POST: /Cliente/Servico/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include = "Id,IdSalao,Descricao,Detalhe,Tempo,PrecoSemDesconto,Preco")] Servico servico, int Areas, int SubAreas)
         {
             try
             {
-                // TODO: Add update logic here
+                servico.AlteradoEm = DateTime.Now;
+                servico.IdSubArea = SubAreas;
+                TryUpdateModel(servico);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(servico);
+                    return RedirectToAction("Index", new { idSalao = servico.IdSalao });
+                }
+
+                ViewBag.Areas = GetAreas(servico.Area.Id);
+                ViewBag.SubAreas = GetSubAreas(servico.Area.Id, servico.IdSubArea);
+
+                return View(servico);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                ViewBag.Areas = GetAreas(servico.Area.Id);
+                ViewBag.SubAreas = GetSubAreas(servico.Area.Id, servico.IdSubArea);
+                return View(servico);
             }
         }
 
