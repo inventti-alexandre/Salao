@@ -1,10 +1,11 @@
 ﻿using Salao.Domain.Abstract.Cliente;
 using Salao.Domain.Repository;
 using System.Linq;
+using System;
 
 namespace Salao.Domain.Service.Cliente
 {
-    class SalaoFormaPgtoService: ISalaoFormaPgto
+    public class SalaoFormaPgtoService: ISalaoFormaPgto
     {
         private EFDbContext db = new EFDbContext();
 
@@ -40,7 +41,7 @@ namespace Salao.Domain.Service.Cliente
             {
                 foreach (var item in idFormaPgto)
                 {
-                    db.SalaoFormaPgto.Add(new Models.Cliente.SalaoFormaPgto { IdSalao = idSalao, IdFormaPgto = item, Ativo = true });
+                    db.SalaoFormaPgto.Add(new Models.Cliente.SalaoFormaPgto { IdSalao = idSalao, IdFormaPgto = item, Ativo = true, AlteradoEm = DateTime.Now });
                     db.SaveChanges();
                 }
             }

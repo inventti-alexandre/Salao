@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Salao.Domain.Service.Cliente;
 
 namespace Salao.Web.Areas.Cliente.Controllers
 {
@@ -52,13 +53,12 @@ namespace Salao.Web.Areas.Cliente.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(int[] selecionado, int idSalao)
+        public ActionResult Index(int[] selecionado, int idSalao, int IdEmpresa)
         {
             // grava formas de pagamento do salao
             service.Gravar(idSalao, selecionado);
 
-            return View(idSalao);
+            return RedirectToAction("Index", "Salao", new { idEmpresa = IdEmpresa });
         }
     }
 }

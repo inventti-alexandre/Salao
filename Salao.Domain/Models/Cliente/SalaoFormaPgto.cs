@@ -12,5 +12,7 @@ namespace Salao.Domain.Models.Cliente
         public int IdFormaPgto { get; set; }
 
         public bool Ativo { get; set; }
+
+        public DateTime AlteradoEm { get; set; }
     }
 }

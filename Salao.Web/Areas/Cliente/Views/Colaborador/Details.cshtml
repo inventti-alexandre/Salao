@@ -1,0 +1,65 @@
+﻿@model Salao.Domain.Models.Cliente.Profissional
+
+@{
+    ViewBag.Title = "Colaborador";
+}
+
+<h2>Colaborador - @Model.Salao.Fantasia</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoEm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empresa.Fantasia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index", new { idSalao = Model.IdSalao })
+</p>

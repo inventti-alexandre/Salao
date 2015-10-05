@@ -21,18 +21,6 @@
             @Html.DisplayNameFor(model => model.Contato)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cortesia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CadastradoEm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Aprovado)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Exibir)
         </th>
         <th></th>
@@ -50,25 +38,11 @@
             @Html.DisplayFor(modelItem => item.Contato)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cortesia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CadastradoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Aprovado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Exibir)
-        </td>
-        <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Forma de pagamento", "Index", SalaoFormaPgto, new { id=item.Id; })
+            @Html.ActionLink("Forma de pagamento", "Index", "SalaoFormaPgto", new { id=item.Id }, null) |
+            @Html.ActionLink("Colaboradores", "Index", "Colaborador", new { idSalao = item.Id}, null)
         </td>
     </tr>
 }

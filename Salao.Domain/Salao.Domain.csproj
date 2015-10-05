@@ -103,6 +103,7 @@
     <Compile Include="Models\Cliente\CliUsuario.cs" />
     <Compile Include="Models\Cliente\CliUsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\Empresa.cs" />
+    <Compile Include="Models\Cliente\Profissional.cs" />
     <Compile Include="Models\Cliente\Promocao.cs" />
     <Compile Include="Models\Cliente\Salao.cs" />
     <Compile Include="Models\Cliente\SalaoFormaPgto.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Service\Cliente\CliUsuarioGrupoService.cs" />
     <Compile Include="Service\Cliente\CliUsuarioService.cs" />
     <Compile Include="Service\Cliente\EmpresaService.cs" />
+    <Compile Include="Service\Cliente\ProfissionalService.cs" />
     <Compile Include="Service\Cliente\PromocaoService.cs" />
     <Compile Include="Service\Cliente\SalaoFormaPgtoService.cs" />
     <Compile Include="Service\Cliente\SalaoService.cs" />

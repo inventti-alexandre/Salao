@@ -13,11 +13,12 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("IdSalao", (object)@ViewBag.IdSalao)
+    @Html.Hidden("IdSalao", (int)@ViewBag.IdSalao)
+    @Html.Hidden("IdEmpresa", (int)@ViewBag.IdEmpresa)
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Descricao)
+                @Html.DisplayNameFor(model => model.FomaPgto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Selecionado)
@@ -31,7 +32,7 @@
                     @Html.DisplayFor(modelItem => item.FomaPgto)
                 </td>
                 <td>
-                    <input type="checkbox" name="selecionado" id="selecionado" checked="@item.Selecionado" />
+                    <input type="checkbox" value="@item.IdFormaPgto" name="selecionado" id="selecionado" checked="@item.Selecionado" />
                 </td>
             </tr>
 	    }
@@ -39,5 +40,6 @@
 
     <div class="form-group">
         <input type="submit" value="Gravar" class="btn btn-primary">
-        @Html.ActionLink("Voltar", "Index", "SalaoFormaPgto", null, { idEmpresa = ViewBag.IdEmpresa })
-    </div>}
+        @Html.ActionLink("Voltar", "Index", "Salao", new { idEmpresa = ViewBag.IdEmpresa }, null)
+    </div>
+}

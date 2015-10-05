@@ -132,17 +132,17 @@ namespace Salao.Domain.Service.Cliente
             empresa.AlteradoEm = DateTime.Now;
             empresa.CadastradoEm = DateTime.Now;
             empresa.CadastradoPor = cadastro.CadastradoPor;
-            empresa.Cnpj = "" + cadastro.Cnpj;
-            empresa.Contato = "" + cadastro.Contato;
-            empresa.Cpf = "" + cadastro.Cpf;
+            empresa.Cnpj = cadastro.Cnpj ?? "";
+            empresa.Contato = cadastro.Contato ?? "";
+            empresa.Cpf = cadastro.Cpf ?? "";
             empresa.Cortesia = cadastro.Cortesia;
             empresa.Desconto = cadastro.Desconto;
             empresa.DescontoCarencia = cadastro.DescontoCarencia;
             empresa.Id = cadastro.Id;
             empresa.IdEndereco = idEndereco;
-            empresa.Observ = "" + cadastro.Observ;
-            empresa.Fantasia = "" + cadastro.Fantasia;
-            empresa.RazaoSocial = "" + cadastro.RazaoSocial;
+            empresa.Observ = cadastro.Observ ?? "";
+            empresa.Fantasia = cadastro.Fantasia ?? "";
+            empresa.RazaoSocial = cadastro.RazaoSocial ?? "";
             empresa.TipoPessoa = cadastro.TipoPessoa;
 
             return serviceEmpresa.Gravar(empresa);
