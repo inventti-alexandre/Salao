@@ -164,5 +164,20 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return View(subArea);
             }
         }
+        //
+        // GET: /Admin/SubArea/GetSubAreas
+        public JsonResult GetSubAreas(int idArea)
+        {
+            if (HttpContext.Request.IsAjaxRequest())
+            {
+                IQueryable subs = service.Listar()
+                    .Where(x => x.IdArea == idArea)
+                    .OrderBy(x => x.Descricao);
+
+                return Json(new SelectList(subs, "Id", "Descricao"), JsonRequestBehavior.AllowGet);
+            }
+
+            return null;
+        }
     }
 }

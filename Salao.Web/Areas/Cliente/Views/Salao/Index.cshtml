@@ -42,7 +42,8 @@
             @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) |
             @Html.ActionLink("Forma de pagamento", "Index", "SalaoFormaPgto", new { id=item.Id }, null) |
-            @Html.ActionLink("Colaboradores", "Index", "Colaborador", new { idSalao = item.Id}, null)
+            @Html.ActionLink("Colaboradores", "Index", "Colaborador", new { idSalao = item.Id}, null) |
+            @Html.ActionLink("Serviços", "Index", "Servico", new { idSalao = item.Id }, null )
         </td>
     </tr>
 }

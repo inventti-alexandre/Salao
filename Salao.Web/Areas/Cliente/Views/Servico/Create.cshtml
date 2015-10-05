@@ -1,0 +1,99 @@
+﻿@model Salao.Domain.Models.Cliente.Servico
+
+@{
+    ViewBag.Title = "Serviço";
+}
+
+<h2>@Model.Salao.Fantasia - Novo serviço</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => Model.IdSalao)
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Area, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Areas")
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdSubArea, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SubAreas")
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descricao)
+                @Html.ValidationMessageFor(model => model.Descricao)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Detalhe, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Detalhe)
+                @Html.ValidationMessageFor(model => model.Detalhe)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tempo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tempo)
+                @Html.ValidationMessageFor(model => model.Tempo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrecoSemDesconto, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PrecoSemDesconto)
+                @Html.ValidationMessageFor(model => model.PrecoSemDesconto)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Preco, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Preco)
+                @Html.ValidationMessageFor(model => model.Preco)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Incluir" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index", new { idSalao = @Model.IdSalao })
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        $("#Areas").change(function () {
+            $.getJSON("/Admin/SubArea/GetSubAreas/" + $("#Areas > option:selected").attr("value"), function (data) {
+                var itens = "<select id='subArea' name='subArea'>";
+                $.each(data, function (i, subArea) {
+                    itens += "<option value='" + subArea.Value + "'>" + subArea.Text + "</option>";
+                });
+                itens += "</select>";
+                $("#SubAreas").html(itens);
+            });
+        });
+    });
+</script>

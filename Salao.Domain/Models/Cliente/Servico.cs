@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Salao.Domain.Models.Admin;
+using Salao.Domain.Service.Admin;
+using Salao.Domain.Service.Cliente;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace Salao.Domain.Models.Cliente
@@ -12,6 +16,7 @@ namespace Salao.Domain.Models.Cliente
         [Required]
         [HiddenInput]
         [Range(1,int.MaxValue, ErrorMessage="Selecione a sub área")]
+        [Display(Name="Sub área")]
         public int IdSubArea { get; set; }
 
         [Required]
@@ -30,7 +35,7 @@ namespace Salao.Domain.Models.Cliente
 
         [Required(ErrorMessage="Informe o tempo para realização do serviço")]
         [Display(Name="Duração do serviço")]
-        public DateTime Tempo { get; set; }
+        public DateTime? Tempo { get; set; }
 
         [Required(ErrorMessage="Informe o preço sem desconto")]
         [Display(Name="Preço sem desconto")]
@@ -45,5 +50,35 @@ namespace Salao.Domain.Models.Cliente
         public DateTime AlteradoEm { get; set; }
 
         public bool Ativo { get; set; }
+
+        [NotMapped]
+        [Display(Name="Sub área")]
+        public virtual SubArea SubArea
+        {
+            get
+            {
+                return new SubAreaService().Find(IdSubArea);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Área")]
+        public virtual Area Area
+        {
+            get
+            {
+                return new AreaService().Find(SubArea.IdArea);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Salão")]
+        public virtual Salao Salao
+        {
+            get
+            {
+                return new SalaoService().Find(IdSalao);
+            }
+        }
     }
 }

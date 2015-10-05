@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Salao.Domain.Models.Cliente.Servico>
+
+@{
+    ViewBag.Title = "Serviços";
+}
+
+<h2>@ViewBag.Fantasia - Serviços</h2>
+
+<p>
+    @Html.ActionLink("Novo serviço", "Create", new { idSalao = @ViewBag.IdSalao })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tempo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrecoSemDesconto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubArea.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tempo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrecoSemDesconto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Preco)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

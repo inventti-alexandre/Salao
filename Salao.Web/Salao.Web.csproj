@@ -154,6 +154,7 @@
     <Compile Include="Areas\Cliente\Controllers\ICadastroSalao.cs" />
     <Compile Include="Areas\Cliente\Controllers\SalaoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\SalaoFormaPgtoController.cs" />
+    <Compile Include="Areas\Cliente\Controllers\ServicoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Cliente\Models\SalaoFormaPgtoModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -270,6 +271,10 @@
     <Content Include="Areas\Cliente\Views\Colaborador\Create.cshtml" />
     <Content Include="Areas\Cliente\Views\Colaborador\Edit.cshtml" />
     <Content Include="Areas\Cliente\Views\Colaborador\Delete.cshtml" />
+    <Content Include="Areas\Cliente\Views\Servico\Index.cshtml" />
+    <Content Include="Areas\Cliente\Views\Servico\Details.cshtml" />
+    <Content Include="Areas\Cliente\Views\Servico\Delete.cshtml" />
+    <Content Include="Areas\Cliente\Views\Servico\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
