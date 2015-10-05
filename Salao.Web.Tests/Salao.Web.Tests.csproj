@@ -101,6 +101,7 @@
     <Compile Include="Cliente\SalaoUnitTest.cs" />
     <Compile Include="Cliente\ProfissionalUnitTest.cs" />
     <Compile Include="Cliente\ServicoUnitTest.cs" />
+    <Compile Include="Cliente\ProfissionalServicoUnitTest.cs" />
     <Compile Include="Endereco\TipoEnderecoUnitTest.cs" />
     <Compile Include="Endereco\EstadoUnitTest.cs" />
     <Compile Include="Endereco\CidadeUnitTest.cs" />
