@@ -151,11 +151,13 @@
     <Compile Include="Areas\Admin\Models\PermissoesGrupo.cs" />
     <Compile Include="Areas\Cliente\ClienteAreaRegistration.cs" />
     <Compile Include="Areas\Cliente\Controllers\ColaboradorController.cs" />
+    <Compile Include="Areas\Cliente\Controllers\ColaboradorServicoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\ICadastroSalao.cs" />
     <Compile Include="Areas\Cliente\Controllers\SalaoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\SalaoFormaPgtoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\ServicoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\Cliente\Models\ProfissionalServicoModel.cs" />
     <Compile Include="Areas\Cliente\Models\SalaoFormaPgtoModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
@@ -276,6 +278,7 @@
     <Content Include="Areas\Cliente\Views\Servico\Delete.cshtml" />
     <Content Include="Areas\Cliente\Views\Servico\Create.cshtml" />
     <Content Include="Areas\Cliente\Views\Servico\Edit.cshtml" />
+    <Content Include="Areas\Cliente\Views\ColaboradorServico\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
