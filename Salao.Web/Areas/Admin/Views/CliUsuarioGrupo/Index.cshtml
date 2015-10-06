@@ -14,6 +14,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("idUsuario", (object)@ViewBag.IdUsuario)
+    @Html.Hidden("idEmpresa", (object)@ViewBag.IdEmpresa)
                                                          
     <table class="table">
         <tr>
@@ -40,6 +41,6 @@
     
     <div class="form-group">
         <input type="submit" value="Gravar" class="btn btn-primary" />
-        @Html.ActionLink("Voltar", "Index", "Usuario", null, new { Area = "Cliente", @class = "btn btn-primary" })
+        @Html.ActionLink("Voltar", "Index", "UsuarioCliente", new { idEmpresa = @ViewBag.IdEmpresa }, new { @class = "btn btn-primary" })
     </div>
 }

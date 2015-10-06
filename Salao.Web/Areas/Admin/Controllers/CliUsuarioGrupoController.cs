@@ -58,17 +58,18 @@ namespace Salao.Web.Areas.Admin.Controllers
 
             ViewBag.IdUsuario = id;
             ViewBag.NomeUsuario = usuario.Nome;
+            ViewBag.IdEmpresa = usuario.IdEmpresa;
 
             return View(gruposUsuario);
         }
 
         [HttpPost]
-        public ActionResult Index(int[] selecionado, int idUsuario)
+        public ActionResult Index(int[] selecionado, int idUsuario, int idEmpresa)
         {
             // grava grupos do usuario
             service.Gravar(idUsuario, selecionado);
 
-            return RedirectToAction("Index", "CliUsuario");
+            return RedirectToAction("Index", "UsuarioCliente", new { idEmpresa = idEmpresa });
         }
     }
 }
