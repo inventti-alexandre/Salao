@@ -152,7 +152,6 @@
     <Compile Include="Areas\Cliente\ClienteAreaRegistration.cs" />
     <Compile Include="Areas\Cliente\Controllers\ColaboradorController.cs" />
     <Compile Include="Areas\Cliente\Controllers\ColaboradorServicoController.cs" />
-    <Compile Include="Areas\Cliente\Controllers\ICadastroSalao.cs" />
     <Compile Include="Areas\Cliente\Controllers\SalaoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\SalaoFormaPgtoController.cs" />
     <Compile Include="Areas\Cliente\Controllers\ServicoController.cs" />
