@@ -1,16 +1,14 @@
 ﻿using Salao.Domain.Abstract;
+using Salao.Domain.Abstract.Cliente;
 using Salao.Domain.Models.Cliente;
 using Salao.Domain.Service.Cliente;
-using System;
+using Salao.Web.Areas.Admin.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using System.Net;
-using Salao.Web.Areas.Cliente.Models;
-using Salao.Domain.Abstract.Cliente;
+using System.Web.Mvc;
 
-namespace Salao.Web.Areas.Cliente.Controllers
+namespace Salao.Web.Areas.Admin.Controllers
 {
     public class ColaboradorServicoController : Controller
     {

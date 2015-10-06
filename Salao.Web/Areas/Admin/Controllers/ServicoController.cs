@@ -9,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
-namespace Salao.Web.Areas.Cliente.Controllers
+namespace Salao.Web.Areas.Admin.Controllers
 {
     [Authorize]
     public class ServicoController : Controller

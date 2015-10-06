@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Salao.Web.Areas.Cliente
+namespace Salao.Web.Areas.Admin
 {
     public class ClienteAreaRegistration : AreaRegistration 
     {

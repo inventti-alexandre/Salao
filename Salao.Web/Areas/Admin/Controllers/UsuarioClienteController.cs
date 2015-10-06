@@ -7,15 +7,15 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
-namespace Salao.Web.Areas.Cliente.Controllers
+namespace Salao.Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class UsuarioController : Controller
+    public class UsuarioClienteController : Controller
     {
         IBaseService<CliUsuario> service;
         ILogin login;
 
-        public UsuarioController()
+        public UsuarioClienteController()
         {
             service = new CliUsuarioService();
             login = new CliUsuarioService();

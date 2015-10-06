@@ -1,5 +1,5 @@
 ﻿
-namespace Salao.Web.Areas.Cliente.Models
+namespace Salao.Web.Areas.Admin.Models
 {
     public class ProfissionalServicoModel
     {

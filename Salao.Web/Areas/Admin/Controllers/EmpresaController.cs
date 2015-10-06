@@ -34,6 +34,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
             var empresas = serviceEmpresa.Listar()
                 .Where(x => x.Fantasia.Contains(fantasia))
+                .Take(10)
                 .OrderBy(x => x.Fantasia);
 
             return View(empresas);

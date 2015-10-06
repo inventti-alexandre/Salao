@@ -1,13 +1,13 @@
 ﻿using Salao.Domain.Abstract.Cliente;
 using Salao.Domain.Service.Admin;
-using Salao.Web.Areas.Cliente.Models;
+using Salao.Domain.Service.Cliente;
+using Salao.Web.Areas.Admin.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Salao.Domain.Service.Cliente;
 
-namespace Salao.Web.Areas.Cliente.Controllers
+namespace Salao.Web.Areas.Admin.Controllers
 {
     public class SalaoFormaPgtoController : Controller
     {
