@@ -57,6 +57,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.Image = GetImage(colaborador.Id);
             return View(colaborador);
         }
 
@@ -117,7 +118,8 @@ namespace Salao.Web.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
+
+            ViewBag.Image = GetImage(profissional.Id);
             return View(profissional);
         }
 
@@ -170,7 +172,11 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                var colaborador = service.Excluir(id);
+                if (colaborador != null)
+                {
+                    DeleteImage(colaborador.Id);
+                }
                 return RedirectToAction("Index", new { idSalao = idSalao });
             }
             catch (Exception e)
@@ -194,10 +200,27 @@ namespace Salao.Web.Areas.Admin.Controllers
             var path = Path.Combine(Server.MapPath("~/Content/Colaboradores/"), systemFileName);
             if (System.IO.File.Exists(path))
             {
-                return string.Format("~/Content/Colaboradores/{0}.{1}", id, "jpg");
+                return string.Format("/Content/Colaboradores/{0}.{1}", id, "jpg");
             }
 
             return string.Empty;
+        }
+
+        private void DeleteImage(int id)
+        {
+            var systemFileName = id.ToString() + ".jpg";
+            var path = Path.Combine(Server.MapPath("~/Content/Colaboradores/"), systemFileName);
+            if (System.IO.File.Exists(path))
+            {
+                try
+                {
+                    System.IO.File.Delete(path);
+                }
+                catch (Exception)
+                {
+                    // none
+                }
+            }
         }
 
         private void SetImage(HttpPostedFileBase image, int id)
