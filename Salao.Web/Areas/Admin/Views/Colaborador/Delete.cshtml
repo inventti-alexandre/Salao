@@ -11,6 +11,13 @@
 </div>
 
 <div>
+    @if (!string.IsNullOrEmpty(ViewBag.Image))
+    {
+        <img src="@ViewBag.Image" />
+    }
+</div>
+
+<div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -65,6 +72,8 @@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IdSalao)
 
         <div class="form-actions no-color">
             <input type="submit" value="Excluir" class="btn btn-danger" /> |

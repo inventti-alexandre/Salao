@@ -4,7 +4,9 @@ using Salao.Domain.Service.Cliente;
 using System;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
@@ -76,7 +78,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         // POST: Cliente/Colaborador/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="IdSalao,Nome,Telefone,Email")] Profissional profissional)
+        public ActionResult Create([Bind(Include="IdSalao,Nome,Telefone,Email")] Profissional profissional, HttpPostedFileBase image)
         {
             try
             {
@@ -85,7 +87,8 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(profissional);
+                    var id = service.Gravar(profissional);
+                    SetImage(image, id);
                     return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
                 }
 
@@ -120,7 +123,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         // POST: Cliente/Colaborador/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,IdSalao,Nome,Telefone,Email")] Profissional profissional)
+        public ActionResult Edit([Bind(Include = "Id,IdSalao,Nome,Telefone,Email")] Profissional profissional, HttpPostedFileBase image)
         {
             try
             {
@@ -129,7 +132,8 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(profissional);
+                    int id = service.Gravar(profissional);
+                    SetImage(image, id);
                     return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
                 }
                 return View(profissional);
@@ -156,6 +160,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.Image = GetImage(colaborador.Id);
             return View(colaborador);
         }
 
@@ -179,5 +184,37 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return View(colaborador);
             }
         }
+
+
+        #region [ privates ]
+
+        private string GetImage(int id)
+        {
+            var systemFileName = id.ToString() + ".jpg";
+            var path = Path.Combine(Server.MapPath("~/Content/Colaboradores/"), systemFileName);
+            if (System.IO.File.Exists(path))
+            {
+                return string.Format("~/Content/Colaboradores/{0}.{1}", id, "jpg");
+            }
+
+            return string.Empty;
+        }
+
+        private void SetImage(HttpPostedFileBase image, int id)
+        {
+            // grava imagem do funcionario
+            if (image != null && image.ContentLength > 0)
+            {
+                var extensao = Path.GetExtension(image.FileName);
+                if (extensao.ToLower().Contains("jpg"))
+                {
+                    var systemFileName = id.ToString() + extensao;
+                    var path = Path.Combine(Server.MapPath("~/Content/Colaboradores/"), systemFileName);
+                    image.SaveAs(path);
+                }
+            }
+        }
+
+        #endregion
     }
 }
