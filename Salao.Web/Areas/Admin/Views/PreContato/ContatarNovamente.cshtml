@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Salao.Domain.Models.Admin.PreContato>
+
+@{
+    ViewBag.Title = "Contatar Novamente";
+}
+
+<h2>Contatar Novamente</h2>
+
+@using (@Html.BeginForm())
+{
+    <p class="top20">
+        Contatos a partir de <input type="date" id="contatoEm" value="@ViewBag.ContatoEm" name="contatoEm" />
+        <input type="submit" value="Listar" class="btn btn-primary" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeSalao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdEstado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContatoEm)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomeSalao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado.UF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContatoEm)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Inativar", "Inativar", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

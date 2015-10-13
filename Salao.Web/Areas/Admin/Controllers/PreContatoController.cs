@@ -31,7 +31,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
             else
             {
-                contatos = new List<PreContato>();
+                contatos = service.Listar().Where(x => x.Atendido == false && x.ContatarNovamente == false).ToList();
             }
 
             return View(contatos);
@@ -171,6 +171,23 @@ namespace Salao.Web.Areas.Admin.Controllers
         public ActionResult Rejeitados()
         {
             return View();
+        }
+
+        //
+        // GET: Admin/PreContato/ContatarNovamente
+        public ActionResult ContatarNovamente(DateTime? contatoEm)
+        {
+            if (contatoEm == null)
+            {
+                contatoEm = DateTime.Today.Date.Subtract(TimeSpan.FromDays(DateTime.Today.Date.Day - 1)).AddMonths(-1);
+            }
+
+            var contatos = service.Listar()
+                .Where(x => x.ContatarNovamente == true && x.Assinou == false && x.ContatoEm >= contatoEm)
+                .ToList();
+
+            ViewBag.ContatoEm = contatoEm;
+            return View(contatos);
         }
         
         private SelectList GetEstados(int id = 0)

@@ -48,6 +48,7 @@ namespace Salao.Domain.Models.Admin
         public int? AtendidoPor { get; set; }
 
         [Display(Name="Observações")]
+        [DataType(DataType.MultilineText)]
         public string Observ { get; set; }
 
         [Display(Name="Assinou conosco")]
