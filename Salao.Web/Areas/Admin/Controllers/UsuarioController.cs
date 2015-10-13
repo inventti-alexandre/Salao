@@ -182,7 +182,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                     Salao.Domain.Abstract.Admin.ITrocaSenha trocar;
                     trocar = new UsuarioService();
 
-                    trocar.TrocarSenha(troca.IdUsuario, troca.SenhaAtual, troca.NovaSenhaConfere);
+                    trocar.TrocarSenha(troca.IdUsuario, troca.SenhaAtual, troca.NovaSenhaConfere, false);
                     return View("SenhaAlterada");
                 }
 
@@ -195,5 +195,51 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
         }
 
+        //
+        // GET: /Admin/Usuario/RedefinirSenha/5
+        public ActionResult RedefinirSenha(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var usuario = service.Find((int)id);
+
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(usuario);
+        }
+
+        //
+        // POST: /Admin/Usuario/RedefinirSenha/5
+        [HttpPost]
+        public ActionResult RedefinirSenha(int id)
+        {
+            try
+            {
+                Salao.Domain.Abstract.Admin.ITrocaSenha redefinir;
+                redefinir = new UsuarioService();
+                redefinir.RedefinirSenha(id);
+
+                return View("SenhaRedefinida");
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                var usuario = service.Find(id);
+
+                if (usuario == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(usuario);
+            }
+            
+        }
     }
 }

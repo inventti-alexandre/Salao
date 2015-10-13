@@ -1,5 +1,5 @@
 ﻿
-namespace Salao.Domain.Abstract.Admin
+namespace Salao.Domain.Abstract.Cliente
 {
     public interface ITrocaSenha
     {

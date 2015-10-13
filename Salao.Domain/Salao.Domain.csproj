@@ -85,6 +85,8 @@
     <Compile Include="Abstract\Cliente\ILogin.cs" />
     <Compile Include="Abstract\Cliente\IProfissionalServico.cs" />
     <Compile Include="Abstract\Cliente\ISalaoFormaPgto.cs" />
+    <Compile Include="Abstract\Cliente\ITrocaSenha.cs" />
+    <Compile Include="Abstract\Email\IEmail.cs" />
     <Compile Include="Abstract\Endereco\IEndereco.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
     <Compile Include="Common\NotEqualAttribute.cs" />
@@ -113,6 +115,8 @@
     <Compile Include="Models\Cliente\Salao.cs" />
     <Compile Include="Models\Cliente\SalaoFormaPgto.cs" />
     <Compile Include="Models\Cliente\Servico.cs" />
+    <Compile Include="Models\Cliente\TrocaSenha.cs" />
+    <Compile Include="Models\Email\EmailCredential.cs" />
     <Compile Include="Models\Endereco\Endereco.cs" />
     <Compile Include="Models\Endereco\EnderecoBairro.cs" />
     <Compile Include="Models\Endereco\EnderecoCidade.cs" />
@@ -148,6 +152,7 @@
     <Compile Include="Service\Cliente\SalaoFormaPgtoService.cs" />
     <Compile Include="Service\Cliente\SalaoService.cs" />
     <Compile Include="Service\Cliente\ServicoService.cs" />
+    <Compile Include="Service\Email\EnviarEmail.cs" />
     <Compile Include="Service\Endereco\BairroService.cs" />
     <Compile Include="Service\Endereco\CidadeService.cs" />
     <Compile Include="Service\Endereco\EmailService.cs" />

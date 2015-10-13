@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Salao.Domain.Service.Cliente
 {
-    public class CliUsuarioService: IBaseService<CliUsuario>, ILogin
+    public class CliUsuarioService: IBaseService<CliUsuario>, ILogin, ITrocaSenha
     {
         private IBaseRepository<CliUsuario> repository;
 
@@ -107,5 +107,59 @@ namespace Salao.Domain.Service.Cliente
 
             return 0;
         }
+
+        public void TrocarSenha(int idUsuario, string senhaAnterior, string novaSenha, bool enviarEmail = true)
+        {
+            var usuario = repository.Find(idUsuario);
+
+            if (usuario == null)
+            {
+                throw new ArgumentException("Usuário inválido");
+            }
+
+            if (usuario.Password != senhaAnterior)
+            {
+                throw new ArgumentException("Senha atual não confere");
+            }
+
+            usuario.Password = novaSenha;
+            usuario.Ativo = true;
+            repository.Alterar(usuario);
+
+            if (enviarEmail == true)
+            {
+                EnviarNovaSenha(usuario);
+                
+            }
+        }
+
+        public void RedefinirSenha(int idUsuario)
+        {
+            var usuario = repository.Find(idUsuario);
+
+            if (usuario == null)
+            {
+                throw new ArgumentException("Usuário inválido");
+            }
+
+            usuario.Ativo = true;
+            usuario.Password = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 8);
+            repository.Alterar(usuario);
+
+            // envia nova senha para usuario
+            EnviarNovaSenha(usuario);
+        }
+
+        private void EnviarNovaSenha(CliUsuario usuario)
+        {
+            var mensagem = new System.Text.StringBuilder()
+            .Append("Sua nova senha para acesso é ")
+            .Append(usuario.Password);
+
+            var email = new Email.EnviarEmail();           
+            // TODO: assunto deve conter o nome do app
+            email.Enviar(usuario.Nome, usuario.Email, "Nova senha para acesso", mensagem.ToString());
+        }
+
     }
 }
