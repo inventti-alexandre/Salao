@@ -23,7 +23,7 @@ namespace Salao.Web.Tests.Admin
             var parametro1 = new SistemaParametro { AlteradoPor = 1, Codigo = "PROMO_DESCONTO", Descricao = "DESCONTO PRADRAO NA PROMOCAO", Valor = "100" };
             var parametro2 = new SistemaParametro { AlteradoPor = 1, Codigo = "PROMO_CARENCIA", Descricao = "MESES DE CARENCIA NA PROMOCAO", Valor = "3" };
 
-            var parametro3 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_USESSL", Descricao = "UseSsl", Valor = "1" };
+            var parametro3 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_USESSL", Descricao = "UseSsl", Valor = "true" };
             var parametro4 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_SERVERSMTP", Descricao = "Smtp server", Valor = "smtp.gmail.com" };
             var parametro5 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_SERVERPORT", Descricao = "Porta smtp", Valor = "587" };
             var parametro6 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_SENDER", Descricao = "Sender (email)", Valor = "contact@scrumtopractice.com" };

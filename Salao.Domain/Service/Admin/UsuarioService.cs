@@ -122,7 +122,8 @@ namespace Salao.Domain.Service.Admin
 
             if (enviarEmail == true)
             {
-                EnviarNovaSenha(usuario);
+                var mensagem = string.Format("Sua nova senha de acesso é {0}.", usuario.Senha);
+                EnviarNovaSenha(usuario, mensagem);
             }
         }
 
@@ -140,15 +141,12 @@ namespace Salao.Domain.Service.Admin
             repository.Alterar(usuario);
 
             // enviar nova senha para o usuario
-            EnviarNovaSenha(usuario);
+            var mensagem = string.Format("Sua nova senha de acesso é {0}.", usuario.Senha);
+            EnviarNovaSenha(usuario, mensagem);
         }
 
-        private void EnviarNovaSenha(Usuario usuario)
+        private void EnviarNovaSenha(Usuario usuario, string mensagem)
         {
-            var mensagem = new System.Text.StringBuilder()
-            .Append("Sua nova senha para acesso é ")
-            .Append(usuario.Senha);
-
             var email = new Email.EnviarEmail();
             // TODO: assunto deve conter o nome do app
             email.Enviar(usuario.Nome, usuario.Email, "Nova senha para acesso", mensagem.ToString());

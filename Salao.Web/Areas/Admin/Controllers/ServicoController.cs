@@ -31,11 +31,6 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Cliente/Servico/
         public ActionResult Index(int idSalao)
         {
-            if (idSalao == null)
-            {
-                return HttpNotFound();
-            }
-
             var salao = serviceSalao.Find(idSalao);
 
             if (salao == null)

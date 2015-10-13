@@ -26,11 +26,6 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: Cliente/ColaboradorServico
         public ActionResult Index(int idProfissional)
         {
-            if (idProfissional == null)
-            {
-                return HttpNotFound();
-            }
-            
             // profissional
             var profissional = serviceProfissional.Find(idProfissional);
 

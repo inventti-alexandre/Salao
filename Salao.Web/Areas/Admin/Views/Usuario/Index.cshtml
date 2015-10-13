@@ -62,7 +62,8 @@
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Grupos", "Index", "UsuarioGrupo", new { id=item.Id }, null)
+            @Html.ActionLink("Grupos", "Index", "UsuarioGrupo", new { id=item.Id }, null) |
+            @Html.ActionLink("Redefinir senha", "RedefinirSenha", new { id=item.Id })
         </td>
     </tr>
 }

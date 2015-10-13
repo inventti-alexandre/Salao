@@ -219,24 +219,27 @@ namespace Salao.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult RedefinirSenha(int id)
         {
+            var usuario = service.Find(id);
+
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
             try
             {
+
                 Salao.Domain.Abstract.Admin.ITrocaSenha redefinir;
                 redefinir = new UsuarioService();
                 redefinir.RedefinirSenha(id);
 
+                ViewBag.Nome = usuario.Nome;
+                ViewBag.Email = usuario.Email;
                 return View("SenhaRedefinida");
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var usuario = service.Find(id);
-
-                if (usuario == null)
-                {
-                    return HttpNotFound();
-                }
-
                 return View(usuario);
             }
             

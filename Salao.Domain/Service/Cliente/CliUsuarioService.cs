@@ -39,8 +39,11 @@ namespace Salao.Domain.Service.Cliente
             {
                 item.Ativo = true;
                 item.CadastradoEm = DateTime.Now;
-                // TODO: quando incluir um novo usuario tem que enviar e-mail com a senha para ele
-                return repository.Incluir(item).Id;
+                item.Id = repository.Incluir(item).Id;
+                // envia email com saudacoes de boas vindas e a senha para acesso
+                var mensagem = string.Format("Seja bem vindo {0}, sua senha para acesso é {1}. Para acessar...", item.Nome, item.Password);
+                EnviarNovaSenha(item, mensagem);
+                return item.Id;
             }
 
             return repository.Alterar(item).Id;
@@ -128,7 +131,9 @@ namespace Salao.Domain.Service.Cliente
 
             if (enviarEmail == true)
             {
-                EnviarNovaSenha(usuario);
+                // TODO: formatar esta mensagem
+                var mensagem = string.Format("Sua nova senha para acesso é {0}", usuario.Password);
+                EnviarNovaSenha(usuario, mensagem);
                 
             }
         }
@@ -147,15 +152,13 @@ namespace Salao.Domain.Service.Cliente
             repository.Alterar(usuario);
 
             // envia nova senha para usuario
-            EnviarNovaSenha(usuario);
+            // TODO: formatar esta mensagem
+            var mensagem = string.Format("Sua nova senha para acesso é {0}", usuario.Password);
+            EnviarNovaSenha(usuario, mensagem);
         }
 
-        private void EnviarNovaSenha(CliUsuario usuario)
+        private void EnviarNovaSenha(CliUsuario usuario, string mensagem)
         {
-            var mensagem = new System.Text.StringBuilder()
-            .Append("Sua nova senha para acesso é ")
-            .Append(usuario.Password);
-
             var email = new Email.EnviarEmail();           
             // TODO: assunto deve conter o nome do app
             email.Enviar(usuario.Nome, usuario.Email, "Nova senha para acesso", mensagem.ToString());

@@ -172,5 +172,54 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
         }
 
+
+        //
+        // GET: Cliente/Usuario/RedefinirSenha/5
+        public ActionResult RedefinirSenha(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var usuario = service.Find((int)id);
+
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(usuario);
+        }
+
+        //
+        // POST: Cliente/Usuario/Redefinir/5
+        [HttpPost]
+        public ActionResult RedefinirSenha(int id)
+        {
+            var usuario = service.Find(id);
+
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
+            try
+            {
+                Salao.Domain.Abstract.Cliente.ITrocaSenha redefinir;
+                redefinir = new CliUsuarioService();
+                redefinir.RedefinirSenha(id);
+
+                ViewBag.Nome = usuario.Nome;
+                ViewBag.Email = usuario.Email;
+                ViewBag.IdEmpresa = usuario.IdEmpresa;
+                return View("SenhaRedefinida");
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(usuario);
+            }
+        }
     }
 }
