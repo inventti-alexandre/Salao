@@ -154,5 +154,46 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return View(usuario);
             }
         }
+
+        //
+        // GET: /Admin/Usuario/TrocarSenha
+        public ActionResult TrocarSenha()
+        {
+            var usuario = service.Listar().Where(x => x.Login == User.Identity.Name).FirstOrDefault();
+
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
+            var troca = new TrocaSenha { IdUsuario = usuario.Id };
+            return View(troca);
+        }
+
+        //
+        // POST: /Admin/Usuario/TrocarSenha
+        [HttpPost]
+        public ActionResult TrocarSenha(TrocaSenha troca)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Salao.Domain.Abstract.Admin.ITrocaSenha trocar;
+                    trocar = new UsuarioService();
+
+                    trocar.TrocarSenha(troca.IdUsuario, troca.SenhaAtual, troca.NovaSenhaConfere);
+                    return View("SenhaAlterada");
+                }
+
+                return View(troca);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(troca);
+            }
+        }
+
     }
 }

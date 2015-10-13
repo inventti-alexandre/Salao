@@ -279,6 +279,8 @@
     <Content Include="Areas\Admin\Views\Servico\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Servico\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ColaboradorServico\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\SenhaAlterada.cshtml" />
+    <Content Include="Areas\Admin\Views\Usuario\TrocarSenha.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

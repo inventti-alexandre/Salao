@@ -21,6 +21,12 @@ namespace Salao.Web.Areas.Admin
             );
 
             context.MapRoute(
+                "TrocarSenha",
+                "TrocarSenha",
+                new { Controller = "Usuario", action = "TrocarSenha" }
+            );
+
+            context.MapRoute(
                 "GetSubAreas",
                 "Admin/SubArea/GetSubAreas/{idArea}",
                 new { Controller ="SubArea", action = "GetSubAreas", idArea = 0 }

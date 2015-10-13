@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Salao.Domain.Service.Admin
 {
-    public class UsuarioService : IBaseService<Usuario>, ILogin
+    public class UsuarioService : IBaseService<Usuario>, ILogin, ITrocaSenha
     {
         private IBaseRepository<Usuario> repository;
 
@@ -101,6 +101,24 @@ namespace Salao.Domain.Service.Admin
             }
 
             return 0;
+        }
+
+        public void TrocarSenha(int idUsuario, string senhaAnterior, string novaSenha)
+        {
+            var usuario = repository.Find(idUsuario);
+
+            if (usuario == null)
+            {
+                throw new ArgumentException("Usuário inválido");
+            }
+
+            if (usuario.Senha != senhaAnterior)
+            {
+                throw new ArgumentException("Senha anterior não confere");
+            }
+
+            usuario.Senha = novaSenha;
+            repository.Alterar(usuario);            
         }
     }
 

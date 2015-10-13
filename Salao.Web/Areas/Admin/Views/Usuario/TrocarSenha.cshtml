@@ -1,0 +1,48 @@
+﻿@model Salao.Domain.Models.Admin.TrocaSenha
+
+@{
+    ViewBag.Title = "Trocar Senha";
+}
+
+<h2>@HttpContext.Current.User.Identity.Name - Trocar Senha</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.IdUsuario)
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SenhaAtual, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SenhaAtual)
+                @Html.ValidationMessageFor(model => model.SenhaAtual)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NovaSenha, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NovaSenha)
+                @Html.ValidationMessageFor(model => model.NovaSenha)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NovaSenhaConfere, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NovaSenhaConfere)
+                @Html.ValidationMessageFor(model => model.NovaSenhaConfere)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Trocar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

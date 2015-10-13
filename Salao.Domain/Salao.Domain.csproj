@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\Admin\ITrocaSenha.cs" />
     <Compile Include="Abstract\Cliente\ICadastroEmpresa.cs" />
     <Compile Include="Abstract\Admin\IGrupoPermissao.cs" />
     <Compile Include="Abstract\Admin\ILogin.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Abstract\Cliente\ISalaoFormaPgto.cs" />
     <Compile Include="Abstract\Endereco\IEndereco.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
+    <Compile Include="Common\NotEqualAttribute.cs" />
     <Compile Include="Models\Admin\Area.cs" />
     <Compile Include="Models\Admin\FormaPgto.cs" />
     <Compile Include="Models\Admin\Grupo.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Models\Admin\PreContato.cs" />
     <Compile Include="Models\Admin\SistemaParametro.cs" />
     <Compile Include="Models\Admin\SubArea.cs" />
+    <Compile Include="Models\Admin\TrocaSenha.cs" />
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Admin\UsuarioGrupo.cs" />
     <Compile Include="Models\Cliente\CadastroEmpresa.cs" />
