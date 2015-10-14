@@ -1,0 +1,22 @@
+﻿@model Salao.Domain.Models.Admin.PreContato
+
+@{
+    ViewBag.Title = "Inativar pré contato";
+}
+
+<h2>Inativar pré contato</h2>
+
+<div class="alert alert-block alert-warning top15">
+    Deseja desativar o pré contato <strong>@Model.NomeSalao (@Model.Nome) permanentemente?</strong>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => Model.Id)
+    
+    <div class="form-actions no-color">
+        <input type="submit" value="Inativar" class="btn btn-danger" />
+        @Html.ActionLink("Voltar", "ContatarNovamente")
+    </div>
+}

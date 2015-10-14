@@ -286,6 +286,8 @@
     <Content Include="Areas\Admin\Views\UsuarioCliente\RedefinirSenha.cshtml" />
     <Content Include="Areas\Admin\Views\UsuarioCliente\SenhaRedefinida.cshtml" />
     <Content Include="Areas\Admin\Views\PreContato\ContatarNovamente.cshtml" />
+    <Content Include="Areas\Admin\Views\PreContato\Inativar.cshtml" />
+    <Content Include="Areas\Admin\Views\PreContato\Contato.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

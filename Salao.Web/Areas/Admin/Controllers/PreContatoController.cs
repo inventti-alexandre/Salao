@@ -183,7 +183,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
 
             var contatos = service.Listar()
-                .Where(x => x.ContatarNovamente == true && x.Assinou == false && x.ContatoEm >= contatoEm)
+                .Where(x => x.ContatarNovamente == true && x.Assinou == false && x.ContatoEm >= contatoEm && x.Ativo == true)
                 .ToList();
 
             ViewBag.ContatoEm = contatoEm;
@@ -195,5 +195,105 @@ namespace Salao.Web.Areas.Admin.Controllers
             return new SelectList(new EstadoService().Listar().Where(x => x.Ativo == true).OrderBy(x => x.UF),
                 "Id", "UF", id);
         }
+
+        //
+        // GET: Admin/PreContato/Inativar
+        public ActionResult Inativar(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var contato = service.Find((int)id);
+
+            if (contato == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(contato);
+        }
+
+        //
+        // POST: Admin/PreContato/Inativar
+        [HttpPost]
+        public ActionResult Inativar(int id)
+        {
+            var contato = service.Find(id);
+
+            if (contato == null)
+            {
+                return HttpNotFound();
+            }
+
+            try
+            {
+                contato.Ativo = false;
+                service.Gravar(contato);
+                return RedirectToAction("ContatarNovamente");
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(contato);
+            }
+        }
+
+        //
+        // GET: Admin/PreContato/Contato
+        public ActionResult Contato(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var contato = service.Find((int)id);
+
+            if (contato == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(contato);
+        }
+
+        //
+        // POST: Admin/PreContato/Contato
+        [HttpPost]
+        public ActionResult Contato(int id, string email, string telefone, bool contatarNovamente, string comentarios)
+        {
+            var contato = service.Find(id);
+
+            if (contato == null)
+            {
+                return HttpNotFound();
+            }
+
+            try
+            {
+                contato.Email = email;
+                contato.Telefone = telefone;
+                contato.ContatarNovamente = contatarNovamente;
+                contato.Observ = string.Format("-- {0} {1} {2} {3} {4} {5}", DateTime.Now.ToString(), Environment.NewLine, comentarios, Environment.NewLine, Environment.NewLine, contato.Observ);
+                contato.ContatoEm = DateTime.Now;
+                service.Gravar(contato);
+                return RedirectToAction("ContatarNovamente");
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(contato);
+            }
+        }
+
+        //
+        // GET: Admin/PreContato/ContatosDia
+        public ActionResult ContatosDia(DateTime? inicial, DateTime? final)
+        {
+
+        }
+
     }
 }

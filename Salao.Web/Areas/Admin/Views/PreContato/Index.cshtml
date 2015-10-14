@@ -71,7 +71,9 @@
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Excluir", "Delete", new { id = item.Id })
+                @Html.ActionLink("Excluir", "Delete", new { id = item.Id }) |
+                @Html.ActionLink("Registrar contato", "Contato", new { id = item.Id })
+
             </td>
         </tr>
     }

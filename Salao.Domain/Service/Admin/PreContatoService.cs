@@ -43,6 +43,7 @@ namespace Salao.Domain.Service.Admin
             // grava
             if (item.Id == 0)
             {
+                item.Ativo = true;
                 return repository.Incluir(item).Id;
             }
             return repository.Alterar(item).Id;

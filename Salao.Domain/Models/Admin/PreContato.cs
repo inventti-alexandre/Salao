@@ -57,6 +57,8 @@ namespace Salao.Domain.Models.Admin
         [Display(Name="Contatar novamente")]
         public bool ContatarNovamente { get; set; }
 
+        public bool Ativo { get; set; }
+
         [NotMapped]
         [Display(Name="Estado")]
         public virtual Salao.Domain.Models.Endereco.EnderecoEstado Estado
