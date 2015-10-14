@@ -292,7 +292,21 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: Admin/PreContato/ContatosDia
         public ActionResult ContatosDia(DateTime? inicial, DateTime? final)
         {
+            if (inicial == null)
+            {
+                inicial = (DateTime.Today.DayOfWeek == DayOfWeek.Monday ? DateTime.Today.Date.AddDays(-2) : DateTime.Today.Date);
+            }
 
+            if (final == null)
+	        {
+                final = DateTime.Today.Date;
+	        }
+
+            var contatos = service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final).ToList();
+
+            ViewBag.Inicial = inicial;
+            ViewBag.final = final;
+            return View(contatos);
         }
 
     }
