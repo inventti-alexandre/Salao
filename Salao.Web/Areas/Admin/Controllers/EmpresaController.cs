@@ -12,10 +12,10 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class EmpresaController : Controller
     {
-        IBaseService<Empresa> serviceEmpresa;
+        IBaseService<Salao.Domain.Models.Cliente.Empresa> serviceEmpresa;
         ICadastroEmpresa serviceCadastro;
         ILogin login;
 

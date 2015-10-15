@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class GrupoController : Controller
     {
         private IBaseService<Grupo> service;

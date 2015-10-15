@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Salao.Web.Areas.Admin.Controllers
+namespace Salao.Web.Areas.Empresa.Controllers
 {
-    [AreaAuthorizeAttribute("Admin", Roles="admin")]
+    [AreaAuthorizeAttribute("Empresa", Roles = "admin,client")]
     public class HomeController : Controller
     {
-        // GET: Admin/Home
+        // GET: Empresa/Home
         public ActionResult Index()
         {
             return View();

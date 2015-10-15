@@ -159,6 +159,10 @@
     <Compile Include="Areas\Admin\Controllers\UsuarioClienteController.cs" />
     <Compile Include="Areas\Admin\Models\ProfissionalServicoModel.cs" />
     <Compile Include="Areas\Admin\Models\SalaoFormaPgtoModel.cs" />
+    <Compile Include="Areas\Empresa\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Empresa\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Empresa\EmpresaAreaRegistration.cs" />
+    <Compile Include="Areas\Empresa\Models\LoginUsuario.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,6 +295,11 @@
     <Content Include="Areas\Admin\Views\PreContato\ContatosDia.cshtml" />
     <Content Include="Areas\Admin\Views\PreContato\Rejeitados.cshtml" />
     <Content Include="Areas\Admin\Views\PreContato\Aprovados.cshtml" />
+    <Content Include="Areas\Empresa\Views\web.config" />
+    <Content Include="Areas\Empresa\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Empresa\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Empresa\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Empresa\Views\Login\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

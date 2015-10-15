@@ -16,7 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" rel="home" href="/Home" title="ScrumToPractice">
+                <a class="navbar-brand" rel="home" href="/Home" title="Cliente">
                     @*<img style="max-width:100px; margin-top: -7px; height:20px; width:20px;" src="~/Images/logo_top_menu.gif">*@
                 </a>
                 @*@Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })*@
@@ -26,19 +26,22 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/Admin/Grupo">Grupos de usuários</a></li>
+                            <li><a href="/Empresa/Cadastro">Empresa</a></li>
+                            <li><a href="/Empresa/Filial">Matriz/Filial</a></li>
+                            <li><a href="/Empresa/Grupo">Grupos de usuários</a></li>
+                            <li><a href="/Empresa/Usuario">Usuários</a></li>                            
+                            <li><a href="/Empresa/Desconto">Desconto</a></li>
+                            <li><a href="/Empresa/Permissao">Permissões</a></li>
+                            <li><a href="/Empresa/Variavel">Variáveis</a></li>
+                            <li><a href="/Empresa/Colaborador">Colaboradores</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pré contato<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Serviços<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/Admin/PreContato/Create">Incluir pré contato</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/Admin/CliPermissao">Permissões</a></li>
+                            <li><a href="/Empresa/Servico">Serviços oferecidos ao cliente</a></li>
+                            <li><a href="/Empresa/Preços">Preços</a></li>
+                            <li><a href="/Empresa/Promocao">Promoções</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -52,12 +55,12 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/Admin/Usuario/TrocarSenha">Trocar senha</a></li>
+                                <li><a href="/Empresa/Usuario/TrocarSenha">Trocar senha</a></li>
                             </ul>
                         </li>
                         <li>
                             <div class="pull-right top15">
-                                <span class="left20"><a href="/Admin/Login/Logout" class="gray">Sair</a></span>
+                                <span class="left20"><a href="/Empresa/Login/Logout" class="gray">Sair</a></span>
                             </div>
                         </li>
                     </ul>

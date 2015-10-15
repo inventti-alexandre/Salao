@@ -13,7 +13,7 @@ using System.Net;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class EstadoController : Controller
     {
         private IBaseService<EnderecoEstado> service;

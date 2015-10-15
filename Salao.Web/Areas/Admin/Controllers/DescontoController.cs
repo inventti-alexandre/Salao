@@ -8,7 +8,7 @@ using Salao.Domain.Service.Cliente;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class DescontoController : Controller
     {
         PromocaoService service;
