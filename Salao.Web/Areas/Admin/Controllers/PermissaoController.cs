@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class PermissaoController : Controller
     {
         private IBaseService<Permissao> service;

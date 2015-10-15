@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ColaboradorServicoController : Controller
     {
         IProfissionalServico service;

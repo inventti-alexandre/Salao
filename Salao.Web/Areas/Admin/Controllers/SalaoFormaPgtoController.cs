@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class SalaoFormaPgtoController : Controller
     {
         ISalaoFormaPgto service;

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using Salao.Domain.Abstract;
+using Salao.Domain.Abstract.Cliente;
 using Salao.Domain.Models.Cliente;
 using Salao.Domain.Service.Cliente;
-using Salao.Domain.Abstract.Cliente;
-using Salao.Domain.Abstract;
 using Salao.Web.Areas.Admin.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class CliGrupoPermissaoController : Controller
     {
         IBaseService<CliGrupo> serviceGrupo;

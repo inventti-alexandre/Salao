@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class CliGrupoController : Controller
     {
         private IBaseService<CliGrupo> service;

@@ -27,6 +27,11 @@ namespace Salao.Domain.Service.Admin
             item.Email = item.Email.ToLower().Trim();
             item.Nome = item.Nome.ToUpper().Trim();
             item.Telefone = item.Telefone.ToUpper().Trim();
+            if (string.IsNullOrEmpty(item.Roles))
+            {
+                item.Roles = "";
+            }
+            item.Roles = item.Roles.ToLower().Trim();
 
             // valida
             if (repository.Listar().Where(x => x.Nome == item.Nome && x.Id != item.Id).Count() > 0)

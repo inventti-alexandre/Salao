@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="admin")]
     public class UsuarioController : Controller
     {
 
@@ -45,14 +45,14 @@ namespace Salao.Web.Areas.Admin.Controllers
         //
         // GET: /Admin/Usuario/Create
         public ActionResult Create()
-        {            
-            return View(new Usuario());
+        {
+            return View(new Usuario { Roles = "admin" });
         }
 
         //
         // POST: /Admin/Usuario/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="Nome,Email,Login,Senha,Telefone,Ramal")] Usuario usuario)
+        public ActionResult Create([Bind(Include="Nome,Email,Login,Senha,Telefone,Ramal,Roles")] Usuario usuario)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         //
         // POST: /Admin/Usuario/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include="Id,Nome,Email,Login,Senha,Ativo,CadastradoEm,ExcluidoEm,Telefone,Ramal")] Usuario usuario)
+        public ActionResult Edit([Bind(Include="Id,Nome,Email,Login,Senha,Ativo,CadastradoEm,ExcluidoEm,Telefone,Ramal,Roles")] Usuario usuario)
         {
             try
             {

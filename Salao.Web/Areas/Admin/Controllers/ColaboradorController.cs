@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class ColaboradorController : Controller
     {
         IBaseService<Profissional> service;

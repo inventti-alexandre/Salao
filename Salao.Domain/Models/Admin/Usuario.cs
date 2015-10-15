@@ -43,5 +43,7 @@ namespace Salao.Domain.Models.Admin
 
         [Display(Name = "Excluído em")]
         public DateTime? ExcluidoEm { get; set; }
+
+        public string Roles { get; set; }
     }
 }

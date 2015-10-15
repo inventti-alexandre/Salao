@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class SubAreaController : Controller
     {
         private IBaseService<SubArea> service;
