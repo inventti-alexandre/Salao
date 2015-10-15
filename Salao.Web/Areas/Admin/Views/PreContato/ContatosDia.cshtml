@@ -11,7 +11,8 @@
     @Html.AntiForgeryToken()
     <div>
         Período: 
-        <input type="date" id="inicial" name="inicial" value="@ViewBag.Inicial" /> à <input type="date" id="final" value="@ViewBag.Final" name="final" />
+        @Html.TextBox("inicial", ((DateTime)@ViewBag.Inicial).ToShortDateString(), new { type="date" })
+        @Html.TextBox("final", ((DateTime)@ViewBag.Final).ToShortDateString(), new { type="date" })
         <input type="submit" value="Pesquisar" class="btn btn-primary" />
     </div>
 }
