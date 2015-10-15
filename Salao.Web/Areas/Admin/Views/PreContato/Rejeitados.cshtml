@@ -1,23 +1,22 @@
 ﻿@model IEnumerable<Salao.Domain.Models.Admin.PreContato>
 
 @{
-    ViewBag.Title = "Contatos no dia";
+    ViewBag.Title = "Pré contatos rejeitados";
 }
 
-<h2>Contatos no dia</h2>
+<h2>Pré contatos rejeitados</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <p>
-        Período: 
+    <p class="top20">
+        Período:
         @Html.TextBox("inicial", ((DateTime)@ViewBag.Inicial).ToShortDateString(), new { type="date" })
-        @Html.TextBox("final", ((DateTime)@ViewBag.Final).ToShortDateString(), new { type="date" })
+        @Html.TextBox("final", ((DateTime)@ViewBag.Final).ToShortDateString(), new { type = "date" })
         <input type="submit" value="Pesquisar" class="btn btn-primary" />
     </p>
 }
-
-<table class="table top20">
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
@@ -79,9 +78,10 @@
             @Html.DisplayFor(modelItem => item.Ativo)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.Id, returnUrl=Server.UrlEncode(Request.UrlReferrer.PathAndQuery) }) |
-            @Html.ActionLink("Registrar contato", "Contato", new { id=item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id, returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery) }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.Id, returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery) }) |
+            @Html.ActionLink("Registrar contato", "Contato", new { id = item.Id })
+
         </td>
     </tr>
 }

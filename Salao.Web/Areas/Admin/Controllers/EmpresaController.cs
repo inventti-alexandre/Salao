@@ -26,7 +26,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             login = new UsuarioService();
         }
 
-        //
         // GET: /Admin/Empresa/
         public ActionResult Index(string fantasia = "")
         {
@@ -40,7 +39,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             return View(empresas);
         }
 
-        //
         // GET: /Admin/Empresa/Details/5
         public ActionResult Details(int id)
         {
@@ -54,14 +52,29 @@ namespace Salao.Web.Areas.Admin.Controllers
             return View(cadastro);
         }
 
-        //
         // GET: /Admin/Empresa/Create
-        public ActionResult Create()
+        public ActionResult Create(int? idPreContato)
         {
             // promocao padrao da empresa
             var promocao = new PromocaoService().Get();
 
-            var cadastro = new CadastroEmpresa { Desconto = promocao.Desconto, DescontoCarencia = promocao.DescontoCarencia, Cortesia = true, TipoPessoa = 2 };
+            // novo cadastro
+            var cadastro = new CadastroEmpresa { Desconto = promocao.Desconto, DescontoCarencia = promocao.DescontoCarencia, Cortesia = true, TipoPessoa = 2 };    
+
+            // cadastro a partir do pre contato
+            if (idPreContato != null)
+            {
+                var preContato = new PreContatoService().Find((int)idPreContato);
+                if (preContato != null)
+                {
+                    cadastro.Fantasia = preContato.NomeSalao;
+                    cadastro.Contato = preContato.Nome;
+                    cadastro.Email = preContato.Email;
+                    cadastro.Telefone = preContato.Telefone;
+                    cadastro.Cidade = preContato.Cidade;
+                    cadastro.IdEstado = preContato.IdEstado;                    
+                }
+            }
 
             ViewBag.TipoPessoa = GetTipoPessoa(cadastro.TipoPessoa);
             ViewBag.TipoEndereco = GetTipoEndereco();
@@ -70,7 +83,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             return View(cadastro);
         }
 
-        //
         // POST: /Admin/Empresa/Create
         [HttpPost]
         public ActionResult Create(CadastroEmpresa cadastro)
@@ -103,7 +115,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
         }
 
-        //
         // GET: /Admin/Empresa/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -133,7 +144,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
         }
 
-        //
         // POST: /Admin/Empresa/Edit/5
         [HttpPost]
         public ActionResult Edit([Bind(Include = "Id,IdEndereco,Fantasia,RazaoSocial,TipoPessoa,Cnpj,Cpf,TipoEndereco,Cep,Logradouro,Numero,Bairro,Cidade,IdEstado,Contato,Email,DDD,Telefone,Observ,Cortesia,Desconto,DescontoCarencia")] CadastroEmpresa cadastro)
@@ -172,7 +182,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
         }
 
-        //
         // GET: /Admin/Empresa/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -191,7 +200,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             return View(cadastro);
         }
 
-        //
         // POST: /Admin/Empresa/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)

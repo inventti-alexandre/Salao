@@ -9,8 +9,6 @@
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
@@ -129,7 +127,7 @@
 }
 
 <div>
-    @Html.ActionLink("Voltar", "Index", new { email = Model.Email })
+    @Html.ActionLink("Voltar", "Index", new { email = Model.Email, returnUrl = ViewBag.returnUrl })
 </div>
 
 @section Scripts {

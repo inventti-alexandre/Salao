@@ -117,5 +117,5 @@
 </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Voltar", "Index", new { email = Model.Email })
+    @Html.ActionLink("Voltar", "Index", new { email = Model.Email, returnUrl = ViewBag.returnUrl })
 </p>

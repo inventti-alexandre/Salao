@@ -21,8 +21,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/PreContato
-        public ActionResult Index(string email = "")
+        public ActionResult Index(string email = "", string returnUrl = "")
         {
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                Response.Redirect(Server.UrlDecode(returnUrl));
+            }
+
             IEnumerable<PreContato> contatos;
 
             if (!string.IsNullOrEmpty(email))
@@ -38,7 +43,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/PreContato/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, string returnUrl = "")
         {
             var contato = service.Find(id);
 
@@ -47,6 +52,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.returnUrl = returnUrl;
             return View(contato);
         }
 
@@ -82,8 +88,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/PreContato/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, string returnUrl = "")
         {
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                Response.Redirect(Server.UrlDecode(returnUrl));
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -97,6 +108,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
 
             ViewBag.Estados = GetEstados(contato.IdEstado);
+            ViewBag.returnUrl = returnUrl;
             return View(contato);
         }
 
@@ -162,18 +174,26 @@ namespace Salao.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/PreContato/Aprovados
-        public ActionResult Aprovados()
+        public ActionResult Aprovados(DateTime? inicial, DateTime? final)
         {
-            return View();
+            if (inicial == null)
+            {
+                inicial = (DateTime.Today.DayOfWeek == DayOfWeek.Monday ? DateTime.Today.Date.AddDays(-2) : DateTime.Today.Date);
+            }
+
+            if (final == null)
+            {
+                final = DateTime.Today.Date;
+            }
+            final = ((DateTime)final).AddHours(23).AddMinutes(59);
+
+            var contatos = service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final && x.Assinou == true).ToList();
+
+            ViewBag.Inicial = inicial;
+            ViewBag.Final = final;
+            return View(contatos);
         }
 
-        // GET: Admin/PreContato/Rejeitados()
-        public ActionResult Rejeitados()
-        {
-            return View();
-        }
-
-        //
         // GET: Admin/PreContato/ContatarNovamente
         public ActionResult ContatarNovamente(DateTime? contatoEm)
         {
@@ -196,7 +216,6 @@ namespace Salao.Web.Areas.Admin.Controllers
                 "Id", "UF", id);
         }
 
-        //
         // GET: Admin/PreContato/Inativar
         public ActionResult Inativar(int? id)
         {
@@ -215,7 +234,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             return View(contato);
         }
 
-        //
         // POST: Admin/PreContato/Inativar
         [HttpPost]
         public ActionResult Inativar(int id)
@@ -240,7 +258,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
         }
 
-        //
         // GET: Admin/PreContato/Contato
         public ActionResult Contato(int? id)
         {
@@ -259,7 +276,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             return View(contato);
         }
 
-        //
         // POST: Admin/PreContato/Contato
         [HttpPost]
         public ActionResult Contato(int id, string email, string telefone, bool contatarNovamente, string comentarios)
@@ -288,7 +304,6 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
         }
 
-        //
         // GET: Admin/PreContato/ContatosDia
         public ActionResult ContatosDia(DateTime? inicial, DateTime? final)
         {
@@ -301,11 +316,33 @@ namespace Salao.Web.Areas.Admin.Controllers
 	        {
                 final = DateTime.Today.Date;
 	        }
+            final = ((DateTime)final).AddHours(23).AddMinutes(59);
 
             var contatos = service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final).ToList();
 
             ViewBag.Inicial = inicial;
             ViewBag.final = final;
+            return View(contatos);
+        }
+
+        // GET: Admin/PreContato/Rejeitados
+        public ActionResult Rejeitados(DateTime? inicial, DateTime? final)
+        {
+            if (inicial == null)
+            {
+                inicial = (DateTime.Today.DayOfWeek == DayOfWeek.Monday ? DateTime.Today.Date.AddDays(-2) : DateTime.Today.Date);
+            }
+
+            if (final == null)
+            {
+                final = DateTime.Today.Date;
+            }
+            final = ((DateTime)final).AddHours(23).AddMinutes(59);
+            
+            var contatos = service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final && x.Ativo == false).ToList();
+
+            ViewBag.Inicial = inicial;
+            ViewBag.Final = final;
             return View(contatos);
         }
 

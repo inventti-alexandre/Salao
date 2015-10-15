@@ -12,7 +12,6 @@
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
     <p class="top20">
         Pesquisar: <input id="email" name="email" type="text" placeholder="E-mail" />
         <input type="submit" value="Pesquisar" class="btn btn-primary" />
@@ -72,8 +71,8 @@
                 @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Excluir", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("Registrar contato", "Contato", new { id = item.Id })
-
+                @Html.ActionLink("Contato", "Contato", new { id = item.Id }) |
+                @Html.ActionLink("Contratar", "Create", "Empresa", new { idPreContato = item.Id }, null)
             </td>
         </tr>
     }
