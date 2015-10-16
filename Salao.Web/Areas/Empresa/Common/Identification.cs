@@ -21,5 +21,13 @@ namespace Salao.Web.Areas.Empresa.Common
                 return new CliUsuarioService().Listar().FirstOrDefault(x => x.Email == HttpContext.Current.User.Identity.Name).Nome;
             }
         }
+
+        public static string EmpresaFantasia
+        {
+            get
+            {
+                return new CliUsuarioService().Listar().FirstOrDefault(x => x.Email == HttpContext.Current.User.Identity.Name).Empresa.Fantasia;
+            }
+        }
     }
 }

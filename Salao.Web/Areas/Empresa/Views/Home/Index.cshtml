@@ -1,7 +1,14 @@
-﻿
+﻿@using Salao.Web.Areas.Empresa.Common;
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Empresa Home Index</h2>
+<h2>@Identification.EmpresaFantasia</h2>
 
+@if (((string)@ViewBag.Mensagem).Length > 0)
+{
+    <p class="alert alert-info">
+        @ViewBag.Mensagem
+    </p>
+}

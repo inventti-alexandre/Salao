@@ -11,8 +11,9 @@ namespace Salao.Web.Areas.Empresa.Controllers
     public class HomeController : Controller
     {
         // GET: Empresa/Home
-        public ActionResult Index()
+        public ActionResult Index(string mensagem = "")
         {
+            ViewBag.Mensagem = mensagem;
             return View();
         }
     }
