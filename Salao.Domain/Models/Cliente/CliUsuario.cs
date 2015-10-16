@@ -32,6 +32,8 @@ namespace Salao.Domain.Models.Cliente
         [DataType(DataType.PhoneNumber)]
         public string Telefone { get; set; }
 
+        public string Roles { get; set; }
+
         public bool Ativo { get; set; }
 
         [Required]

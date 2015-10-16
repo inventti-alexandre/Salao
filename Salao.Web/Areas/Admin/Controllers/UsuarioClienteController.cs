@@ -63,7 +63,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         // POST: Cliente/Usuario/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "IdEmpresa,Nome,Email,Password,Telefone,Password")] CliUsuario usuario)
+        public ActionResult Create([Bind(Include = "IdEmpresa,Nome,Email,Password,Telefone,Password,Roles")] CliUsuario usuario)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         // POST: Cliente/Usuario/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,IdEmpresa,Nome,Email,Telefone,CadastradoEm")] CliUsuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,IdEmpresa,Nome,Email,Telefone,CadastradoEm,Roles")] CliUsuario usuario)
         {
             try
             {

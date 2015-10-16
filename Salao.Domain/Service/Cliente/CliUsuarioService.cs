@@ -27,6 +27,11 @@ namespace Salao.Domain.Service.Cliente
             item.Email = item.Email.ToLower().Trim();
             item.Nome = item.Nome.ToUpper().Trim();
             item.Telefone = item.Telefone.ToUpper().Trim();
+            if (string.IsNullOrEmpty(item.Roles))
+            {
+                item.Roles = "empresa_user";
+            }
+            item.Roles = item.Roles.ToLower().Trim();
 
             // valida
             if (repository.Listar().Where(x => x.Email == item.Email && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)

@@ -41,7 +41,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                     {
                         return Redirect(returnUrl);
                     }
-                    return RedirectToAction("Index", "HomeAdm");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

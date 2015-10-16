@@ -38,11 +38,23 @@ namespace Salao.Web
                         string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
                         string roles = string.Empty;
 
-                        // roles Usuario.tab
-                        var usuario = new Salao.Domain.Service.Admin.UsuarioService().Listar().FirstOrDefault(x => x.Login == username);
-                        if (usuario != null)
+                        if (!username.Contains("@"))
                         {
-                            roles = usuario.Roles;
+                            // usuario administrativo
+                            // roles Usuario.tab
+                            var usuario = new Salao.Domain.Service.Admin.UsuarioService().Listar().FirstOrDefault(x => x.Login == username);
+                            if (usuario != null)
+                            {
+                                roles = usuario.Roles;
+                            }
+                        }
+                        else
+                        {
+                            var usuario = new Salao.Domain.Service.Cliente.CliUsuarioService().Listar().FirstOrDefault(x => x.Email == username);
+                            if (usuario != null)
+                            {
+                                roles = usuario.Roles;
+                            }
                         }
 
                         // atribui roles a identidade Principal

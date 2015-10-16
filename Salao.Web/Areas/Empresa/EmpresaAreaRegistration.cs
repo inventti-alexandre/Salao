@@ -2,22 +2,28 @@
 
 namespace Salao.Web.Areas.Empresa
 {
-    public class EmpresaAreaRegistration : AreaRegistration 
+    public class EmpresaAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "Empresa";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "Empresa",
                 "Empresa",
                 new { action = "Index", Controller = "Home" }
+            );
+
+            context.MapRoute(
+                "CadastroEmpresa",
+                "Empresa/Cadastro/{action}/{id}",
+                new { Controller = "CadastroEmpresa", action = "Index", id = UrlParameter.Optional }
             );
 
             context.MapRoute(
