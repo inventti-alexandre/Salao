@@ -114,8 +114,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Cliente\Controllers\" />
     <Folder Include="Areas\Cliente\Models\" />
+    <Folder Include="Areas\Cliente\Views\CadastroEmpresa\" />
     <Folder Include="Content\Colaboradores\" />
     <Folder Include="Models\" />
     <Folder Include="Views\PreContato\" />
@@ -159,10 +159,12 @@
     <Compile Include="Areas\Admin\Controllers\UsuarioClienteController.cs" />
     <Compile Include="Areas\Admin\Models\ProfissionalServicoModel.cs" />
     <Compile Include="Areas\Admin\Models\SalaoFormaPgtoModel.cs" />
+    <Compile Include="Areas\Cliente\Controllers\CadastroEmpresaController.cs" />
     <Compile Include="Areas\Empresa\Controllers\HomeController.cs" />
     <Compile Include="Areas\Empresa\Controllers\LoginController.cs" />
     <Compile Include="Areas\Empresa\EmpresaAreaRegistration.cs" />
     <Compile Include="Areas\Empresa\Models\LoginUsuario.cs" />
+    <Compile Include="Common\AreaAuthorizeAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
     <Compile Include="Global.asax.cs">

@@ -3,6 +3,7 @@ using Salao.Domain.Abstract.Admin;
 using Salao.Domain.Models.Endereco;
 using Salao.Domain.Service.Admin;
 using Salao.Domain.Service.Endereco;
+using Salao.Web.Common;
 using System;
 using System.Linq;
 using System.Net;

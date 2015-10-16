@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
+using Salao.Web.Common;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {

@@ -1,6 +1,7 @@
 ﻿using Salao.Domain.Abstract;
 using Salao.Domain.Models.Admin;
 using Salao.Domain.Service.Admin;
+using Salao.Web.Common;
 using System;
 using System.Linq;
 using System.Net;

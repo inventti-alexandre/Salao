@@ -2,6 +2,7 @@
 using Salao.Domain.Models.Admin;
 using Salao.Domain.Service.Admin;
 using Salao.Domain.Service.Endereco;
+using Salao.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

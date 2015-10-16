@@ -1,6 +1,5 @@
 ﻿using Salao.Domain.Repository;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
@@ -45,7 +44,7 @@ namespace Salao.Web
                         {
                             roles = usuario.Roles;
                         }
-                        
+
                         // atribui roles a identidade Principal
                         HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(
                           new System.Security.Principal.GenericIdentity(username, "Forms"), roles.Split(';'));
@@ -58,30 +57,4 @@ namespace Salao.Web
             }
         }
     }
-
-    public class AreaAuthorizeAttribute : AuthorizeAttribute
-{
-    private readonly string area;
-
-    public AreaAuthorizeAttribute(string area)
-    {
-        this.area = area;
-    }
-
-    protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
-    {
-        string loginUrl = "";
-
-        if (area == "Admin")
-        {
-            loginUrl = "~/Admin/Login";
-        }
-        else if (area == "Empresa")
-        {
-            loginUrl = "~/Empresa/Login";
-        }
-
-        filterContext.Result = new RedirectResult(loginUrl + "?returnUrl=" + filterContext.HttpContext.Request.Url.PathAndQuery);
-    }
-}
 }

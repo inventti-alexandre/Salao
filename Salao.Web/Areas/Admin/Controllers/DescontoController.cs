@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Salao.Domain.Models.Cliente;
 using Salao.Domain.Service.Cliente;
+using Salao.Web.Common;
 
 namespace Salao.Web.Areas.Admin.Controllers
 {

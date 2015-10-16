@@ -3,6 +3,7 @@ using Salao.Domain.Abstract.Admin;
 using Salao.Domain.Models.Admin;
 using Salao.Domain.Service.Admin;
 using Salao.Web.Areas.Admin.Models;
+using Salao.Web.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
