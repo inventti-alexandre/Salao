@@ -22,6 +22,14 @@ namespace Salao.Web.Areas.Empresa.Common
             }
         }
 
+        public static Salao.Domain.Models.Cliente.Empresa Empresa
+        {
+            get 
+            {
+                return new CliUsuarioService().Listar().FirstOrDefault(x => x.Email == HttpContext.Current.User.Identity.Name).Empresa;
+            }
+        }
+
         public static string EmpresaFantasia
         {
             get

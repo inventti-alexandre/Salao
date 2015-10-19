@@ -162,6 +162,7 @@
     <Compile Include="Areas\Admin\Models\SalaoFormaPgtoModel.cs" />
     <Compile Include="Areas\Empresa\Common\Identification.cs" />
     <Compile Include="Areas\Empresa\Controllers\CadastroEmpresaController.cs" />
+    <Compile Include="Areas\Empresa\Controllers\FilialController.cs" />
     <Compile Include="Areas\Empresa\Controllers\HomeController.cs" />
     <Compile Include="Areas\Empresa\Controllers\LoginController.cs" />
     <Compile Include="Areas\Empresa\EmpresaAreaRegistration.cs" />
@@ -305,6 +306,14 @@
     <Content Include="Areas\Empresa\Views\Home\Index.cshtml" />
     <Content Include="Areas\Empresa\Views\Login\Index.cshtml" />
     <Content Include="Areas\Empresa\Views\CadastroEmpresa\Index.cshtml" />
+    <Content Include="Areas\Empresa\Views\Filial\Index.cshtml" />
+    <Content Include="Areas\Empresa\Views\Filial\Detalhes.cshtml" />
+    <Content Include="Areas\Empresa\Views\Shared\_Email.cshtml" />
+    <Content Include="Areas\Empresa\Views\Shared\_Endereco.cshtml" />
+    <Content Include="Areas\Empresa\Views\Shared\_Telefone.cshtml" />
+    <Content Include="Areas\Empresa\Views\Filial\Editar.cshtml" />
+    <Content Include="Areas\Empresa\Views\Filial\Excluir.cshtml" />
+    <Content Include="Areas\Empresa\Views\Filial\NovaFilial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

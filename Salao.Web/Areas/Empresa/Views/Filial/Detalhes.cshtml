@@ -1,0 +1,146 @@
+﻿@model Salao.Domain.Models.Cliente.Salao
+@{
+    ViewBag.Title = "Matriz/Filiais - detalhes";
+}
+
+<h2>@Salao.Web.Areas.Empresa.Common.Identification.EmpresaFantasia</h2>
+
+<div>
+    <h4>Salao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fantasia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fantasia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoPessoa)
+        </dt>
+
+        <dd>
+            @if (Model.TipoPessoa == 1)
+            {
+                @:Física, CPF: @Model.Cpf
+            }
+            else
+            {
+                @:Jurídica, CNPJ: @Model.Cnpj
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contato)
+        </dd>
+
+        @Html.Partial("_Endereco", (Salao.Domain.Models.Endereco.Endereco)Model.Endereco)
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sobre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sobre)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Observ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observ)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.CadastradoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CadastradoEm)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Aprovado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aprovado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cortesia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cortesia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Desconto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Desconto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DescontoCarencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescontoCarencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Latitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Longitude)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Exibir)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exibir)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoEm)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

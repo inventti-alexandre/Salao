@@ -1,19 +1,24 @@
 ﻿@model Salao.Domain.Models.Cliente.CadastroSalao
 
 @{
-    ViewBag.Title = "Salão";
+    ViewBag.Title = "Matriz/Filiais - edição";
 }
 
-<h2>@ViewBag.EmpresaFantasia</h2>
+<h2>@Salao.Web.Areas.Empresa.Common.Identification.EmpresaFantasia - Alteração</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.IdEmpresa)
+        @Html.HiddenFor(model => model.IdEndereco)
+        @Html.HiddenFor(model => model.Cortesia)
+        @Html.HiddenFor(model => model.Desconto)
+        @Html.HiddenFor(model => model.DescontoCarencia)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Fantasia, new { @class = "control-label col-md-2" })
@@ -71,30 +76,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Cortesia, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cortesia)
-                @Html.ValidationMessageFor(model => model.Cortesia)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Desconto, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Desconto)
-                @Html.ValidationMessageFor(model => model.Desconto)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DescontoCarencia, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DescontoCarencia)
-                @Html.ValidationMessageFor(model => model.DescontoCarencia)
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Latitude, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Latitude)
@@ -114,6 +95,7 @@
             @Html.LabelFor(model => model.TipoEndereco, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("TipoEndereco")
+                @Html.ValidationMessageFor(model => model.TipoEndereco)
             </div>
         </div>
 
@@ -205,8 +187,40 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Ativo, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ativo)
+                @Html.ValidationMessageFor(model => model.Ativo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Exibir, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Exibir)
+                @Html.ValidationMessageFor(model => model.Exibir)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CadastradoEm, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.CadastradoEm)
+                @Html.ValidationMessageFor(model => model.CadastradoEm)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Aprovado, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Aprovado)
+                @Html.HiddenFor(model => model.Aprovado)
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Incluir" class="btn btn-primary" />
+                <input type="submit" value="Gravar" class="btn btn-primary" />
             </div>
         </div>
     </div>
