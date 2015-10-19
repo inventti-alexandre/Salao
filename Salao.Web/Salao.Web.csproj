@@ -117,6 +117,7 @@
     <Folder Include="Areas\Cliente\Controllers\" />
     <Folder Include="Areas\Cliente\Models\" />
     <Folder Include="Areas\Empresa\Views\Cadastro\" />
+    <Folder Include="Areas\Empresa\Views\Grupo\" />
     <Folder Include="Content\Colaboradores\" />
     <Folder Include="Models\" />
     <Folder Include="Views\PreContato\" />
@@ -163,6 +164,7 @@
     <Compile Include="Areas\Empresa\Common\Identification.cs" />
     <Compile Include="Areas\Empresa\Controllers\CadastroEmpresaController.cs" />
     <Compile Include="Areas\Empresa\Controllers\FilialController.cs" />
+    <Compile Include="Areas\Empresa\Controllers\GrupoController.cs" />
     <Compile Include="Areas\Empresa\Controllers\HomeController.cs" />
     <Compile Include="Areas\Empresa\Controllers\LoginController.cs" />
     <Compile Include="Areas\Empresa\EmpresaAreaRegistration.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace Salao.Domain.Models.Cliente
@@ -8,6 +9,10 @@ namespace Salao.Domain.Models.Cliente
     {
         [Key]
         public int Id { get; set; }
+
+        [ForeignKey("Empresa")]
+        [Required(ErrorMessage="Empresa inválida")]
+        public int IdEmpresa { get; set; }
 
         [Required(ErrorMessage = "Informe o nome do grupo")]
         [StringLength(40, ErrorMessage = "O nome do grupo é formado por no máximo 40 caracteres")]
@@ -18,5 +23,13 @@ namespace Salao.Domain.Models.Cliente
 
         [Display(Name = "Alterado em")]
         public DateTime AlteradoEm { get; set; }
+
+        public virtual Empresa Empresa
+        {
+            get
+            {
+                return new Service.Cliente.EmpresaService().Find(IdEmpresa);
+            }
+        }
     }
 }

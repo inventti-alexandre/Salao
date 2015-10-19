@@ -4,10 +4,10 @@
     ViewBag.Title = "Grupos";
 }
 
-<h2>Grupos de usuários para clientes</h2>
+<h2>Grupos de usuários para clientes - @ViewBag.Fantasia</h2>
 
 <p>
-    @Html.ActionLink("Novo grupo", "Create")
+    @Html.ActionLink("Novo grupo", "Create", new { idEmpresa = (int)ViewBag.IdEmpresa })
 </p>
 <table class="table">
     <tr>

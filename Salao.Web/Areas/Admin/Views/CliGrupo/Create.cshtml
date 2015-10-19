@@ -4,12 +4,13 @@
     ViewBag.Title = "Grupos";
 }
 
-<h2>Grupos de usuários para clientes</h2>
+<h2>Grupos de usuários para clientes - @Model.Empresa.Fantasia</h2>
 
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.IdEmpresa)
     
     <div class="form-horizontal">
         <hr />

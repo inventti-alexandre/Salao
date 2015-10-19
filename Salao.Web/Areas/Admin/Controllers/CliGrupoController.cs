@@ -20,11 +20,25 @@ namespace Salao.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/CliGrupo
-        public ActionResult Index()
+        public ActionResult Index(int? idEmpresa)
         {
+            if (idEmpresa == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var empresa = new EmpresaService().Find((int)idEmpresa);
+
+            if (empresa == null)
+            {
+                return HttpNotFound();
+            }
+
             var grupos = service.Listar()
+                .Where(x => x.IdEmpresa == (int)idEmpresa)
                 .OrderBy(x => x.Descricao);
 
+            ViewBag.Fantasia = empresa.Fantasia;
+            ViewBag.IdEmpresa = empresa.Id;
             return View(grupos);
         }
 
@@ -42,14 +56,26 @@ namespace Salao.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/CliGrupo/Create
-        public ActionResult Create()
+        public ActionResult Create(int? idEmpresa)
         {
-            return View(new CliGrupo());
+            if (idEmpresa == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var empresa = new EmpresaService().Find((int)idEmpresa);
+
+            if (empresa == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(new CliGrupo { IdEmpresa = empresa.Id });
         }
 
         // POST: Admin/CliGrupo/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="Descricao")] CliGrupo grupo)
+        public ActionResult Create([Bind(Include="IdEmpresa,Descricao")] CliGrupo grupo)
         {
             try
             {
@@ -61,11 +87,13 @@ namespace Salao.Web.Areas.Admin.Controllers
                     service.Gravar(grupo);
                     return RedirectToAction("Index");
                 }
+
                 return View(grupo);
             }
             catch (Exception e)
             {
-                return View(string.Empty, e.Message);
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(grupo);
             }
         }
 
@@ -89,7 +117,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         // POST: Admin/CliGrupo/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include="Id,Descricao,Ativo")] CliGrupo grupo)
+        public ActionResult Edit([Bind(Include="Id,IdEmpresa,Descricao,Ativo")] CliGrupo grupo)
         {
             try
             {
