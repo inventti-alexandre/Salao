@@ -24,6 +24,7 @@ namespace Salao.Domain.Service.Cliente
         {
             // formata
             item.Descricao = item.Descricao.ToUpper().Trim();
+            item.Role = item.Role.ToLower().Trim();
             item.AlteradoEm = DateTime.Now;
 
             // valida

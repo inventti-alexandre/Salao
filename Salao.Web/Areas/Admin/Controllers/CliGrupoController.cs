@@ -86,7 +86,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     service.Gravar(grupo);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { idEmpresa = grupo.IdEmpresa });
                 }
 
                 return View(grupo);
@@ -128,7 +128,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     service.Gravar(grupo);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { idEmpresa = grupo.IdEmpresa});
                 }
                 return View(grupo);
             }
@@ -163,8 +163,8 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
-                return RedirectToAction("Index");
+                var grupo = service.Excluir(id);
+                return RedirectToAction("Index", new { idEmpresa = grupo.IdEmpresa });
             }
             catch (Exception e)
             {

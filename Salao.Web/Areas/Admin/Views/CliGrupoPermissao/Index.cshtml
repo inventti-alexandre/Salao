@@ -39,6 +39,6 @@
     
     <div class="form-group">
         <input type="submit" value="Gravar" class="btn btn-primary" />
-        @Html.ActionLink("Voltar", "Index", "CliGrupo", null, new { @class="btn btn-primary" })
+        @Html.ActionLink("Voltar", "Index", "CliGrupo", new { idEmpresa = (int)ViewBag.IdEmpresa }, new { @class = "btn btn-primary" })
     </div>
 }

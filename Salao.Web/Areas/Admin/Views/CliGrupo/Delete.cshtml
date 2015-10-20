@@ -44,7 +44,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Excluir" class="btn btn-danger" /> |
-            @Html.ActionLink("Voltar", "Index")
+            @Html.ActionLink("Voltar", "Index", new { idEmpresa = Model.IdEmpresa })
         </div>
     }
 </div>

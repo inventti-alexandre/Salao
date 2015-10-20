@@ -49,7 +49,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         // POST: Admin/CliPermissao/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include="Descricao")] CliPermissao permissao)
+        public ActionResult Create([Bind(Include="Descricao,Role")] CliPermissao permissao)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         // POST: Admin/CliPermissao/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include="Id,Descricao,Ativo")] CliPermissao permissao)
+        public ActionResult Edit([Bind(Include="Id,Descricao,Role,Ativo")] CliPermissao permissao)
         {
             try
             {

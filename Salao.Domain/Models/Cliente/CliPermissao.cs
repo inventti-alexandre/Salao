@@ -14,6 +14,11 @@ namespace Salao.Domain.Models.Cliente
         [Display(Name = "Permissão")]
         public string Descricao { get; set; }
 
+        [Required(ErrorMessage="Informe a regra")]
+        [Display(Name="Regra")]
+        [StringLength(40,ErrorMessage="A regra é composta por no máximo 40 caracteres")]
+        public string Role { get; set; }
+
         public bool Ativo { get; set; }
 
         [Required]

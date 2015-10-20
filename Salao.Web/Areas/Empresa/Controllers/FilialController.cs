@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Empresa.Controllers
 {
-    [AreaAuthorize("Empresa", Roles = "empresa_master,empresa_mananger")]
+    [AreaAuthorize("Empresa", Roles = "salao_crud")]
     public class FilialController : Controller
     {
         IBaseService<Salao.Domain.Models.Cliente.Salao> service;

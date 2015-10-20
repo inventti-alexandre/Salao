@@ -25,7 +25,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/CliGrupoPermissao
-        public ActionResult Index(int id)
+        public ActionResult Index(int id, int idEmpresa)
         {
             // grupo selecionado
             var grupo = serviceGrupo.Find(id);
@@ -47,16 +47,17 @@ namespace Salao.Web.Areas.Admin.Controllers
 
             ViewBag.IdGrupo = id;
             ViewBag.NomeGrupo = grupo.Descricao;
+            ViewBag.IdEmpresa = idEmpresa;
             return View(permissoesGrupo);
         }
 
         [HttpPost]
-        public ActionResult Index(int idGrupo, int[] selecionado)
+        public ActionResult Index(int idGrupo, int[] selecionado, int idEmpresa)
         {
             // grava permissoes do grupo
             service.Gravar(idGrupo, selecionado);
 
-            return RedirectToAction("Index", "CliGrupo");
+            return RedirectToAction("Index", "CliGrupo", new { idEmpresa = idEmpresa });
         }
     }
 }

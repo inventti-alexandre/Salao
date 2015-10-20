@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Empresa.Controllers
 {
-    [AreaAuthorize("Empresa", Roles = "empresa_master,empresa_mananger")]
+    [AreaAuthorize("Empresa", Roles = "grupo_crud")]
     public class GrupoController : Controller
     {
         private IBaseService<CliGrupo> service;

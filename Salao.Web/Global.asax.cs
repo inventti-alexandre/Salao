@@ -50,11 +50,13 @@ namespace Salao.Web
                         }
                         else
                         {
-                            var usuario = new Salao.Domain.Service.Cliente.CliUsuarioService().Listar().FirstOrDefault(x => x.Email == username);
-                            if (usuario != null)
-                            {
-                                roles = usuario.Roles;
-                            }
+                            //var usuario = new Salao.Domain.Service.Cliente.CliUsuarioService().Listar().FirstOrDefault(x => x.Email == username);
+                            // TODO: arrumar aqui
+                            //if (usuario != null)
+                            //{
+                            //    roles = usuario.Roles;
+                            //}
+                            roles = new Salao.Domain.Service.Cliente.CliUsuarioService().GetRoles(username);
                         }
 
                         // atribui roles a identidade Principal

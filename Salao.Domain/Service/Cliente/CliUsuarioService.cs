@@ -27,11 +27,6 @@ namespace Salao.Domain.Service.Cliente
             item.Email = item.Email.ToLower().Trim();
             item.Nome = item.Nome.ToUpper().Trim();
             item.Telefone = item.Telefone.ToUpper().Trim();
-            if (string.IsNullOrEmpty(item.Roles))
-            {
-                item.Roles = "empresa_user";
-            }
-            item.Roles = item.Roles.ToLower().Trim();
 
             // valida
             if (repository.Listar().Where(x => x.Email == item.Email && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
@@ -162,12 +157,32 @@ namespace Salao.Domain.Service.Cliente
             EnviarNovaSenha(usuario, mensagem);
         }
 
+        public string GetRoles(string email)
+        {
+            var db = new EFDbContext();
+
+            var roles = (from p in db.CliPermissao
+                         join gp in db.CliGrupoPermissao on p.Id equals gp.IdPermissao
+                         join g in db.CliGrupo on gp.IdGrupo equals g.Id
+                         join ug in db.CliUsuarioGrupo on g.Id equals ug.IdGrupo
+                         join u in db.CliUsuario on ug.IdUsuario equals u.Id
+                         where u.Ativo == true
+                         && u.Email == email
+                         select p.Role).Distinct().ToList();
+
+            // regra basica para usuario da empresa
+            roles.Add("empresa");
+
+            return string.Join(";", roles);
+                                     
+        }
+
         private void EnviarNovaSenha(CliUsuario usuario, string mensagem)
         {
             var email = new Email.EnviarEmail();           
             // TODO: assunto deve conter o nome do app
             email.Enviar(usuario.Nome, usuario.Email, "Nova senha para acesso", mensagem.ToString());
-        }
+        }        
 
     }
 }
