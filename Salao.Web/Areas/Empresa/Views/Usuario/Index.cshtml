@@ -44,8 +44,8 @@
             @Html.ActionLink("Editar", "Editar", new { id=item.Id }) |
             @Html.ActionLink("Detalhes", "Detalhes", new { id=item.Id }) |
             @Html.ActionLink("Excluir", "Excluir", new { id=item.Id }) |
-            @Html.ActionLink("Grupos", "Index", "GruposUsuario", new { id=item.Id }) |
-            @Html.ActionLink("Redefinir senha", "RedefinirSenha", new { id=item.Id })
+            @Html.ActionLink("Grupos", "Index", "GruposUsuario", new { id=item.Id }, null) |
+            @Html.ActionLink("Redefinir senha", "RedefinirSenha", new { id=item.Id }, null)
         </td>
     </tr>
 }
