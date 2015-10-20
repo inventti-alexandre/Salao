@@ -162,6 +162,7 @@
     <Compile Include="Areas\Admin\Models\SalaoFormaPgtoModel.cs" />
     <Compile Include="Areas\Empresa\Common\Identification.cs" />
     <Compile Include="Areas\Empresa\Controllers\CadastroEmpresaController.cs" />
+    <Compile Include="Areas\Empresa\Controllers\ColaboradorController.cs" />
     <Compile Include="Areas\Empresa\Controllers\FilialController.cs" />
     <Compile Include="Areas\Empresa\Controllers\GrupoController.cs" />
     <Compile Include="Areas\Empresa\Controllers\GruposUsuarioController.cs" />
@@ -330,6 +331,11 @@
     <Content Include="Areas\Empresa\Views\Usuario\Excluir.cshtml" />
     <Content Include="Areas\Empresa\Views\Usuario\RedefinirSenha.cshtml" />
     <Content Include="Areas\Empresa\Views\GruposUsuario\Index.cshtml" />
+    <Content Include="Areas\Empresa\Views\Colaborador\Index.cshtml" />
+    <Content Include="Areas\Empresa\Views\Colaborador\Detalhes.cshtml" />
+    <Content Include="Areas\Empresa\Views\Colaborador\Incluir.cshtml" />
+    <Content Include="Areas\Empresa\Views\Colaborador\Editar.cshtml" />
+    <Content Include="Areas\Empresa\Views\Colaborador\Excluir.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
