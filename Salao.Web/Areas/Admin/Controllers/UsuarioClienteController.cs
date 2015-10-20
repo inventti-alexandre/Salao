@@ -63,7 +63,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
         // POST: Cliente/Usuario/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "IdEmpresa,Nome,Email,Password,Telefone,Password,Roles")] CliUsuario usuario)
+        public ActionResult Create([Bind(Include = "IdEmpresa,Nome,Email,Password,Telefone,Roles")] CliUsuario usuario)
         {
             try
             {

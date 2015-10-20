@@ -117,7 +117,6 @@
     <Folder Include="Areas\Cliente\Controllers\" />
     <Folder Include="Areas\Cliente\Models\" />
     <Folder Include="Areas\Empresa\Views\Cadastro\" />
-    <Folder Include="Areas\Empresa\Views\Grupo\" />
     <Folder Include="Content\Colaboradores\" />
     <Folder Include="Models\" />
     <Folder Include="Views\PreContato\" />
@@ -167,6 +166,7 @@
     <Compile Include="Areas\Empresa\Controllers\GrupoController.cs" />
     <Compile Include="Areas\Empresa\Controllers\HomeController.cs" />
     <Compile Include="Areas\Empresa\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Empresa\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Empresa\EmpresaAreaRegistration.cs" />
     <Compile Include="Areas\Empresa\Models\LoginUsuario.cs" />
     <Compile Include="Common\AreaAuthorizeAttribute.cs" />
@@ -316,6 +316,17 @@
     <Content Include="Areas\Empresa\Views\Filial\Editar.cshtml" />
     <Content Include="Areas\Empresa\Views\Filial\Excluir.cshtml" />
     <Content Include="Areas\Empresa\Views\Filial\NovaFilial.cshtml" />
+    <Content Include="Areas\Empresa\Views\Grupo\Index.cshtml" />
+    <Content Include="Areas\Empresa\Views\Grupo\Detalhes.cshtml" />
+    <Content Include="Areas\Empresa\Views\Grupo\Incluir.cshtml" />
+    <Content Include="Areas\Empresa\Views\Grupo\Editar.cshtml" />
+    <Content Include="Areas\Empresa\Views\Grupo\Excluir.cshtml" />
+    <Content Include="Areas\Empresa\Views\Usuario\Index.cshtml" />
+    <Content Include="Areas\Empresa\Views\Usuario\Detalhes.cshtml" />
+    <Content Include="Areas\Empresa\Views\Usuario\Incluir.cshtml" />
+    <Content Include="Areas\Empresa\Views\Usuario\Editar.cshtml" />
+    <Content Include="Areas\Empresa\Views\Usuario\Excluir.cshtml" />
+    <Content Include="Areas\Empresa\Views\Usuario\RedefinirSenha.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -10,7 +10,6 @@ namespace Salao.Domain.Models.Cliente
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("Empresa")]
         [Required(ErrorMessage="Empresa inválida")]
         public int IdEmpresa { get; set; }
 

@@ -26,6 +26,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var empresa = new EmpresaService().Find((int)idEmpresa);
 
             if (empresa == null)

@@ -1,6 +1,7 @@
 ﻿using Salao.Domain.Abstract;
 using Salao.Domain.Models.Cliente;
 using Salao.Domain.Service.Cliente;
+using Salao.Web.Areas.Empresa.Common;
 using Salao.Web.Common;
 using System;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Empresa.Controllers
 {
+    [AreaAuthorize("Empresa", Roles = "empresa_master,empresa_mananger")]
     public class GrupoController : Controller
     {
         private IBaseService<CliGrupo> service;
@@ -21,79 +23,140 @@ namespace Salao.Web.Areas.Empresa.Controllers
         // GET: Empresa/Grupo
         public ActionResult Index()
         {
+            var grupos = service.Listar()
+                .Where(x => x.IdEmpresa == Identification.IdEmpresa)
+                .OrderBy(x => x.Descricao)
+                .ToList();
 
-            return View();
+            return View(grupos);
         }
 
         // GET: Empresa/Grupo/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Detalhes(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var grupo = service.Find((int)id);
+
+            if (grupo == null || grupo.IdEmpresa != Identification.IdEmpresa)
+            {
+                return HttpNotFound();
+            }
+
+            return View(grupo);
         }
 
         // GET: Empresa/Grupo/Create
-        public ActionResult Create()
+        public ActionResult Incluir()
         {
-            return View();
+            return View(new CliGrupo { IdEmpresa = Identification.IdEmpresa });
         }
 
         // POST: Empresa/Grupo/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Incluir([Bind(Include="IdEmpresa,Descricao")] CliGrupo grupo)
         {
             try
             {
-                // TODO: Add insert logic here
+                grupo.AlteradoEm = DateTime.Now;
+                TryUpdateModel(grupo);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+	            {
+                    service.Gravar(grupo);
+                    return RedirectToAction("Index");		 
+	            }
+
+                return View(grupo);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(grupo);
             }
         }
 
         // GET: Empresa/Grupo/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Editar(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var grupo = service.Find((int)id);
+
+            if (grupo == null || grupo.IdEmpresa != Identification.IdEmpresa)
+            {
+                return HttpNotFound();
+            }
+
+            return View(grupo);
         }
 
         // POST: Empresa/Grupo/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Editar([Bind(Include="Id,IdEmpresa,Descricao,Ativo")] CliGrupo grupo)
         {
             try
             {
-                // TODO: Add update logic here
+                grupo.AlteradoEm = DateTime.Now;
+                TryUpdateModel(grupo);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(grupo);
+                    return RedirectToAction("Index");
+                }
+
+                return View(grupo);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(grupo);
             }
         }
 
         // GET: Empresa/Grupo/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Excluir(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var grupo = service.Find((int)id);
+
+            if (grupo == null || grupo.IdEmpresa != Identification.IdEmpresa)
+            {
+                return HttpNotFound();
+            }
+
+            return View(grupo);
         }
 
         // POST: Empresa/Grupo/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Excluir(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                service.Excluir(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                var grupo = service.Find(id);
+                if (grupo == null || grupo.IdEmpresa != Identification.IdEmpresa)
+                {
+                    return HttpNotFound();
+                }
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(grupo);
             }
         }
     }
