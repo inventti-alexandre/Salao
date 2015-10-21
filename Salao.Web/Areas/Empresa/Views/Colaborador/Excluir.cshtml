@@ -9,6 +9,12 @@
 <div class="alert alert-danger">
     <h3>Confirma a exclusão deste colaborador?</h3>
 </div>
+<div class="row top20 col-md-offset-1">
+    @if (!string.IsNullOrEmpty(ViewBag.Image))
+    {
+        <img src="@ViewBag.Image" class="img-responsive img-thumbnail" style="height:120px; width:110px;" />
+    }
+</div>
 <div>
     <hr />
     <dl class="dl-horizontal">

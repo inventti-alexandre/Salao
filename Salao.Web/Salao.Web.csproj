@@ -336,6 +336,7 @@
     <Content Include="Areas\Empresa\Views\Colaborador\Incluir.cshtml" />
     <Content Include="Areas\Empresa\Views\Colaborador\Editar.cshtml" />
     <Content Include="Areas\Empresa\Views\Colaborador\Excluir.cshtml" />
+    <Content Include="Areas\Empresa\Views\Colaborador\Colaboradores.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -1,72 +1,29 @@
-﻿@model IEnumerable<Salao.Domain.Models.Cliente.Profissional>
-
-@{
+﻿@{
     ViewBag.Title = "Colaboradores";
 }
-<div id="page">
-    <h2>Colaboradores</h2>
-    <strong>@ViewBag.SalaoFantasia</strong><br />
-    @ViewBag.SalaoEndereco
+<h2>Colaboradores</h2>
 
-    <p class="top20">
-        @Html.ActionLink("Novo colaborador", "Incluir", new { idSalao = (int)@ViewBag.IdSalao })
-    </p>
+<p class="top20">
+    @Html.ActionLink("Novo colaborador", "Incluir", new { idSalao = (int)@ViewBag.IdSalao })
+</p>
 
-    <div class="top20">
-        Salão: @Html.DropDownList("Saloes", (SelectList)@ViewBag.Saloes)
-    </div>
-
-    <table class="table top20">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ativo)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
-                    @Html.ActionLink("Detalhes", "Detalhes", new { id = item.Id }) |
-                    @Html.ActionLink("Excluir", "Excluir", new { id = item.Id })
-                </td>
-            </tr>
-        }
-
-    </table>
+<div class="top20">
+    Salão: @Html.DropDownList("Saloes", (SelectList)@ViewBag.Saloes)
 </div>
+
+<div id="page">
+    @{Html.RenderAction("Colaboradores", "Colaborador", new { idSalao = (int)@ViewBag.IdSalao });}
+</div>
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
         $("#Saloes").change(function () {
-            var id = parseInt($("#Saloes").val());
+            var id = $(this).val();
 
             $.ajax({
-                url: '@Url.Action("Index", "Colaborador")',
+                url: '@Url.Action("Colaboradores", "Colaborador")',
                 data: { 'idSalao': id },
                 datatype: 'html',
                 cache: false,
@@ -75,6 +32,6 @@
                 }
             });
         });
-        
+
     });
 </script>

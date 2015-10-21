@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Salao.Domain.Models.Cliente.Profissional>
+
+<div class="top20">
+    <strong>@ViewBag.SalaoFantasia</strong><br />
+    @ViewBag.SalaoEndereco
+</div>
+
+<table class="table top20">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
+                @Html.ActionLink("Detalhes", "Detalhes", new { id = item.Id }) |
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

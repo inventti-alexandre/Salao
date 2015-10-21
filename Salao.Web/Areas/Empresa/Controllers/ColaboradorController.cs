@@ -4,8 +4,10 @@ using Salao.Domain.Service.Cliente;
 using Salao.Web.Areas.Empresa.Common;
 using Salao.Web.Common;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Salao.Web.Areas.Empresa.Controllers
@@ -45,17 +47,19 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var profissionais = service.Listar()
-                .Where(x => x.IdSalao == idSalao)
-                .OrderBy(x => x.Nome)
-                .ToList();
-
             ViewBag.IdSalao = idSalao;
+            ViewBag.Saloes = GetSaloes(idSalao);
+            return View();
+        }
+
+        public PartialViewResult Colaboradores(int idSalao)
+        {
+            var salao = serviceSalao.Find(idSalao);
+            var profissionais = service.Listar().Where(x => x.IdSalao == idSalao).OrderBy(x => x.Nome);
+
             ViewBag.SalaoFantasia = salao.Fantasia;
             ViewBag.SalaoEndereco = salao.Endereco.Logradouro;
-            var saloes = GetSaloes(idSalao);
-            ViewBag.Saloes = saloes;
-            return View(profissionais);
+            return PartialView(profissionais);
         }
 
         // GET: Empresa/Colaborador/Details/5
@@ -76,6 +80,8 @@ namespace Salao.Web.Areas.Empresa.Controllers
             ViewBag.IdSalao = profissional.IdSalao;
             ViewBag.SalaoFantasia = profissional.Salao.Fantasia;
             ViewBag.SalaoEndereco = profissional.Salao.Endereco.Logradouro;
+            ViewBag.Image = GetImage(profissional.Id);
+
             return View(profissional);
         }
 
@@ -91,14 +97,15 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
             var profissional = new Profissional { IdSalao = idSalao };
             ViewBag.SalaoFantasia = salao.Fantasia;
-            ViewBag.SalaoEndereco = salao.Endereco.Logradouro;            
-            
+            ViewBag.SalaoEndereco = salao.Endereco.Logradouro;
+            ViewBag.IdSalao = salao.Id;
+
             return View(profissional);
         }
 
         // POST: Empresa/Colaborador/Create
         [HttpPost]
-        public ActionResult Incluir([Bind(Include = "IdSalao,Nome,Telefone,Email")] Profissional profissional)
+        public ActionResult Incluir([Bind(Include = "IdSalao,Nome,Telefone,Email")] Profissional profissional, HttpPostedFileBase image)
         {
             try
             {
@@ -107,7 +114,8 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(profissional);
+                    var id = service.Gravar(profissional);
+                    SetImage(image, id);
                     return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
                 }
 
@@ -137,13 +145,14 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
             ViewBag.SalaoFantasia = profissional.Salao.Fantasia;
             ViewBag.SalaoEndereco = profissional.Salao.Endereco.Logradouro;
-            
+            ViewBag.Image = GetImage(profissional.Id);
+
             return View(profissional);
         }
 
         // POST: Empresa/Colaborador/Edit/5
         [HttpPost]
-        public ActionResult Editar([Bind(Include="Id,IdSalao,Nome,Telefone,Email")] Profissional profissional)
+        public ActionResult Editar([Bind(Include="Id,IdSalao,Nome,Telefone,Email")] Profissional profissional, HttpPostedFileBase image)
         {
             try
             {
@@ -152,7 +161,8 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(profissional);
+                    int id = service.Gravar(profissional);
+                    SetImage(image, id);
                     return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
                 }
 
@@ -182,6 +192,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
             ViewBag.SalaoFantasia = profissional.Salao.Fantasia;
             ViewBag.SalaoEndereco = profissional.Salao.Endereco.Logradouro;
+            ViewBag.Image = GetImage(profissional.Id);
 
             return View(profissional);
         }
@@ -199,7 +210,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             {
                 ModelState.AddModelError(string.Empty, e.Message);
                 var profissional = service.Find(id);
-                if (id == null)
+                if (profissional == null)
                 {
                     return HttpNotFound();
                 }
@@ -216,6 +227,50 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 .ToList();
 
             return new SelectList(saloes, "Id", "Fantasia", idSalao);
+        }
+
+        private string GetImage(int id)
+        {
+            var systemFileName = id.ToString() + ".jpg";
+            var path = Path.Combine(Server.MapPath("~/Content/Colaboradores/"), systemFileName);
+            if (System.IO.File.Exists(path))
+            {
+                return string.Format("/Content/Colaboradores/{0}.{1}", id, "jpg");
+            }
+
+            return string.Empty;
+        }
+
+        private void DeleteImage(int id)
+        {
+            var systemFileName = id.ToString() + ".jpg";
+            var path = Path.Combine(Server.MapPath("~/Content/Colaboradores/"), systemFileName);
+            if (System.IO.File.Exists(path))
+            {
+                try
+                {
+                    System.IO.File.Delete(path);
+                }
+                catch (Exception)
+                {
+                    // none
+                }
+            }
+        }
+
+        private void SetImage(HttpPostedFileBase image, int id)
+        {
+            // grava imagem do funcionario
+            if (image != null && image.ContentLength > 0)
+            {
+                var extensao = Path.GetExtension(image.FileName);
+                if (extensao.ToLower().Contains("jpg"))
+                {
+                    var systemFileName = id.ToString() + extensao;
+                    var path = Path.Combine(Server.MapPath("~/Content/Colaboradores/"), systemFileName);
+                    image.SaveAs(path);
+                }
+            }
         }
     }
 }
