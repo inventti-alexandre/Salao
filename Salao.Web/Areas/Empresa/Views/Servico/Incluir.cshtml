@@ -1,0 +1,84 @@
+﻿@model Salao.Domain.Models.Cliente.Servico
+
+@{
+    ViewBag.Title = "Incluir";
+}
+
+<h2>Serviço - inclusão</h2>
+<hr />
+Local: <strong>@Model.Salao.Fantasia</strong> - @Model.Salao.Endereco.Logradouro, @Model.Salao.Endereco.Numero
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.IdSalao)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Area, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdArea", (SelectList)ViewBag.ListaAreas)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdSubArea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdSubArea", (SelectList)ViewBag.ListaSubAreas)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Descricao)
+                @Html.ValidationMessageFor(model => model.Descricao)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Detalhe, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Detalhe)
+                @Html.ValidationMessageFor(model => model.Detalhe)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tempo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tempo)
+                @Html.ValidationMessageFor(model => model.Tempo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrecoSemDesconto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PrecoSemDesconto)
+                @Html.ValidationMessageFor(model => model.PrecoSemDesconto)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Preco, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Preco)
+                @Html.ValidationMessageFor(model => model.Preco)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Incluir" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index", new { idSalao = Model.IdSalao, idArea = Model.Area.Id, idSubArea = Model.IdSubArea })
+</div>

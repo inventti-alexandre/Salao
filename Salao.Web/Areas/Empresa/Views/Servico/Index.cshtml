@@ -1,30 +1,22 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Serviços oferecidos";
 }
 
 <h2>Serviços oferecidos por filial</h2>
 
-<div class="row"></div>
-<div class="col-md-2">
-    Selecione a matriz/filial:
-    <div class="col-md-10">
-        @Html.DropDownList("Saloes", (SelectList)ViewBag.Saloes)
+<div class="row top30">
+    <div class="col-md-4">
+        Selecione a matriz/filial:<br />
+        @Html.DropDownList("Saloes", (SelectList)ViewBag.ListaSaloes)
+    </div>
+    <div class="col-md-4">
+        Selecione a área:<br />@Html.DropDownList("Areas", (SelectList)ViewBag.ListaAreas)
+    </div>
+    <div class="col-md-4">
+        Selecione a sub área:<br />
+        @Html.DropDownList("SubAreas", (SelectList)ViewBag.ListaSubAreas)
     </div>
 </div>
-<div class="col-md-2">
-    Selecione a área:
-    <div id="areas" class="col-md-10">
-        @Html.DropDownList("Areas", (SelectList)ViewBag.Areas)
-    </div>
-</div>
-<div class="col-md-2">
-    Selecione a sub área:
-    <div id="subAreas" class="col-md-10">
-        @Html.DropDownList("SubAreas", (SelectList)ViewBag.SubAreas)
-    </div>     
-</div>
-
 <div class="row top20" id="servicos">
     @{
         Html.RenderAction("ServicosPrestados", "Servico", new { idSalao = (int)ViewBag.IdSalao });
@@ -60,14 +52,13 @@
                         ServicosPrestados();
                     })
                 },
-                error: function(ex) {
+                error: function (ex) {
                     alert('Falha ao atualizar areas' + ex);
                 }
             });
         });
 
-        function ServicosPrestados()
-        {
+        function ServicosPrestados() {
             var idSalao = $("#Saloes").val();
             var idArea = $("#Areas").val();
             var idSubArea = $("#SubAreas").val();
@@ -80,7 +71,7 @@
                 success: function (result) {
                     $('#servicos').html(result);
                 },
-                error: function(ex){
+                error: function (ex) {
                     alert('Falha ao listar serviços' + ex);
                 }
             });

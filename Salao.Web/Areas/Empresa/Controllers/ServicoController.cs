@@ -7,6 +7,7 @@ using Salao.Web.Areas.Empresa.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -57,10 +58,11 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 idSubArea = serviceSubArea.Listar().Where(x => x.IdArea == idArea).OrderBy(x => x.Descricao).First().Id;
             }
 
+            var saloes = GetSelectSaloes(idSalao);
             ViewBag.IdSalao = idSalao;
-            ViewBag.Saloes = GetSelectSaloes(idSalao);
-            ViewBag.Areas = GetSelectAreas(idArea);
-            ViewBag.SubAreas = GetSelectSubAreas(idArea, idSubArea);
+            ViewBag.ListaSaloes = saloes;
+            ViewBag.ListaAreas = GetSelectAreas(idArea);
+            ViewBag.ListaSubAreas = GetSelectSubAreas(idArea, idSubArea);
 
             return View();
         }
@@ -85,76 +87,177 @@ namespace Salao.Web.Areas.Empresa.Controllers
         }
 
         // GET: Empresa/Servico/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Detalhes(int id)
         {
-            return View();
+            var servico = service.Find(id);
+
+            // lista de saloes desta empresa
+            if (!serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
+                .Select(x => x.Id).Contains(servico.IdSalao))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            return View(servico);
         }
 
         // GET: Empresa/Servico/Create
-        public ActionResult Create()
+        public ActionResult Incluir(int idSalao, int idArea, int idSubArea)
         {
-            return View();
+            var servico = new Servico { IdSalao = idSalao, IdSubArea = idSubArea };
+
+            ViewBag.ListaAreas = GetSelectAreas(idArea);
+            ViewBag.ListaSubAreas = GetSelectSubAreas(idArea, idSubArea);
+
+            return View(servico);
         }
 
         // POST: Empresa/Servico/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Incluir([Bind(Include = "IdArea,IdSubArea,Descricao,Detalhe,Tempo,PrecoSemDesconto,Preco")] Servico servico)
         {
             try
             {
-                // TODO: Add insert logic here
+                servico.AlteradoEm = DateTime.Now;
+                TryUpdateModel(servico);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(servico);
+                    return RedirectToAction("Index", new { idSalao = servico.IdSalao, idArea = servico.Area.Id, idSubArea = servico.IdSubArea });
+                }
+
+                ViewBag.ListaAreas = GetSelectAreas(servico.Area.Id);
+                ViewBag.ListaSubAreas = GetSelectSubAreas(servico.Area.Id, servico.IdSubArea);
+                return View(servico);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                ViewBag.ListaAreas = GetSelectAreas(servico.Area.Id);
+                ViewBag.ListaSubAreas = GetSelectSubAreas(servico.Area.Id, servico.IdSubArea);
+                return View(servico);
             }
         }
 
         // GET: Empresa/Servico/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Editar(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var servico = service.Find((int)id);
+
+            if (servico == null)
+            {
+                return HttpNotFound();
+            }
+
+            // lista de saloes desta empresa
+            if (!serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
+                .Select(x => x.Id).Contains(servico.IdSalao))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ViewBag.ListaAreas = GetSelectAreas(servico.SubArea.IdArea);
+            ViewBag.ListaSubAreas = GetSelectSubAreas(servico.SubArea.IdArea, servico.IdSubArea);
+
+            return View(servico);
         }
 
         // POST: Empresa/Servico/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Editar([Bind(Include="Id,IdArea,IdSubArea,Descricao,Detalhe,Tempo,PrecoSemDesconto,Preco,Ativo")] Servico servico)
         {
             try
             {
-                // TODO: Add update logic here
+                servico.AlteradoEm = DateTime.Now;
+                TryUpdateModel(servico);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(servico);
+                    return RedirectToAction("Index", new { idSalao = servico.IdSalao, idArea = servico.Area.Id, idSubArea = servico.IdSubArea });
+                }
+
+                ViewBag.ListaAreas = GetSelectAreas(servico.SubArea.IdArea);
+                ViewBag.ListaSubAreas = GetSelectSubAreas(servico.SubArea.IdArea, servico.IdSubArea);
+                return View(servico);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                ViewBag.ListaAreas = GetSelectAreas(servico.SubArea.IdArea);
+                ViewBag.ListaSubAreas = GetSelectSubAreas(servico.SubArea.IdArea, servico.IdSubArea);
+                return View(servico);
             }
         }
 
         // GET: Empresa/Servico/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Excluir(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var servico = service.Find((int)id);
+
+            if (servico == null)
+            {
+                return HttpNotFound();
+            }
+            
+            // lista de saloes desta empresa
+            if (!serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
+                .Select(x => x.Id).Contains(servico.IdSalao))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(servico);
         }
 
         // POST: Empresa/Servico/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Excluir(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                var servico = service.Find(id);
 
-                return RedirectToAction("Index");
+                if (servico == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // lista de saloes desta empresa
+                if (!serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
+                    .Select(x => x.Id).Contains(servico.IdSalao))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                service.Excluir(id);
+                return RedirectToAction("Index", new { idSalao = servico.IdSalao, idArea = servico.Area.Id, idSubArea = servico.IdSubArea });
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                var servico = service.Find(id);
+                if (servico == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(servico);
             }
         }
+
+
+        #region [ JsonResult ]
 
         public JsonResult GetSubAreas(int idArea)
         {
@@ -167,6 +270,9 @@ namespace Salao.Web.Areas.Empresa.Controllers
             return null;
         }
 
+        #endregion
+
+
         #region [ Privates ]
 
         private SelectList GetSelectSaloes(int idSalao)
@@ -175,7 +281,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa).OrderBy(x => x.Fantasia).ToList(),
                "Id",
                "Fantasia",
-               idSalao);
+               idSalao.ToString());
         }
 
         private SelectList GetSelectAreas(int idArea)
@@ -184,7 +290,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 serviceArea.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList(),
                 "Id",
                 "Descricao",
-                idArea);
+                idArea.ToString());
         }
 
         private SelectList GetSelectSubAreas(int idArea, int idSubArea)
@@ -193,7 +299,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 serviceSubArea.Listar().Where(x => x.Ativo == true && (idArea == 0 || x.IdArea == idArea)).ToList(),
                 "Id",
                 "Descricao",
-                idSubArea);
+                idSubArea.ToString());
         }
 
         #endregion

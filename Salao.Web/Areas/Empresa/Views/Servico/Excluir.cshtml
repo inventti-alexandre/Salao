@@ -1,0 +1,101 @@
+﻿@model Salao.Domain.Models.Cliente.Servico
+
+@{
+    ViewBag.Title = "Serviço";
+}
+
+<h2>@Model.Descricao</h2>
+<hr />
+Local: <strong>@Model.Salao.Fantasia</strong> - @Model.Salao.Endereco.Logradouro, @Model.Salao.Endereco.Numero
+
+<div class="alert alert-danger top20">
+    Confirma a exclusão deste serviço?
+</div>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Area)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Area.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdSubArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubArea.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalhe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalhe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tempo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tempo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecoSemDesconto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecoSemDesconto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Preco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoEm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar", "Index", new { idSalao = Model.IdSalao, idArea = Model.Area.Id, idSubArea = Model.IdSubArea })
+        </div>
+    }
+</div>

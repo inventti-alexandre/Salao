@@ -344,6 +344,10 @@
     <Content Include="Areas\Empresa\Views\FormaPagamento\FormasPagamento.cshtml" />
     <Content Include="Areas\Empresa\Views\Servico\Index.cshtml" />
     <Content Include="Areas\Empresa\Views\Servico\ServicosPrestados.cshtml" />
+    <Content Include="Areas\Empresa\Views\Servico\Detalhes.cshtml" />
+    <Content Include="Areas\Empresa\Views\Servico\Editar.cshtml" />
+    <Content Include="Areas\Empresa\Views\Servico\Excluir.cshtml" />
+    <Content Include="Areas\Empresa\Views\Servico\Incluir.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
