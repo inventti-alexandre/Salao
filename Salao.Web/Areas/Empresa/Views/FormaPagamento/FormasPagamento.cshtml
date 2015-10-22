@@ -1,18 +1,16 @@
-﻿@model IEnumerable<Salao.Web.Areas.Empresa.Models.GruposUsuario>
+﻿@model IEnumerable<Salao.Web.Areas.Empresa.Models.SalaoFormasPagamento>
 
-@{
-    ViewBag.Title = "Grupos do usuário";
-}
-
-<h2>Grupos do usuário - @ViewBag.NomeUsuario</h2>
+<div class="top20">
+    <strong>@ViewBag.SalaoFantasia</strong><br />
+    @ViewBag.SalaoEndereco
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("idUsuario", (int)ViewBag.IdUsuario)
-    @Html.Hidden("idEmpresa", (int)ViewBag.IdEmpresa)
-
-    <table class="table">
+    @Html.Hidden("idSalao", (int)@ViewBag.IdSalao)
+    
+    <table class="table top20">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Descricao)
@@ -34,9 +32,4 @@
             </tr>
         }
     </table>
-
-    <div class="form-actions no-color">
-        <input type="submit" value="Gravar" class="btn btn-primary" />
-        @Html.ActionLink("Voltar", "Index", "Usuario")
-    </div>
 }

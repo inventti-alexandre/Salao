@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Formas de pagamento";
+}
+
+<h2>Formas de pagamento</h2>
+
+<div class="top20">
+    Salão: @Html.DropDownList("Saloes", (SelectList)ViewBag.Saloes)
+</div>
+
+<div id="page">
+    @{
+        Html.RenderAction("FormasPagamento", "FormaPagamento", new { idSalao = (int)@ViewBag.IdSalao });
+    }
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#Saloes").change(function () {
+            var id = $(this).val();
+
+            $.ajax({
+                url: '@Url.Action("FormasPagamento","FormaPagamento")',
+                data: { 'idSalao': id },
+                datatype: 'html',
+                cache: false,
+                success: function (result) {
+                    $("#page").html(result);
+                }
+           });
+        });
+    });
+</script>

@@ -58,7 +58,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             var profissionais = service.Listar().Where(x => x.IdSalao == idSalao).OrderBy(x => x.Nome);
 
             ViewBag.SalaoFantasia = salao.Fantasia;
-            ViewBag.SalaoEndereco = salao.Endereco.Logradouro;
+            ViewBag.SalaoEndereco = string.Format("{0}, {1}", salao.Endereco.Logradouro, salao.Endereco.Numero);
             return PartialView(profissionais);
         }
 
@@ -79,7 +79,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
             ViewBag.IdSalao = profissional.IdSalao;
             ViewBag.SalaoFantasia = profissional.Salao.Fantasia;
-            ViewBag.SalaoEndereco = profissional.Salao.Endereco.Logradouro;
+            ViewBag.SalaoEndereco = string.Format("{0}, {1}", profissional.Salao.Endereco.Logradouro, profissional.Salao.Endereco.Numero);
             ViewBag.Image = GetImage(profissional.Id);
 
             return View(profissional);
@@ -97,7 +97,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
             var profissional = new Profissional { IdSalao = idSalao };
             ViewBag.SalaoFantasia = salao.Fantasia;
-            ViewBag.SalaoEndereco = salao.Endereco.Logradouro;
+            ViewBag.SalaoEndereco = string.Format("{0}, {1}", profissional.Salao.Endereco.Logradouro, profissional.Salao.Endereco.Numero);
             ViewBag.IdSalao = salao.Id;
 
             return View(profissional);
@@ -144,7 +144,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             }
 
             ViewBag.SalaoFantasia = profissional.Salao.Fantasia;
-            ViewBag.SalaoEndereco = profissional.Salao.Endereco.Logradouro;
+            ViewBag.SalaoEndereco = string.Format("{0}, {1}", profissional.Salao.Endereco.Logradouro, profissional.Salao.Endereco.Numero);
             ViewBag.Image = GetImage(profissional.Id);
 
             return View(profissional);
@@ -191,7 +191,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             }
 
             ViewBag.SalaoFantasia = profissional.Salao.Fantasia;
-            ViewBag.SalaoEndereco = profissional.Salao.Endereco.Logradouro;
+            ViewBag.SalaoEndereco = string.Format("{0}, {1}", profissional.Salao.Endereco.Logradouro, profissional.Salao.Endereco.Numero);
             ViewBag.Image = GetImage(profissional.Id);
 
             return View(profissional);

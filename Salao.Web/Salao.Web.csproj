@@ -164,6 +164,7 @@
     <Compile Include="Areas\Empresa\Controllers\CadastroEmpresaController.cs" />
     <Compile Include="Areas\Empresa\Controllers\ColaboradorController.cs" />
     <Compile Include="Areas\Empresa\Controllers\FilialController.cs" />
+    <Compile Include="Areas\Empresa\Controllers\FormaPagamentoController.cs" />
     <Compile Include="Areas\Empresa\Controllers\GrupoController.cs" />
     <Compile Include="Areas\Empresa\Controllers\GruposUsuarioController.cs" />
     <Compile Include="Areas\Empresa\Controllers\HomeController.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Areas\Empresa\EmpresaAreaRegistration.cs" />
     <Compile Include="Areas\Empresa\Models\GruposUsuario.cs" />
     <Compile Include="Areas\Empresa\Models\LoginUsuario.cs" />
+    <Compile Include="Areas\Empresa\Models\SalaoFormasPagamento.cs" />
     <Compile Include="Common\AreaAuthorizeAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
@@ -337,6 +339,8 @@
     <Content Include="Areas\Empresa\Views\Colaborador\Editar.cshtml" />
     <Content Include="Areas\Empresa\Views\Colaborador\Excluir.cshtml" />
     <Content Include="Areas\Empresa\Views\Colaborador\Colaboradores.cshtml" />
+    <Content Include="Areas\Empresa\Views\FormaPagamento\Index.cshtml" />
+    <Content Include="Areas\Empresa\Views\FormaPagamento\FormasPagamento.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
