@@ -169,6 +169,7 @@
     <Compile Include="Areas\Empresa\Controllers\GruposUsuarioController.cs" />
     <Compile Include="Areas\Empresa\Controllers\HomeController.cs" />
     <Compile Include="Areas\Empresa\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Empresa\Controllers\ServicoController.cs" />
     <Compile Include="Areas\Empresa\Controllers\UsuarioController.cs" />
     <Compile Include="Areas\Empresa\EmpresaAreaRegistration.cs" />
     <Compile Include="Areas\Empresa\Models\GruposUsuario.cs" />
@@ -341,6 +342,8 @@
     <Content Include="Areas\Empresa\Views\Colaborador\Colaboradores.cshtml" />
     <Content Include="Areas\Empresa\Views\FormaPagamento\Index.cshtml" />
     <Content Include="Areas\Empresa\Views\FormaPagamento\FormasPagamento.cshtml" />
+    <Content Include="Areas\Empresa\Views\Servico\Index.cshtml" />
+    <Content Include="Areas\Empresa\Views\Servico\ServicosPrestados.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

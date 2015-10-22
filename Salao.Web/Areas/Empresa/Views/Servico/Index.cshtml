@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Serviços oferecidos";
+}
+
+<h2>Serviços oferecidos por filial</h2>
+
+<div class="row"></div>
+<div class="col-md-2">
+    Selecione a matriz/filial:
+    <div class="col-md-10">
+        @Html.DropDownList("Saloes", (SelectList)ViewBag.Saloes)
+    </div>
+</div>
+<div class="col-md-2">
+    Selecione a área:
+    <div id="areas" class="col-md-10">
+        @Html.DropDownList("Areas", (SelectList)ViewBag.Areas)
+    </div>
+</div>
+<div class="col-md-2">
+    Selecione a sub área:
+    <div id="subAreas" class="col-md-10">
+        @Html.DropDownList("SubAreas", (SelectList)ViewBag.SubAreas)
+    </div>     
+</div>
+
+<div class="row top20" id="servicos">
+    @{
+        Html.RenderAction("ServicosPrestados", "Servico", new { idSalao = (int)ViewBag.IdSalao });
+    }
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#Saloes").change(function () {
+            ServicosPrestados();
+        });
+
+        $("#SubAreas").change(function () {
+            ServicosPrestados();
+        });
+
+        $("#Areas").change(function () {
+            var idArea = $('#Areas').val();
+            $("#SubAreas").empty();
+
+            // atualiza SubAreas
+            $.ajax({
+                url: '@Url.Action("GetSubAreas","Servico")',
+                data: { 'idArea': idArea },
+                datatype: 'json',
+                cache: false,
+                success: function (subareas) {
+                    $.each(subareas, function (i, data) {
+                        $("#SubAreas").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                        ServicosPrestados();
+                    })
+                },
+                error: function(ex) {
+                    alert('Falha ao atualizar areas' + ex);
+                }
+            });
+        });
+
+        function ServicosPrestados()
+        {
+            var idSalao = $("#Saloes").val();
+            var idArea = $("#Areas").val();
+            var idSubArea = $("#SubAreas").val();
+
+            $.ajax({
+                url: '@Url.Action("ServicosPrestados", "Servico")',
+                data: { 'idSalao': idSalao, 'idArea': idArea, 'idSubArea': idSubArea },
+                datatype: 'html',
+                cache: false,
+                success: function (result) {
+                    $('#servicos').html(result);
+                },
+                error: function(ex){
+                    alert('Falha ao listar serviços' + ex);
+                }
+            });
+        }
+    });
+</script>
+
