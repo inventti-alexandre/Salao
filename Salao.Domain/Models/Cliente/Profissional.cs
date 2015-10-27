@@ -15,20 +15,24 @@ namespace Salao.Domain.Models.Cliente
 
         [Required(ErrorMessage="Informe o nome do colaborador")]
         [StringLength(60,ErrorMessage="Máximo de 60 caracteres")]
+        [Display(Name="Nome", Prompt="Nome do colaborador")]
         public string Nome { get; set; }
 
         [Required(ErrorMessage="Informe o telefone")]
         [StringLength(100, ErrorMessage="Máximo de 100 caracteres")]
+        [Display(Name="Telefone", Prompt="9999-9999")]
         public string Telefone { get; set; }
 
         [Required(ErrorMessage="Informe o email do colaborador")]
         [StringLength(100,ErrorMessage="Máximo de 100 caracteres")]
         [DataType(DataType.EmailAddress)]
+        [Display(Name="Email", Prompt="nome@dominio.com.br")]
         public string Email { get; set; }
 
         public bool Ativo { get; set; }
 
         [Required]
+        [Display(Name="Alterado em")]
         public DateTime AlteradoEm { get; set; }
 
         [NotMapped]
