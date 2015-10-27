@@ -11,9 +11,10 @@ namespace Salao.Domain.Models.Admin
 
         [Required(ErrorMessage = "Informe a área do serviço")]
         [StringLength(20, ErrorMessage = "A área do serviço é formada por no máximo 20 caracteres")]
-        [Display(Name = "Área do serviço")]
+        [Display(Name = "Área do serviço", Prompt="Ex: cabelo", Description="Cabelo, Fitness, Massagem...")]
         public string Descricao { get; set; }
 
+        [Display(Name="Ativo", Description="Se a área esta ou não ativa para exibição nas telas do sistema")]
         public bool Ativo { get; set; }
 
         [Required]
@@ -25,7 +26,7 @@ namespace Salao.Domain.Models.Admin
         public DateTime AlteradoEm { get; set; }
 
         [NotMapped]
-        [Display(Name = "Usuario")]
+        [Display(Name = "Usuário")]
         public virtual Usuario Usuario
         {
             get

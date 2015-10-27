@@ -15,9 +15,10 @@ namespace Salao.Domain.Models.Admin
 
         [Required(ErrorMessage="Informe a permissão")]
         [StringLength(100,ErrorMessage="A permissão é composta por no máximo 100 caracteres")]
-        [Display(Name="Permissão")]
+        [Display(Name="Permissão",Prompt="Ex: alterar tabela", Description="Uma breve descrição da permissão concedida")]
         public string Descricao { get; set; }
 
+        [Display(Name="Ativo",Description="Se esta permissão será ou não utilizada pelo sistema")]
         public bool Ativo { get; set; }
 
         [Required]
@@ -29,7 +30,7 @@ namespace Salao.Domain.Models.Admin
         public DateTime AlteradoEm { get; set; }
 
         [NotMapped]
-        [Display(Name="Usuario")]
+        [Display(Name="Usuário")]
         public virtual Usuario Usuario
         {
             get 

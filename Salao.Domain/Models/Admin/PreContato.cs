@@ -21,16 +21,18 @@ namespace Salao.Domain.Models.Admin
 
         [Required(ErrorMessage = "Informe seu e-mail")]
         [StringLength(100, ErrorMessage = "Máximo de 100 caracteres")]
-        [Display(Name = "E-mail")]
+        [Display(Name = "Email", Prompt="nome@dominio.com.br", Description="Email para contato")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Informe ao menos 1 telefone para contato")]
         [StringLength(20, ErrorMessage = "Máximo de 60 caracteres")]
+        [Display(Name="Telefone", Prompt="9999-9999",Description="Telefone para contato")]
         public string Telefone { get; set; }
 
         [Required(ErrorMessage = "Informe a cidade do seu salão")]
         [StringLength(100, ErrorMessage = "Máximo de 100 caracteres")]
+        [Display(Name="Cidade",Prompt="Ex: São Paulo")]
         public string Cidade { get; set; }
 
         [Required(ErrorMessage="Selecione o Estado")]

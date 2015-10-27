@@ -176,6 +176,7 @@
     <Compile Include="Areas\Empresa\Models\LoginUsuario.cs" />
     <Compile Include="Areas\Empresa\Models\SalaoFormasPagamento.cs" />
     <Compile Include="Common\AreaAuthorizeAttribute.cs" />
+    <Compile Include="Common\BindEstadosHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
     <Compile Include="Global.asax.cs">

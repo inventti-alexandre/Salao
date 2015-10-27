@@ -15,9 +15,10 @@ namespace Salao.Domain.Models.Admin
 
         [Required(ErrorMessage = "Informe a forma de pagamento")]
         [StringLength(40, ErrorMessage = "A forma de pagamento é formada por no máximo 40 caracteres")]
-        [Display(Name = "Forma de pagamento")]
+        [Display(Name = "Forma de pagamento", Prompt="Ex: cheque, dinheiro...", Description="Forma de pagamento aceita pelo estabelecimento")]
         public string Descricao { get; set; }
 
+        [Display(Name="Ativo",Description="Se a forma de pagamento será ou não exibida nas telas do sistema")]
         public bool Ativo { get; set; }
         
         [Required]
@@ -29,7 +30,7 @@ namespace Salao.Domain.Models.Admin
         public DateTime AlteradoEm { get; set; }
 
         [NotMapped]
-        [Display(Name = "Usuario")]
+        [Display(Name = "Usuário")]
         public virtual Usuario Usuario
         {
             get
