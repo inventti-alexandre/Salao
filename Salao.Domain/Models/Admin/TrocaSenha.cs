@@ -23,7 +23,7 @@ namespace Salao.Domain.Models.Admin
         [Compare("NovaSenha", ErrorMessage = "As senhas não conferem")]
         [Required(ErrorMessage = "Informe a nova senha do usuário")]
         [StringLength(20, ErrorMessage = "A senha é composta por no mínimo 6 caracteres e no máximo 20 caracteres", MinimumLength = 6)]
-        [Display(Name = "Confirmação")]
+        [Display(Name = "Confirmação",Description="Repita a nova senha digitada")]
         [DataType(DataType.Password)]
         public string NovaSenhaConfere { get; set; }
     }
