@@ -166,11 +166,17 @@ namespace Salao.Web.Areas.Empresa.Controllers
                     return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
                 }
 
+                ViewBag.SalaoFantasia = profissional.Salao.Fantasia;
+                ViewBag.SalaoEndereco = string.Format("{0}, {1}", profissional.Salao.Endereco.Logradouro, profissional.Salao.Endereco.Numero);
+                ViewBag.Image = GetImage(profissional.Id);
                 return View(profissional);
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
+                ViewBag.SalaoFantasia = profissional.Salao.Fantasia;
+                ViewBag.SalaoEndereco = string.Format("{0}, {1}", profissional.Salao.Endereco.Logradouro, profissional.Salao.Endereco.Numero);
+                ViewBag.Image = GetImage(profissional.Id);
                 return View(profissional);
             }
         }

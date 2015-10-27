@@ -20,7 +20,7 @@ Local: <strong>@Model.Salao.Fantasia</strong> - @Model.Salao.Endereco.Logradouro
         <div class="form-group">
             @Html.LabelFor(model => model.Area, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IdArea", (SelectList)ViewBag.ListaAreas)
+                @Html.DropDownList("IdArea", (SelectList)ViewBag.ListaAreas, new { @autofocus = true } )
             </div>
         </div>
 

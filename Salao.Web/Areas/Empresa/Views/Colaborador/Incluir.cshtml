@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { AllowHtmlAttribute = true, html})
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @placeholder = ModelMetadata.FromLambdaExpression(x => x.Nome, ViewData).Watermark, @autofocus = true } })
                 @Html.ValidationMessageFor(model => model.Nome)
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Telefone)
+                @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @placeholder = ModelMetadata.FromLambdaExpression(x => x.Telefone, ViewData).Watermark } })
                 @Html.ValidationMessageFor(model => model.Telefone)
             </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email)
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @placeholder = ModelMetadata.FromLambdaExpression(x => x.Email, ViewData).Watermark } })
                 @Html.ValidationMessageFor(model => model.Email)
             </div>
         </div>
@@ -55,5 +55,5 @@
 }
 
 <div>
-    @Html.ActionLink("Voltar", "Index", new { idSalao = (int)@ViewBag.IdSalao })
+    @Html.ActionLink("Voltar", "Index", new { idSalao = (int)Model.IdSalao })
 </div>

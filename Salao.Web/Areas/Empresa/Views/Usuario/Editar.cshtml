@@ -15,14 +15,13 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.IdEmpresa)
-        @Html.HiddenFor(model => model.Roles)
         @Html.HiddenFor(model => model.Password)
         @Html.HiddenFor(model => model.CadastradoEm)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome)
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @autofocus = true } })
                 @Html.ValidationMessageFor(model => model.Nome)
             </div>
         </div>
