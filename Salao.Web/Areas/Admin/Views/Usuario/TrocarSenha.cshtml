@@ -4,7 +4,7 @@
     ViewBag.Title = "Trocar Senha";
 }
 
-<h2>@HttpContext.Current.User.Identity.Name - Trocar Senha</h2>
+<h3>@HttpContext.Current.User.Identity.Name.ToUpper() - Trocar Senha</h3>
 
 @using (Html.BeginForm())
 {
@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SenhaAtual, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SenhaAtual)
+                @Html.EditorFor(model => model.SenhaAtual, new { htmlAttributes = new { @autofocus = true } })
                 @Html.ValidationMessageFor(model => model.SenhaAtual)
             </div>
         </div>

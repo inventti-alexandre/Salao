@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TipoPessoa, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TipoPessoa", null, new { onchange = "exibirTipoPessoa();})
+                @Html.DropDownList("TipoPessoa", null, new { onchange = "exibirTipoPessoa();"})
             </div>
         </div>
 

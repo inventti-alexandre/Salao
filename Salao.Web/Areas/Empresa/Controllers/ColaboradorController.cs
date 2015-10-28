@@ -48,7 +48,6 @@ namespace Salao.Web.Areas.Empresa.Controllers
             }
 
             ViewBag.IdSalao = idSalao;
-            ViewBag.Saloes = GetSaloes(idSalao);
             return View();
         }
 
@@ -222,17 +221,6 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 }
                 return View(profissional);
             }
-        }
-        
-        private SelectList GetSaloes(int idSalao = 0)
-        {
-            var saloes = _serviceSalao.Listar()
-                .Where(x => x.IdEmpresa == Identification.IdEmpresa
-                && x.Ativo == true)
-                .OrderBy(x => x.Fantasia)
-                .ToList();
-
-            return new SelectList(saloes, "Id", "Fantasia", idSalao);
         }
 
         private string GetImage(int id)

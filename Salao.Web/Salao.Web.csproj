@@ -181,7 +181,12 @@
     <Compile Include="Areas\Empresa\Models\LoginUsuario.cs" />
     <Compile Include="Areas\Empresa\Models\SalaoFormasPagamento.cs" />
     <Compile Include="Common\AreaAuthorizeAttribute.cs" />
+    <Compile Include="Common\BindAreaHelper.cs" />
     <Compile Include="Common\BindEstadosHelper.cs" />
+    <Compile Include="Common\BindSalaoHelper.cs" />
+    <Compile Include="Common\BindSubAreaHelper.cs" />
+    <Compile Include="Common\BindTipoEnderecoHelper.cs" />
+    <Compile Include="Common\BindTipoPessoaHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
     <Compile Include="Global.asax.cs">
