@@ -14,17 +14,17 @@ namespace Salao.Web.Areas.Empresa.Controllers
 {
     public class ServicoController : Controller
     {
-        IBaseService<Servico> service;
-        IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao;
-        IBaseService<Area> serviceArea;
-        IBaseService<SubArea> serviceSubArea;
+        IBaseService<Servico> _service;
+        IBaseService<Salao.Domain.Models.Cliente.Salao> _serviceSalao;
+        IBaseService<Area> _serviceArea;
+        IBaseService<SubArea> _serviceSubArea;
 
-        public ServicoController()
+        public ServicoController(IBaseService<Servico> service, IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao, IBaseService<Area> serviceArea, IBaseService<SubArea> serviceSubArea)
         {
-            service = new ServicoService();
-            serviceSalao = new SalaoService();
-            serviceArea = new AreaService();
-            serviceSubArea = new SubAreaService();
+            _service = service;
+            _serviceSalao = serviceSalao;
+            _serviceArea = serviceArea;
+            _serviceSubArea = serviceSubArea;
         }
 
         // GET: Empresa/Servico
@@ -32,7 +32,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             if (idSalao == 0)
             {
-                var salao = serviceSalao.Listar()
+                var salao = _serviceSalao.Listar()
                     .Where(x => x.IdEmpresa == Identification.IdEmpresa)
                     .OrderBy(x => x.Fantasia)
                     .FirstOrDefault();
@@ -49,12 +49,12 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
             if (idArea == 0)
             {
-                idArea = serviceArea.Listar().OrderBy(x => x.Descricao).FirstOrDefault().Id;
+                idArea = _serviceArea.Listar().OrderBy(x => x.Descricao).FirstOrDefault().Id;
             }
 
             if (idSubArea == 0)
             {
-                idSubArea = serviceSubArea.Listar().Where(x => x.IdArea == idArea).OrderBy(x => x.Descricao).First().Id;
+                idSubArea = _serviceSubArea.Listar().Where(x => x.IdArea == idArea).OrderBy(x => x.Descricao).First().Id;
             }
 
             var saloes = GetSelectSaloes(idSalao);
@@ -68,9 +68,9 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
         public PartialViewResult ServicosPrestados(int idSalao, int idArea = 0, int idSubArea = 0)
         {
-            var salao = serviceSalao.Find(idSalao);
+            var salao = _serviceSalao.Find(idSalao);
 
-            var servicos = service.Listar()
+            var servicos = _service.Listar()
                 .Where(x => x.IdSalao == idSalao
                  && (idSubArea == 0 || x.IdSubArea == idSubArea))
                 .OrderBy(x => x.Descricao)
@@ -88,10 +88,10 @@ namespace Salao.Web.Areas.Empresa.Controllers
         // GET: Empresa/Servico/Details/5
         public ActionResult Detalhes(int id)
         {
-            var servico = service.Find(id);
+            var servico = _service.Find(id);
 
             // lista de saloes desta empresa
-            if (!serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
+            if (!_serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
                 .Select(x => x.Id).Contains(servico.IdSalao))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -122,7 +122,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(servico);
+                    _service.Gravar(servico);
                     return RedirectToAction("Index", new { idSalao = servico.IdSalao, idArea = servico.Area.Id, idSubArea = servico.IdSubArea });
                 }
 
@@ -147,7 +147,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var servico = service.Find((int)id);
+            var servico = _service.Find((int)id);
 
             if (servico == null)
             {
@@ -155,7 +155,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             }
 
             // lista de saloes desta empresa
-            if (!serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
+            if (!_serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
                 .Select(x => x.Id).Contains(servico.IdSalao))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -178,7 +178,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(servico);
+                    _service.Gravar(servico);
                     return RedirectToAction("Index", new { idSalao = servico.IdSalao, idArea = servico.Area.Id, idSubArea = servico.IdSubArea });
                 }
 
@@ -203,7 +203,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var servico = service.Find((int)id);
+            var servico = _service.Find((int)id);
 
             if (servico == null)
             {
@@ -211,7 +211,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             }
             
             // lista de saloes desta empresa
-            if (!serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
+            if (!_serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
                 .Select(x => x.Id).Contains(servico.IdSalao))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -226,7 +226,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             try
             {
-                var servico = service.Find(id);
+                var servico = _service.Find(id);
 
                 if (servico == null)
                 {
@@ -234,19 +234,19 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 }
 
                 // lista de saloes desta empresa
-                if (!serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
+                if (!_serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa)
                     .Select(x => x.Id).Contains(servico.IdSalao))
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index", new { idSalao = servico.IdSalao, idArea = servico.Area.Id, idSubArea = servico.IdSubArea });
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var servico = service.Find(id);
+                var servico = _service.Find(id);
                 if (servico == null)
                 {
                     return HttpNotFound();
@@ -262,7 +262,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             if (HttpContext.Request.IsAjaxRequest())
             {
-                int idSubArea = serviceSubArea.Listar().Where(x => x.IdArea == idArea).OrderBy(x => x.Descricao).First().Id;
+                int idSubArea = _serviceSubArea.Listar().Where(x => x.IdArea == idArea).OrderBy(x => x.Descricao).First().Id;
                 return Json(GetSelectSubAreas(idArea, idSubArea), JsonRequestBehavior.AllowGet);
             }
 
@@ -277,7 +277,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         private SelectList GetSelectSaloes(int idSalao)
         {
             return new SelectList(
-               serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa).OrderBy(x => x.Fantasia).ToList(),
+               _serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa).OrderBy(x => x.Fantasia).ToList(),
                "Id",
                "Fantasia",
                idSalao.ToString());
@@ -286,7 +286,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         private SelectList GetSelectAreas(int idArea)
         {
             return new SelectList(
-                serviceArea.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList(),
+                _serviceArea.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList(),
                 "Id",
                 "Descricao",
                 idArea.ToString());
@@ -295,7 +295,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         private SelectList GetSelectSubAreas(int idArea, int idSubArea)
         {
             return new SelectList(
-                serviceSubArea.Listar().Where(x => x.Ativo == true && (idArea == 0 || x.IdArea == idArea)).ToList(),
+                _serviceSubArea.Listar().Where(x => x.Ativo == true && (idArea == 0 || x.IdArea == idArea)).ToList(),
                 "Id",
                 "Descricao",
                 idSubArea.ToString());

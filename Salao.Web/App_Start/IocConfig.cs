@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Ninject;
+﻿using Ninject;
 using Ninject.Syntax;
-using System.Web.Mvc;
 using Salao.Domain.Abstract;
-using Salao.Domain.Service.Admin;
+using Salao.Domain.Abstract.Admin;
+using Salao.Domain.Abstract.Cliente;
 using Salao.Domain.Models.Admin;
 using Salao.Domain.Models.Cliente;
-using Salao.Domain.Service.Cliente;
-using Salao.Domain.Abstract.Cliente;
-using Salao.Domain.Service.Endereco;
 using Salao.Domain.Models.Endereco;
-using Salao.Domain.Abstract.Admin;
+using Salao.Domain.Service.Admin;
+using Salao.Domain.Service.Cliente;
+using Salao.Domain.Service.Endereco;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Salao.Web.App_Start
 {
@@ -50,6 +48,7 @@ namespace Salao.Web.App_Start
             kernel.Bind<ICliUsuarioGrupo>().To<CliUsuarioGrupoService>();
             kernel.Bind<IUsuarioGrupo>().To<UsuarioGrupoService>();
             kernel.Bind<Salao.Domain.Abstract.Admin.ILogin>().To<UsuarioService>();
+            kernel.Bind<Salao.Domain.Abstract.Cliente.ILogin>().To<CliUsuarioService>();
             kernel.Bind<ISalaoFormaPgto>().To<SalaoFormaPgtoService>();
 
             // registro do container

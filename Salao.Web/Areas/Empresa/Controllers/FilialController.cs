@@ -16,21 +16,21 @@ namespace Salao.Web.Areas.Empresa.Controllers
     [AreaAuthorize("Empresa", Roles = "salao_crud")]
     public class FilialController : Controller
     {
-        IBaseService<Salao.Domain.Models.Cliente.Salao> service;
-        IBaseService<Salao.Domain.Models.Cliente.Empresa> serviceEmpresa;
-        ICadastroSalao cadastro;
+        IBaseService<Salao.Domain.Models.Cliente.Salao> _service;
+        IBaseService<Salao.Domain.Models.Cliente.Empresa> _serviceEmpresa;
+        ICadastroSalao _cadastro;
 
-        public FilialController()
+        public FilialController(IBaseService<Salao.Domain.Models.Cliente.Salao> service, IBaseService<Salao.Domain.Models.Cliente.Empresa> serviceEmpresa, ICadastroSalao cadastro)
         {
-            service = new SalaoService();
-            serviceEmpresa = new EmpresaService();
-            cadastro = new CadastroSalaoService();
+            _service = service;
+            _serviceEmpresa = serviceEmpresa;
+            _cadastro = cadastro;
         }
 
         // GET: Empresa/Filial
         public ActionResult Index()
         {
-            var saloes = service.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa);
+            var saloes = _service.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa);
             return View(saloes);
         }
 
@@ -42,7 +42,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var salao = service.Find((int)id);
+            var salao = _service.Find((int)id);
 
             if (salao.IdEmpresa != Identification.IdEmpresa)
             {
@@ -88,7 +88,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 model.CadastradoEm = DateTime.Now;
                 if (ModelState.IsValid)
                 {
-                    cadastro.Gravar(model);
+                    _cadastro.Gravar(model);
                     return RedirectToAction("Index");
                 }
 
@@ -113,7 +113,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var model = cadastro.Find((int)id);
+            var model = _cadastro.Find((int)id);
 
             if (model == null)
             {
@@ -140,7 +140,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 model.AlteradoEm = DateTime.Now;
                 if (ModelState.IsValid)
                 {
-                    cadastro.Gravar(model);
+                    _cadastro.Gravar(model);
                     return RedirectToAction("Index");
                 }
 
@@ -167,7 +167,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var salao = service.Find((int)id);
+            var salao = _service.Find((int)id);
 
             if (salao == null || salao.IdEmpresa != Identification.IdEmpresa)
 	        {
@@ -183,13 +183,13 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var salao = service.Find(id);
+                var salao = _service.Find(id);
                 if (salao == null)
                 {
                     return HttpNotFound();

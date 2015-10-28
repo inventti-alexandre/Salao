@@ -13,17 +13,17 @@ namespace Salao.Web.Areas.Empresa.Controllers
     [AreaAuthorize("Empresa", Roles = "cliusuario_crud")]
     public class UsuarioController : Controller
     {
-        IBaseService<CliUsuario> service;
+        IBaseService<CliUsuario> _service;
 
-        public UsuarioController()
+        public UsuarioController(IBaseService<CliUsuario> service)
         {
-            service = new CliUsuarioService();
+            _service = service;
         }
 
         // GET: Empresa/Usuario
         public ActionResult Index(bool soAtivos = true)
         {
-            var usuarios = service.Listar()
+            var usuarios = _service.Listar()
                 .Where(x => x.IdEmpresa == Identification.IdEmpresa
                 && (soAtivos == true || x.Ativo == soAtivos))
                 .OrderBy(x => x.Nome);
@@ -39,7 +39,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null || usuario.IdEmpresa != Identification.IdEmpresa)
             {
@@ -72,7 +72,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(usuario);
+                    _service.Gravar(usuario);
                     return RedirectToAction("Index");                    
                 }
 
@@ -93,7 +93,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null || usuario.IdEmpresa != Identification.IdEmpresa)
             {
@@ -111,7 +111,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(usuario);
+                    _service.Gravar(usuario);
                     return RedirectToAction("Index");
                 }
 
@@ -132,7 +132,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null || usuario.IdEmpresa != Identification.IdEmpresa)
             {
@@ -153,14 +153,14 @@ namespace Salao.Web.Areas.Empresa.Controllers
                     throw new ArgumentException("Não é permitido que o usuário corrente exclusa a si próprio");
                 }
 
-                var usuario = service.Excluir(id);
+                var usuario = _service.Excluir(id);
 
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var usuario = service.Find(id);
+                var usuario = _service.Find(id);
                 if (usuario == null)
                 {
                     return HttpNotFound();
@@ -177,7 +177,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null || usuario.IdEmpresa != Identification.IdEmpresa)
             {
@@ -191,7 +191,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         [HttpPost]
         public ActionResult RedefinirSenha(int id)
         {
-            var usuario = service.Find(id);
+            var usuario = _service.Find(id);
 
             if (usuario == null)
             {

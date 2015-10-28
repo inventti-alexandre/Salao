@@ -8,11 +8,11 @@ namespace Salao.Web.Areas.Empresa.Controllers
 {
     public class LoginController : Controller
     {
-        private ILogin service;
+        private ILogin _service;
 
-        public LoginController()
+        public LoginController(ILogin service)
         {
-            service = new CliUsuarioService();
+            _service = service;
         }
 
         // GET: Empresa/Login
@@ -27,7 +27,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             if (ModelState.IsValid)
             {
-                var usuario = service.ValidaLogin(loginUsuario.Email, loginUsuario.Senha);
+                var usuario = _service.ValidaLogin(loginUsuario.Email, loginUsuario.Senha);
 
                 if (usuario != null)
                 {

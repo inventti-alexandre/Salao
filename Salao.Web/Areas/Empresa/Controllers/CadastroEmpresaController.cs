@@ -13,17 +13,17 @@ namespace Salao.Web.Areas.Empresa.Controllers
     [AreaAuthorize("Empresa",Roles="empresa_crud")]
     public class CadastroEmpresaController : Controller
     {
-        ICadastroEmpresa service;
+        ICadastroEmpresa _service;
 
-        public CadastroEmpresaController()
+        public CadastroEmpresaController(ICadastroEmpresa service)
         {
-            this.service = new CadastroEmpresaService();
+            _service = service;
         }
 
         // GET: Empresa/CadastroEmpresa
         public ActionResult Index()
         {
-            var cadastro = service.Find(Identification.IdEmpresa);
+            var cadastro = _service.Find(Identification.IdEmpresa);
 
             if (cadastro == null)
             {
@@ -53,7 +53,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(cadastro);
+                    _service.Gravar(cadastro);
                     return RedirectToAction("Index", "Home", new { mensagem = "Cadastro atualizado" });
                 }
 

@@ -15,13 +15,13 @@ namespace Salao.Web.Areas.Empresa.Controllers
     [AreaAuthorize("Empresa", Roles="colaborador_crud")]
     public class ColaboradorController : Controller
     {
-        IBaseService<Profissional> service;
-        IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao;
+        IBaseService<Profissional> _service;
+        IBaseService<Salao.Domain.Models.Cliente.Salao> _serviceSalao;
 
-        public ColaboradorController()
+        public ColaboradorController(IBaseService<Profissional> service, IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao)
         {
-            service = new ProfissionalService();
-            serviceSalao = new SalaoService();
+            _service = service;
+            _serviceSalao = serviceSalao;
         }
 
         // GET: Empresa/Colaborador
@@ -29,7 +29,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             if (idSalao == 0)
             {
-                var primeiroSalao = serviceSalao.Listar().FirstOrDefault();
+                var primeiroSalao = _serviceSalao.Listar().FirstOrDefault();
                 if (primeiroSalao != null)
                 {
                     idSalao = primeiroSalao.Id;
@@ -40,7 +40,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 }
             }
 
-            var salao = serviceSalao.Find(idSalao);
+            var salao = _serviceSalao.Find(idSalao);
 
             if (salao == null || salao.IdEmpresa != Identification.IdEmpresa)
             {
@@ -54,8 +54,8 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
         public PartialViewResult Colaboradores(int idSalao)
         {
-            var salao = serviceSalao.Find(idSalao);
-            var profissionais = service.Listar().Where(x => x.IdSalao == idSalao).OrderBy(x => x.Nome);
+            var salao = _serviceSalao.Find(idSalao);
+            var profissionais = _service.Listar().Where(x => x.IdSalao == idSalao).OrderBy(x => x.Nome);
 
             ViewBag.SalaoFantasia = salao.Fantasia;
             ViewBag.SalaoEndereco = string.Format("{0}, {1}", salao.Endereco.Logradouro, salao.Endereco.Numero);
@@ -70,7 +70,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var profissional = service.Find((int)id);
+            var profissional = _service.Find((int)id);
 
             if (profissional == null || profissional.Empresa.Id != Identification.IdEmpresa)
             {
@@ -88,7 +88,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         // GET: Empresa/Colaborador/Create
         public ActionResult Incluir(int idSalao)
         {
-            var salao = serviceSalao.Find(idSalao);
+            var salao = _serviceSalao.Find(idSalao);
 
             if (salao == null || salao.IdEmpresa != Identification.IdEmpresa)
             {
@@ -114,7 +114,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var id = service.Gravar(profissional);
+                    var id = _service.Gravar(profissional);
                     SetImage(image, id);
                     return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
                 }
@@ -136,7 +136,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var profissional = service.Find((int)id);
+            var profissional = _service.Find((int)id);
 
             if (profissional == null || profissional.Empresa.Id != Identification.IdEmpresa)
             {
@@ -161,7 +161,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    int id = service.Gravar(profissional);
+                    int id = _service.Gravar(profissional);
                     SetImage(image, id);
                     return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
                 }
@@ -189,7 +189,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var profissional = service.Find((int)id);
+            var profissional = _service.Find((int)id);
 
             if (profissional == null || profissional.Empresa.Id != Identification.IdEmpresa)
             {
@@ -209,13 +209,13 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             try
             {
-                var profissional = service.Excluir(id);
+                var profissional = _service.Excluir(id);
                 return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var profissional = service.Find(id);
+                var profissional = _service.Find(id);
                 if (profissional == null)
                 {
                     return HttpNotFound();
@@ -226,7 +226,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         
         private SelectList GetSaloes(int idSalao = 0)
         {
-            var saloes = serviceSalao.Listar()
+            var saloes = _serviceSalao.Listar()
                 .Where(x => x.IdEmpresa == Identification.IdEmpresa
                 && x.Ativo == true)
                 .OrderBy(x => x.Fantasia)
