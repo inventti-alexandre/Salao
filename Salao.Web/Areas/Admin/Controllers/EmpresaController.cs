@@ -16,15 +16,15 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class EmpresaController : Controller
     {
-        IBaseService<Salao.Domain.Models.Cliente.Empresa> serviceEmpresa;
-        ICadastroEmpresa serviceCadastro;
-        ILogin login;
+        IBaseService<Salao.Domain.Models.Cliente.Empresa> _serviceEmpresa;
+        ICadastroEmpresa _serviceCadastro;
+        ILogin _login;
 
-        public EmpresaController()
+        public EmpresaController(IBaseService<Salao.Domain.Models.Cliente.Empresa> serviceEmpresa, ICadastroEmpresa serviceCadastro, ILogin login)
         {
-            serviceEmpresa = new EmpresaService();
-            serviceCadastro = new CadastroEmpresaService();
-            login = new UsuarioService();
+            _serviceEmpresa = serviceEmpresa;
+            _serviceCadastro = serviceCadastro;
+            _login = login;
         }
 
         // GET: /Admin/Empresa/
@@ -32,7 +32,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             fantasia = fantasia.ToUpper().Trim();
 
-            var empresas = serviceEmpresa.Listar()
+            var empresas = _serviceEmpresa.Listar()
                 .Where(x => x.Fantasia.Contains(fantasia))
                 .Take(10)
                 .OrderBy(x => x.Fantasia);
@@ -43,7 +43,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/Empresa/Details/5
         public ActionResult Details(int id)
         {
-            var cadastro = serviceCadastro.Find(id);
+            var cadastro = _serviceCadastro.Find(id);
 
             if (cadastro == null)
             {
@@ -90,13 +90,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                cadastro.CadastradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                cadastro.CadastradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 cadastro.Id = 0;
                 TryUpdateModel(cadastro);
 
                 if (ModelState.IsValid)
                 {
-                    serviceCadastro.Gravar(cadastro);
+                    _serviceCadastro.Gravar(cadastro);
                     // TODO - redirect to inclusao do salao
                     return RedirectToAction("Index");
                 }
@@ -126,7 +126,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
             try
             {
-                var cadastro = serviceCadastro.Find((int)id);
+                var cadastro = _serviceCadastro.Find((int)id);
 
                 if (cadastro == null)
                 {
@@ -151,7 +151,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                cadastro.CadastradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                cadastro.CadastradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 if (string.IsNullOrEmpty(cadastro.Cnpj))
                 {
                     cadastro.Cnpj = "";
@@ -163,7 +163,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    serviceCadastro.Gravar(cadastro);
+                    _serviceCadastro.Gravar(cadastro);
                     return RedirectToAction("Index");
                 }
 
@@ -191,7 +191,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var cadastro = serviceCadastro.Find((int)id);
+            var cadastro = _serviceCadastro.Find((int)id);
 
             if (cadastro == null)
             {
@@ -207,13 +207,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                serviceCadastro.Excluir(id);
+                _serviceCadastro.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                var cadastro = serviceCadastro.Find(id);
+                var cadastro = _serviceCadastro.Find(id);
                 if (cadastro == null)
                 {
                     return HttpNotFound();

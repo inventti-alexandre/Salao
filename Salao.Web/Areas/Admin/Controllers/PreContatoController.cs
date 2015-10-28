@@ -14,11 +14,11 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class PreContatoController : Controller
     {
-        IBaseService<PreContato> service;
+        IBaseService<PreContato> _service;
 
-        public PreContatoController()
+        public PreContatoController(IBaseService<PreContato> service)
         {
-            service = new PreContatoService();
+            _service = service;
         }
 
         // GET: Admin/PreContato
@@ -33,11 +33,11 @@ namespace Salao.Web.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(email))
             {
-                contatos = service.Listar().Where(x => x.Email == email).ToList();
+                contatos = _service.Listar().Where(x => x.Email == email).ToList();
             }
             else
             {
-                contatos = service.Listar().Where(x => x.Atendido == false && x.ContatarNovamente == false).ToList();
+                contatos = _service.Listar().Where(x => x.Atendido == false && x.ContatarNovamente == false).ToList();
             }
 
             return View(contatos);
@@ -46,7 +46,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: Admin/PreContato/Details/5
         public ActionResult Details(int id, string returnUrl = "")
         {
-            var contato = service.Find(id);
+            var contato = _service.Find(id);
 
             if (contato == null)
             {
@@ -76,7 +76,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(contato);
+                    _service.Gravar(contato);
                     return RedirectToAction("Index", new { email = contato.Email });                    
                 }
                 return View(contato);
@@ -101,7 +101,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var contato = service.Find((int)id);
+            var contato = _service.Find((int)id);
 
             if (contato == null)
             {
@@ -121,7 +121,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(contato);
+                    _service.Gravar(contato);
                     return RedirectToAction("Index", new { email = contato.Email });
                 }
                 ViewBag.Estados = GetEstados(contato.IdEstado);    
@@ -143,7 +143,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var contato = service.Find((int)id);
+            var contato = _service.Find((int)id);
 
             if (contato == null)
             {
@@ -159,13 +159,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var contato = service.Find(id);
+                var contato = _service.Find(id);
                 if (contato == null)
                 {
                     return HttpNotFound();
@@ -188,7 +188,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
             final = ((DateTime)final).AddHours(23).AddMinutes(59);
 
-            var contatos = service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final && x.Assinou == true).ToList();
+            var contatos = _service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final && x.Assinou == true).ToList();
 
             ViewBag.Inicial = inicial;
             ViewBag.Final = final;
@@ -203,7 +203,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 contatoEm = DateTime.Today.Date.Subtract(TimeSpan.FromDays(DateTime.Today.Date.Day - 1)).AddMonths(-1);
             }
 
-            var contatos = service.Listar()
+            var contatos = _service.Listar()
                 .Where(x => x.ContatarNovamente == true && x.Assinou == false && x.ContatoEm >= contatoEm && x.Ativo == true)
                 .ToList();
 
@@ -225,7 +225,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var contato = service.Find((int)id);
+            var contato = _service.Find((int)id);
 
             if (contato == null)
             {
@@ -239,7 +239,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Inativar(int id)
         {
-            var contato = service.Find(id);
+            var contato = _service.Find(id);
 
             if (contato == null)
             {
@@ -249,7 +249,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             try
             {
                 contato.Ativo = false;
-                service.Gravar(contato);
+                _service.Gravar(contato);
                 return RedirectToAction("ContatarNovamente");
             }
             catch (Exception e)
@@ -267,7 +267,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var contato = service.Find((int)id);
+            var contato = _service.Find((int)id);
 
             if (contato == null)
             {
@@ -281,7 +281,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Contato(int id, string email, string telefone, bool contatarNovamente, string comentarios)
         {
-            var contato = service.Find(id);
+            var contato = _service.Find(id);
 
             if (contato == null)
             {
@@ -295,7 +295,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 contato.ContatarNovamente = contatarNovamente;
                 contato.Observ = string.Format("-- {0} {1} {2} {3} {4} {5}", DateTime.Now.ToString(), Environment.NewLine, comentarios, Environment.NewLine, Environment.NewLine, contato.Observ);
                 contato.ContatoEm = DateTime.Now;
-                service.Gravar(contato);
+                _service.Gravar(contato);
                 return RedirectToAction("ContatarNovamente");
             }
             catch (Exception e)
@@ -319,7 +319,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 	        }
             final = ((DateTime)final).AddHours(23).AddMinutes(59);
 
-            var contatos = service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final).ToList();
+            var contatos = _service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final).ToList();
 
             ViewBag.Inicial = inicial;
             ViewBag.final = final;
@@ -340,7 +340,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             }
             final = ((DateTime)final).AddHours(23).AddMinutes(59);
             
-            var contatos = service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final && x.Ativo == false).ToList();
+            var contatos = _service.Listar().Where(x => x.ContatoEm >= inicial && x.ContatoEm <= final && x.Ativo == false).ToList();
 
             ViewBag.Inicial = inicial;
             ViewBag.Final = final;

@@ -13,20 +13,20 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class SistemaParametroController : Controller
     {
-        private IBaseService<SistemaParametro> service;
-        private ILogin login;
+        private IBaseService<SistemaParametro> _service;
+        private ILogin _login;
 
-        public SistemaParametroController()
+        public SistemaParametroController(IBaseService<SistemaParametro> service, ILogin login)
         {
-            service = new SistemaParametroService();
-            login = new UsuarioService();
+            _service = service;
+            _login = login;
         }
 
         //
         // GET: /Admin/SistemaParametro/
         public ActionResult Index()
         {
-            var parametros = service.Listar().OrderBy(x => x.Codigo);
+            var parametros = _service.Listar().OrderBy(x => x.Codigo);
 
             return View(parametros);
         }
@@ -35,7 +35,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/SistemaParametro/Details/5
         public ActionResult Details(int id)
         {
-            var parametro = service.Find(id);
+            var parametro = _service.Find(id);
 
             if (parametro == null)
             {
@@ -60,12 +60,12 @@ namespace Salao.Web.Areas.Admin.Controllers
             try
             {
                 parametro.AlteradoEm = DateTime.Now;
-                parametro.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                parametro.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(parametro);
 
                 if (ModelState.IsValid)
 	            {
-		            service.Gravar(parametro);
+		            _service.Gravar(parametro);
                     return RedirectToAction("Index");
 	            }
 
@@ -87,7 +87,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var parametro = service.Find((int)id);
+            var parametro = _service.Find((int)id);
 
             if (parametro == null)
             {
@@ -105,12 +105,12 @@ namespace Salao.Web.Areas.Admin.Controllers
             try
             {
                 parametro.AlteradoEm = DateTime.Now;
-                parametro.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                parametro.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(parametro);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(parametro);
+                    _service.Gravar(parametro);
                     return RedirectToAction("Index");                    
                 }
 
@@ -132,7 +132,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var parametro = service.Find((int)id);
+            var parametro = _service.Find((int)id);
 
             if (parametro == null)
             {
@@ -149,12 +149,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch
             {
-                var parametro = service.Find(id);
+                var parametro = _service.Find(id);
                 if (parametro == null)
                 {
                     return HttpNotFound();

@@ -13,11 +13,11 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class SalaoFormaPgtoController : Controller
     {
-        ISalaoFormaPgto service;
+        ISalaoFormaPgto _service;
 
-        public SalaoFormaPgtoController ()
+        public SalaoFormaPgtoController(ISalaoFormaPgto service)
 	    {
-            service = new SalaoFormaPgtoService();
+            _service = service;
 	    }
             
         //
@@ -44,7 +44,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                     FomaPgto = item.Descricao,
                     IdFormaPgto = item.Id,
                     IdSalao = (int)id,
-                    Selecionado = (service.Listar().Where(x => x.IdSalao == id && x.IdFormaPgto == item.Id).Count() > 0)
+                    Selecionado = (_service.Listar().Where(x => x.IdSalao == id && x.IdFormaPgto == item.Id).Count() > 0)
                 });
             }
 
@@ -58,7 +58,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         public ActionResult Index(int[] selecionado, int idSalao, int IdEmpresa)
         {
             // grava formas de pagamento do salao
-            service.Gravar(idSalao, selecionado);
+            _service.Gravar(idSalao, selecionado);
 
             return RedirectToAction("Index", "Salao", new { idEmpresa = IdEmpresa });
         }
