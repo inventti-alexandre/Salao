@@ -12,17 +12,17 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class CliPermissaoController : Controller
     {
-        private IBaseService<CliPermissao> service;
+        private IBaseService<CliPermissao> _service;
 
-        public CliPermissaoController()
+        public CliPermissaoController(IBaseService<CliPermissao> service)
         {
-            service = new CliPermissaoService();
+            _service = service;
         }
 
         // GET: Admin/CliPermissao
         public ActionResult Index()
         {
-            var permissoes = service.Listar()
+            var permissoes = _service.Listar()
                 .OrderBy(x => x.Descricao);
 
             return View(permissoes);
@@ -31,7 +31,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: Admin/CliPermissao/Details/5
         public ActionResult Details(int id)
         {
-            var permissao = service.Find(id);
+            var permissao = _service.Find(id);
 
             if (permissao == null)
             {
@@ -58,7 +58,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(permissao);
+                    _service.Gravar(permissao);
                     return RedirectToAction("Index");
                 }
                 return View(permissao);
@@ -78,7 +78,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var permissao = service.Find((int)id);
+            var permissao = _service.Find((int)id);
 
             if (permissao == null)
             {
@@ -99,10 +99,10 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(permissao);
+                    _service.Gravar(permissao);
                     return RedirectToAction("Index");
                 }
-                return View(service);
+                return View(_service);
             }
             catch (ArgumentException e)
             {
@@ -119,7 +119,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var permissao = service.Find((int)id);
+            var permissao = _service.Find((int)id);
 
             if (permissao == null)
             {
@@ -135,12 +135,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                var permissao = service.Find(id);
+                var permissao = _service.Find(id);
                 if (permissao == null)
                 {
                     return HttpNotFound();

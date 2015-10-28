@@ -13,20 +13,20 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class AreaController : Controller
     {
-        private IBaseService<Area> service;
-        private ILogin login;
+        private IBaseService<Area> _service;
+        private ILogin _login;
 
-        public AreaController()
+        public AreaController(IBaseService<Area> service, ILogin login)
         {
-            service = new AreaService();
-            login = new UsuarioService();
+            _service = service;
+            _login = login;
         }
 
         //
         // GET: /Admin/Area/
         public ActionResult Index()
         {
-            var areas = service.Listar()
+            var areas = _service.Listar()
                 .OrderBy(x => x.Descricao);
 
             return View(areas);
@@ -36,7 +36,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/Area/Details/5
         public ActionResult Details(int id)
         {
-            var area = service.Find(id);
+            var area = _service.Find(id);
 
             if (area == null)
             {
@@ -61,12 +61,12 @@ namespace Salao.Web.Areas.Admin.Controllers
             try
             {
                 area.AlteradoEm = DateTime.Now;
-                area.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                area.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(area);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(area);
+                    _service.Gravar(area);
                     return RedirectToAction("Index");
                 }
 
@@ -88,7 +88,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var area = service.Find((int)id);
+            var area = _service.Find((int)id);
 
             if (area == null)
             {
@@ -105,13 +105,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                area.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                area.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 area.AlteradoEm = DateTime.Now;
                 TryUpdateModel(area);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(area);
+                    _service.Gravar(area);
                     return RedirectToAction("Index");
                 }
 
@@ -133,7 +133,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var area = service.Find((int)id);
+            var area = _service.Find((int)id);
 
             if (area == null)
             {
@@ -150,13 +150,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var area = service.Find(id);
+                var area = _service.Find(id);
                 if (area == null)
                 {
                     return HttpNotFound();

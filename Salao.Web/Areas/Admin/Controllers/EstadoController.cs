@@ -12,17 +12,17 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class EstadoController : Controller
     {
-        private IBaseService<EnderecoEstado> service;
+        private IBaseService<EnderecoEstado> _service;
 
-        public EstadoController()
+        public EstadoController(IBaseService<EnderecoEstado> service)
         {
-            service = new EstadoService();
+            _service = service;
         }
 
         // GET: Admin/Estado
         public ActionResult Index()
         {
-            var estados = service.Listar()
+            var estados = _service.Listar()
                 .OrderBy(x => x.Descricao)
                 .ToList();
 
@@ -32,7 +32,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: Admin/Estado/Details/5
         public ActionResult Details(int id)
         {
-            var estado = service.Find(id);
+            var estado = _service.Find(id);
 
             if (estado == null)
             {
@@ -56,7 +56,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(estado);
+                    _service.Gravar(estado);
                     return RedirectToAction("Index");                    
                 }
                 return View(estado);
@@ -76,7 +76,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var estado = service.Find((int)id);
+            var estado = _service.Find((int)id);
 
             if (estado == null)
             {
@@ -94,7 +94,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(estado);
+                    _service.Gravar(estado);
                     return RedirectToAction("Index");                    
                 }
                 return View(estado);
@@ -114,7 +114,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var estado = service.Find((int)id);
+            var estado = _service.Find((int)id);
 
             if (estado == null)
             {
@@ -130,13 +130,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var estado = service.Find(id);
+                var estado = _service.Find(id);
                 if (estado == null)
                 {
                     return HttpNotFound();

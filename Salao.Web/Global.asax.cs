@@ -1,4 +1,5 @@
 ﻿using Salao.Domain.Repository;
+using Salao.Web.App_Start;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace Salao.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+
+            // Ninject
+            IocConfig.ConfigurarDependencias();
         }
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
@@ -50,12 +54,6 @@ namespace Salao.Web
                         }
                         else
                         {
-                            //var usuario = new Salao.Domain.Service.Cliente.CliUsuarioService().Listar().FirstOrDefault(x => x.Email == username);
-                            // TODO: arrumar aqui
-                            //if (usuario != null)
-                            //{
-                            //    roles = usuario.Roles;
-                            //}
                             roles = new Salao.Domain.Service.Cliente.CliUsuarioService().GetRoles(username);
                         }
 

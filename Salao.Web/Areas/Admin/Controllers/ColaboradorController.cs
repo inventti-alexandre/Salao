@@ -14,26 +14,26 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class ColaboradorController : Controller
     {
-        IBaseService<Profissional> service;
-        IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao;
+        IBaseService<Profissional> _service;
+        IBaseService<Salao.Domain.Models.Cliente.Salao> _serviceSalao;
 
-        public ColaboradorController()
+        public ColaboradorController(IBaseService<Profissional> service, IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao)
         {
-            service = new ProfissionalService();
-            serviceSalao = new SalaoService();
+            _service = service;
+            _serviceSalao = serviceSalao;
         }
 
         // GET: Cliente/Colaborador
         public ActionResult Index(int idSalao)
         {
-            var salao = serviceSalao.Find(idSalao);
+            var salao = _serviceSalao.Find(idSalao);
 
             if (salao == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var profissionais = service.Listar()
+            var profissionais = _service.Listar()
                 .Where(x => x.IdSalao == idSalao)
                 .OrderBy(x => x.Nome);
 
@@ -51,7 +51,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var colaborador = service.Find((int)id);
+            var colaborador = _service.Find((int)id);
 
             if (colaborador == null)
             {
@@ -65,7 +65,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: Cliente/Colaborador/Create
         public ActionResult Create(int idSalao)
         {
-            var salao = serviceSalao.Find(idSalao);
+            var salao = _serviceSalao.Find(idSalao);
 
             if (salao == null)
             {
@@ -89,18 +89,18 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var id = service.Gravar(profissional);
+                    var id = _service.Gravar(profissional);
                     SetImage(image, id);
                     return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
                 }
 
-                ViewBag.Fantasia = serviceSalao.Find(profissional.IdSalao).Fantasia;
+                ViewBag.Fantasia = _serviceSalao.Find(profissional.IdSalao).Fantasia;
                 return View(profissional);
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                ViewBag.Fantasia = serviceSalao.Find(profissional.IdSalao).Fantasia;
+                ViewBag.Fantasia = _serviceSalao.Find(profissional.IdSalao).Fantasia;
                 return View(profissional);
             }
         }
@@ -113,7 +113,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var profissional = service.Find((int)id);
+            var profissional = _service.Find((int)id);
 
             if (profissional == null)
             {
@@ -135,7 +135,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    int id = service.Gravar(profissional);
+                    int id = _service.Gravar(profissional);
                     SetImage(image, id);
                     return RedirectToAction("Index", new { idSalao = profissional.IdSalao });
                 }
@@ -156,7 +156,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var colaborador = service.Find((int)id);
+            var colaborador = _service.Find((int)id);
 
             if (colaborador == null)
             {
@@ -173,7 +173,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                var colaborador = service.Excluir(id);
+                var colaborador = _service.Excluir(id);
                 if (colaborador != null)
                 {
                     DeleteImage(colaborador.Id);
@@ -183,7 +183,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var colaborador = service.Find(id);
+                var colaborador = _service.Find(id);
                 if (colaborador == null)
                 {
                     return HttpNotFound();

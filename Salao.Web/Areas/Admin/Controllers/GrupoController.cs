@@ -12,18 +12,18 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class GrupoController : Controller
     {
-        private IBaseService<Grupo> service;
+        private IBaseService<Grupo> _service;
 
-        public GrupoController()
+        public GrupoController(IBaseService<Grupo> service)
         {
-            service = new GrupoService();
+            _service = service;
         }
 
         //
         // GET: /Admin/Grupo/
         public ActionResult Index()
         {
-            var grupos = service.Listar()
+            var grupos = _service.Listar()
                 .OrderBy(x => x.Descricao);
 
             return View(grupos);
@@ -33,7 +33,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/Grupo/Details/5
         public ActionResult Details(int id)
         {
-            var grupo = service.Find(id);
+            var grupo = _service.Find(id);
 
             if (grupo == null)
             {
@@ -62,7 +62,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    _service.Gravar(grupo);
                     return RedirectToAction("Index");
                 }
 
@@ -84,7 +84,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var grupo = _service.Find((int)id);
 
             if (grupo == null)
             {
@@ -106,7 +106,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    _service.Gravar(grupo);
                     return RedirectToAction("Index");
                 }
 
@@ -128,7 +128,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var grupo = _service.Find((int)id);
 
             if (grupo == null)
             {
@@ -145,12 +145,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                var grupo = service.Find(id);
+                var grupo = _service.Find(id);
                 if (grupo == null)
                 {
                     return HttpNotFound();

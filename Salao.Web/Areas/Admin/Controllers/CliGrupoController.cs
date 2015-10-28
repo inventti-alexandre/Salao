@@ -12,11 +12,11 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class CliGrupoController : Controller
     {
-        private IBaseService<CliGrupo> service;
+        private IBaseService<CliGrupo> _service;
 
-        public CliGrupoController()
+        public CliGrupoController(IBaseService<CliGrupo> service)
         {
-            service = new CliGrupoService();
+            _service = service;
         }
 
         // GET: Admin/CliGrupo
@@ -34,7 +34,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var grupos = service.Listar()
+            var grupos = _service.Listar()
                 .Where(x => x.IdEmpresa == (int)idEmpresa)
                 .OrderBy(x => x.Descricao);
 
@@ -46,7 +46,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: Admin/CliGrupo/Details/5
         public ActionResult Details(int id)
         {
-            var grupo = service.Find(id);
+            var grupo = _service.Find(id);
 
             if (grupo == null)
             {
@@ -85,7 +85,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    _service.Gravar(grupo);
                     return RedirectToAction("Index", new { idEmpresa = grupo.IdEmpresa });
                 }
 
@@ -106,7 +106,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var grupo = _service.Find((int)id);
 
             if (grupo == null)
             {
@@ -127,7 +127,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    _service.Gravar(grupo);
                     return RedirectToAction("Index", new { idEmpresa = grupo.IdEmpresa});
                 }
                 return View(grupo);
@@ -147,7 +147,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var grupo = _service.Find((int)id);
 
             if (grupo == null)
             {
@@ -163,12 +163,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                var grupo = service.Excluir(id);
+                var grupo = _service.Excluir(id);
                 return RedirectToAction("Index", new { idEmpresa = grupo.IdEmpresa });
             }
             catch (Exception e)
             {
-                var grupo = service.Find(id);
+                var grupo = _service.Find(id);
                 if (grupo == null)
                 {
                     return HttpNotFound();
