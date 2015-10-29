@@ -9,6 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using Salao.Web.Areas.Empresa.Models;
 
 namespace Salao.Web.Areas.Empresa.Controllers
 {
@@ -17,11 +19,15 @@ namespace Salao.Web.Areas.Empresa.Controllers
     {
         IBaseService<Profissional> _service;
         IBaseService<Salao.Domain.Models.Cliente.Salao> _serviceSalao;
+        IBaseService<Servico> _serviceServico;
+        IBaseService<ProfissionalServico> _serviceProfissionalServico;
 
-        public ColaboradorController(IBaseService<Profissional> service, IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao)
+        public ColaboradorController(IBaseService<Profissional> service, IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao, IBaseService<Servico> serviceServico, IBaseService<ProfissionalServico> serviceProfissionalServico)
         {
             _service = service;
             _serviceSalao = serviceSalao;
+            _serviceServico = serviceServico;
+            _serviceProfissionalServico = serviceProfissionalServico;
         }
 
         // GET: Empresa/Colaborador
@@ -223,6 +229,50 @@ namespace Salao.Web.Areas.Empresa.Controllers
             }
         }
 
+        // GET: Empresa/Colaborador/Servicos/5
+        public ActionResult Servicos(int idSalao, int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // colaborador
+            var colaborador = _service.Find((int)id);
+
+            if (colaborador == null)
+            {
+                return HttpNotFound();
+            }
+
+            // lista de todos os servicos
+            var servicos = _serviceServico.Listar()
+                .Where(x => x.IdSalao == idSalao)
+                .OrderBy(x => x.Area.Descricao)
+                .ThenBy(x => x.SubArea.Descricao)
+                .ToList();
+
+            // lista retorno
+            var lista = new List<ProfissionalServicoModel>();
+
+            foreach (var item in servicos)
+            {
+                lista.Add(new ProfissionalServicoModel
+                {
+                    IdProfissional = colaborador.Id,
+                    IdServico = item.Id,
+                    ServicoNome = item.Descricao,
+                    Selecionado = (_serviceProfissionalServico.Listar().Where(x => x.IdProfissional == id && x.IdServico == item.Id).Count() > 0)
+                });
+            }
+
+            ViewBag.IdColaborador = colaborador.Id;
+            ViewBag.ColaboradorNome = colaborador.Nome;
+            return View(lista);
+        }
+
+        #region [ Privates ]
+
         private string GetImage(int id)
         {
             var systemFileName = id.ToString() + ".jpg";
@@ -266,5 +316,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 }
             }
         }
+
+        #endregion
     }
 }

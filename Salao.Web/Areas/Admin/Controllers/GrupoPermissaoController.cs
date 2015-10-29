@@ -18,11 +18,11 @@ namespace Salao.Web.Areas.Admin.Controllers
         IBaseService<Permissao> _servicePermissao;
         IGrupoPermissao _serviceGrupoPermissao;
 
-        public GrupoPermissaoController(IBaseService<Grupo> _serviceGrupo, IBaseService<Permissao> _servicePermissao, IGrupoPermissao _serviceGrupoPermissao)
+        public GrupoPermissaoController(IBaseService<Grupo> serviceGrupo, IBaseService<Permissao> servicePermissao, IGrupoPermissao serviceGrupoPermissao)
         {
-            _serviceGrupo = _serviceGrupo;
-            _servicePermissao = _servicePermissao;
-            _serviceGrupoPermissao = _serviceGrupoPermissao;
+            _serviceGrupo = serviceGrupo;
+            _servicePermissao = servicePermissao;
+            _serviceGrupoPermissao = serviceGrupoPermissao;
         }
 
         //

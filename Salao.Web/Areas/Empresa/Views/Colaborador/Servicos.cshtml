@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Salao.Web.Areas.Admin.Models.ProfissionalServicoModel>
+
+@{
+    ViewBag.Title = "Colaborador - Serviços";
+}
+
+<h3>@ViewBag.ColaboradorNome - Serviços prestados</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("IdColaborador", (int)ViewBag.IdColaborador)
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ServicoNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Selecionado)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServicoNome)
+                </td>
+                <td>
+                    <input type="checkbox" id="selecao" name="selecao" value="@item.IdServico" checked="@item.Selecionado" />
+                </td>
+            </tr>
+        }
+
+    </table>
+    
+    <div class="form-actions no-color">
+        <input type="submit" value="Gravar" class="btn btn-primary" />
+        @Html.ActionLink("Voltar", "Index", new { idSalao = ViewBag.IdSalao })
+    </div>
+}
