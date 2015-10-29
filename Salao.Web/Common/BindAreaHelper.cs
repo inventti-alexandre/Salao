@@ -6,7 +6,7 @@ namespace Salao.Web.Common
 {
     public static class BindAreaHelper
     {
-        public static MvcHtmlString SelectArea(this HtmlHelper html, int idArea = 0)
+        public static MvcHtmlString SelectArea(this HtmlHelper html, int idArea = 0, string ctrlName="Areas")
         {
             var areas = new AreaService().Listar()
                 .Where(x => x.Ativo == true)
@@ -14,8 +14,8 @@ namespace Salao.Web.Common
                 .ToList();
 
             TagBuilder tag = new TagBuilder("select");
-            tag.MergeAttribute("id", "Areas");
-            tag.MergeAttribute("name", "Areas");
+            tag.MergeAttribute("id", ctrlName);
+            tag.MergeAttribute("name", ctrlName);
 
             foreach (var item in areas)
             {

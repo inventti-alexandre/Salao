@@ -6,16 +6,24 @@ namespace Salao.Web.Common
 {
     public static class BindSubAreaHelper
     {
-        public static MvcHtmlString SelectSubArea(this HtmlHelper html, int idSubArea = 0)
+        public static MvcHtmlString SelectSubArea(this HtmlHelper html, int idSubArea = 0, string ctrlName = "SubAreas")
         {
-            var subAreas = new SubAreaService().Listar()
-                .Where(x => x.Ativo == true)
+            var service = new SubAreaService();
+            
+            var subArea = service.Find(idSubArea);
+            if (subArea == null)
+            {
+                return new MvcHtmlString(string.Empty);
+            }
+
+            var subAreas = service.Listar()
+                .Where(x => x.Ativo == true && x.IdArea == subArea.IdArea)
                 .OrderBy(x => x.Descricao)
                 .ToList();
 
             TagBuilder tag = new TagBuilder("select");
-            tag.MergeAttribute("id", "SubAreas");
-            tag.MergeAttribute("name", "SubAreas");
+            tag.MergeAttribute("id", ctrlName);
+            tag.MergeAttribute("name", ctrlName);
 
             foreach (var item in subAreas)
             {

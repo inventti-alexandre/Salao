@@ -1,8 +1,6 @@
 ﻿using Salao.Domain.Abstract;
 using Salao.Domain.Models.Admin;
 using Salao.Domain.Models.Cliente;
-using Salao.Domain.Service.Admin;
-using Salao.Domain.Service.Cliente;
 using Salao.Web.Areas.Empresa.Common;
 using System;
 using System.Linq;
@@ -57,11 +55,9 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 idSubArea = _serviceSubArea.Listar().Where(x => x.IdArea == idArea).OrderBy(x => x.Descricao).First().Id;
             }
 
-            var saloes = GetSelectSaloes(idSalao);
             ViewBag.IdSalao = idSalao;
-            ViewBag.ListaSaloes = saloes;
-            ViewBag.ListaAreas = GetSelectAreas(idArea);
-            ViewBag.ListaSubAreas = GetSelectSubAreas(idArea, idSubArea);
+            ViewBag.IdArea = idArea;
+            ViewBag.IdSubArea = idSubArea;
 
             return View();
         }
@@ -105,15 +101,14 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             var servico = new Servico { IdSalao = idSalao, IdSubArea = idSubArea };
 
-            ViewBag.ListaAreas = GetSelectAreas(idArea);
-            ViewBag.ListaSubAreas = GetSelectSubAreas(idArea, idSubArea);
-
+            ViewBag.IdArea = idArea;
+            ViewBag.IdSubArea = idSubArea;
             return View(servico);
         }
 
         // POST: Empresa/Servico/Create
         [HttpPost]
-        public ActionResult Incluir([Bind(Include = "IdArea,IdSubArea,Descricao,Detalhe,Tempo,PrecoSemDesconto,Preco")] Servico servico)
+        public ActionResult Incluir([Bind(Include = "IdSalao,IdSubArea,Descricao,Detalhe,Tempo,PrecoSemDesconto,Preco")] Servico servico)
         {
             try
             {
@@ -126,15 +121,15 @@ namespace Salao.Web.Areas.Empresa.Controllers
                     return RedirectToAction("Index", new { idSalao = servico.IdSalao, idArea = servico.Area.Id, idSubArea = servico.IdSubArea });
                 }
 
-                ViewBag.ListaAreas = GetSelectAreas(servico.Area.Id);
-                ViewBag.ListaSubAreas = GetSelectSubAreas(servico.Area.Id, servico.IdSubArea);
+                ViewBag.IdArea = servico.Area.Id;
+                ViewBag.IdSubArea = servico.IdSubArea;
                 return View(servico);
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                ViewBag.ListaAreas = GetSelectAreas(servico.Area.Id);
-                ViewBag.ListaSubAreas = GetSelectSubAreas(servico.Area.Id, servico.IdSubArea);
+                ViewBag.IdArea = servico.Area.Id;
+                ViewBag.IdSubArea = servico.IdSubArea;
                 return View(servico);
             }
         }
@@ -161,15 +156,14 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ViewBag.ListaAreas = GetSelectAreas(servico.SubArea.IdArea);
-            ViewBag.ListaSubAreas = GetSelectSubAreas(servico.SubArea.IdArea, servico.IdSubArea);
-
+            ViewBag.IdArea = servico.Area.Id;
+            ViewBag.IdSubArea = servico.IdSubArea;
             return View(servico);
         }
 
         // POST: Empresa/Servico/Edit/5
         [HttpPost]
-        public ActionResult Editar([Bind(Include="Id,IdArea,IdSubArea,Descricao,Detalhe,Tempo,PrecoSemDesconto,Preco,Ativo")] Servico servico)
+        public ActionResult Editar([Bind(Include="Id,IdSubArea,IdSalao,Descricao,Detalhe,Tempo,PrecoSemDesconto,Preco,Ativo")] Servico servico)
         {
             try
             {
@@ -182,15 +176,15 @@ namespace Salao.Web.Areas.Empresa.Controllers
                     return RedirectToAction("Index", new { idSalao = servico.IdSalao, idArea = servico.Area.Id, idSubArea = servico.IdSubArea });
                 }
 
-                ViewBag.ListaAreas = GetSelectAreas(servico.SubArea.IdArea);
-                ViewBag.ListaSubAreas = GetSelectSubAreas(servico.SubArea.IdArea, servico.IdSubArea);
+                ViewBag.IdArea = servico.Area.Id;
+                ViewBag.IdSubArea = servico.IdSubArea;
                 return View(servico);
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                ViewBag.ListaAreas = GetSelectAreas(servico.SubArea.IdArea);
-                ViewBag.ListaSubAreas = GetSelectSubAreas(servico.SubArea.IdArea, servico.IdSubArea);
+                ViewBag.IdArea = servico.Area.Id;
+                ViewBag.IdSubArea = servico.IdSubArea;
                 return View(servico);
             }
         }
@@ -262,43 +256,22 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             if (HttpContext.Request.IsAjaxRequest())
             {
-                int idSubArea = _serviceSubArea.Listar().Where(x => x.IdArea == idArea).OrderBy(x => x.Descricao).First().Id;
-                return Json(GetSelectSubAreas(idArea, idSubArea), JsonRequestBehavior.AllowGet);
+                // primeiro id de uma sub area a partir da area
+                var subArea = _serviceSubArea.Listar().Where(x => x.IdArea == idArea).OrderBy(x => x.Descricao).FirstOrDefault();
+                int idSubArea = (subArea != null ? subArea.Id : 0);
+
+                var subAreas = new SelectList(
+                    _serviceSubArea.Listar()
+                    .Where(x => x.Ativo == true && (idArea == 0 || x.IdArea == idArea))
+                    .ToList(),
+                    "Id",
+                    "Descricao",
+                    idSubArea.ToString());
+
+                return Json(subAreas, JsonRequestBehavior.AllowGet);
             }
 
             return null;
-        }
-
-        #endregion
-
-
-        #region [ Privates ]
-
-        private SelectList GetSelectSaloes(int idSalao)
-        {
-            return new SelectList(
-               _serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa).OrderBy(x => x.Fantasia).ToList(),
-               "Id",
-               "Fantasia",
-               idSalao.ToString());
-        }
-
-        private SelectList GetSelectAreas(int idArea)
-        {
-            return new SelectList(
-                _serviceArea.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList(),
-                "Id",
-                "Descricao",
-                idArea.ToString());
-        }
-
-        private SelectList GetSelectSubAreas(int idArea, int idSubArea)
-        {
-            return new SelectList(
-                _serviceSubArea.Listar().Where(x => x.Ativo == true && (idArea == 0 || x.IdArea == idArea)).ToList(),
-                "Id",
-                "Descricao",
-                idSubArea.ToString());
         }
 
         #endregion

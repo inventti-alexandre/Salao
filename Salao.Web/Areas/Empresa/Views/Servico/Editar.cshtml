@@ -1,4 +1,5 @@
-﻿@model Salao.Domain.Models.Cliente.Servico
+﻿@using Salao.Web.Common;
+@model Salao.Domain.Models.Cliente.Servico
 
 @{
     ViewBag.Title = "Serviço";
@@ -22,14 +23,14 @@ Local: <strong>@Model.Salao.Fantasia</strong> - @Model.Salao.Endereco.Logradouro
         <div class="form-group">
             @Html.LabelFor(model => model.IdSubArea, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IdArea", (SelectList)ViewBag.ListaAreas, new { @autofocus = true } )
+                @Html.SelectArea((int)ViewBag.IdArea, "IdArea")
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.IdSubArea, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IdSubArea", (SelectList)ViewBag.ListaSubAreas)
+                @Html.SelectSubArea((int)ViewBag.IdSubArea, "IdSubArea")
             </div>
         </div>
 
@@ -98,9 +99,9 @@ Local: <strong>@Model.Salao.Fantasia</strong> - @Model.Salao.Endereco.Logradouro
 
     $(document).ready(function () {
 
-        $("#Areas").change(function () {
+        $("#IdArea").change(function () {
             var id = $(this).val();            
-            $("#SubAreas").empty();
+            $("#IdSubArea").empty();
 
             $.ajax({
                 url: '@Url.Action("GetSubAreas","Servico")',
@@ -108,8 +109,7 @@ Local: <strong>@Model.Salao.Fantasia</strong> - @Model.Salao.Endereco.Logradouro
                 datatype: 'json',
                 success: function (subareas) {
                     $(subareas).each(function (i, data) {
-                        $("#SubAreas").append('<option value="' + data.Value + '">' + data.Text + '</option>');
-                        $("#SubAreas").append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                        $("#IdSubArea").append('<option value="' + data.Value + '">' + data.Text + '</option>');
                     });
                 }
             });
