@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using Salao.Web.Areas.Empresa.Models;
+using Salao.Domain.Abstract.Cliente;
 
 namespace Salao.Web.Areas.Empresa.Controllers
 {
@@ -20,9 +21,9 @@ namespace Salao.Web.Areas.Empresa.Controllers
         IBaseService<Profissional> _service;
         IBaseService<Salao.Domain.Models.Cliente.Salao> _serviceSalao;
         IBaseService<Servico> _serviceServico;
-        IBaseService<ProfissionalServico> _serviceProfissionalServico;
+        IProfissionalServico _serviceProfissionalServico;
 
-        public ColaboradorController(IBaseService<Profissional> service, IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao, IBaseService<Servico> serviceServico, IBaseService<ProfissionalServico> serviceProfissionalServico)
+        public ColaboradorController(IBaseService<Profissional> service, IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao, IBaseService<Servico> serviceServico, IProfissionalServico serviceProfissionalServico)
         {
             _service = service;
             _serviceSalao = serviceSalao;
@@ -237,10 +238,10 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // colaborador
-            var colaborador = _service.Find((int)id);
+            // profissional
+            var profissional = _service.Find((int)id);
 
-            if (colaborador == null)
+            if (profissional == null)
             {
                 return HttpNotFound();
             }
@@ -248,9 +249,9 @@ namespace Salao.Web.Areas.Empresa.Controllers
             // lista de todos os servicos
             var servicos = _serviceServico.Listar()
                 .Where(x => x.IdSalao == idSalao)
+                .ToList()
                 .OrderBy(x => x.Area.Descricao)
-                .ThenBy(x => x.SubArea.Descricao)
-                .ToList();
+                .ThenBy(x => x.SubArea.Descricao);
 
             // lista retorno
             var lista = new List<ProfissionalServicoModel>();
@@ -259,16 +260,29 @@ namespace Salao.Web.Areas.Empresa.Controllers
             {
                 lista.Add(new ProfissionalServicoModel
                 {
-                    IdProfissional = colaborador.Id,
+                    IdProfissional = profissional.Id,
                     IdServico = item.Id,
                     ServicoNome = item.Descricao,
-                    Selecionado = (_serviceProfissionalServico.Listar().Where(x => x.IdProfissional == id && x.IdServico == item.Id).Count() > 0)
+                    Selecionado = (_serviceProfissionalServico.Listar().Where(x => x.IdProfissional == id && x.IdServico == item.Id).Count() > 0),
+                    Area = item.Area.Descricao,
+                    SubArea = item.SubArea.Descricao
                 });
             }
 
-            ViewBag.IdColaborador = colaborador.Id;
-            ViewBag.ColaboradorNome = colaborador.Nome;
+            ViewBag.IdProfissional = profissional.Id;
+            ViewBag.ProfissionalNome = profissional.Nome;
+            ViewBag.IdSalao = idSalao;
             return View(lista);
+        }
+
+        // POST: Empresa/Colaborador/Servicos/5
+        [HttpPost]
+        public ActionResult Servicos(int idProfissional, int[] selecao, int idSalao)
+        {
+            // grava profissional x servico
+            _serviceProfissionalServico.Gravar(idProfissional, selecao);
+
+            return RedirectToAction("Index", new { idSalao = idSalao });
         }
 
         #region [ Privates ]

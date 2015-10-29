@@ -1,17 +1,25 @@
-﻿@model IEnumerable<Salao.Web.Areas.Admin.Models.ProfissionalServicoModel>
+﻿@model IEnumerable<Salao.Web.Areas.Empresa.Models.ProfissionalServicoModel>
 
 @{
     ViewBag.Title = "Colaborador - Serviços";
 }
 
-<h3>@ViewBag.ColaboradorNome - Serviços prestados</h3>
+<h3>@ViewBag.ProfissionalNome - Serviços prestados</h3>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("IdColaborador", (int)ViewBag.IdColaborador)
+    @Html.Hidden("IdProfissional", (int)ViewBag.IdProfissional)
+    @Html.Hidden("IdSalao", (int)ViewBag.IdSalao)
+    
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Area)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubArea)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ServicoNome)
             </th>
@@ -25,6 +33,12 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Area)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubArea)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.ServicoNome)
                 </td>
                 <td>
@@ -37,6 +51,6 @@
     
     <div class="form-actions no-color">
         <input type="submit" value="Gravar" class="btn btn-primary" />
-        @Html.ActionLink("Voltar", "Index", new { idSalao = ViewBag.IdSalao })
+        @Html.ActionLink("Voltar", "Index", new { idSalao = (int)ViewBag.IdSalao })
     </div>
 }

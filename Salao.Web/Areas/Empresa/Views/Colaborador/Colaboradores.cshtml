@@ -40,8 +40,8 @@
             <td>
                 @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
                 @Html.ActionLink("Detalhes", "Detalhes", new { id = item.Id }) |
-                @Html.ActionLink("Excluir", "Excluir", new { id = item.Id })
-                @Html.ActionLink("Serviços", "Servicos", new { id = item.Id })
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.Id }) |
+                @Html.ActionLink("Serviços", "Servicos", new { id = item.Id, idSalao = item.IdSalao })
             </td>
         </tr>
     }
