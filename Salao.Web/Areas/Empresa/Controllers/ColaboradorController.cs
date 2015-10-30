@@ -1,17 +1,16 @@
 ﻿using Salao.Domain.Abstract;
+using Salao.Domain.Abstract.Cliente;
 using Salao.Domain.Models.Cliente;
-using Salao.Domain.Service.Cliente;
 using Salao.Web.Areas.Empresa.Common;
+using Salao.Web.Areas.Empresa.Models;
 using Salao.Web.Common;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Collections.Generic;
-using Salao.Web.Areas.Empresa.Models;
-using Salao.Domain.Abstract.Cliente;
 
 namespace Salao.Web.Areas.Empresa.Controllers
 {
@@ -251,7 +250,8 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 .Where(x => x.IdSalao == idSalao)
                 .ToList()
                 .OrderBy(x => x.Area.Descricao)
-                .ThenBy(x => x.SubArea.Descricao);
+                .ThenBy(x => x.SubArea.Descricao)
+                .ThenBy(x => x.Descricao)
 
             // lista retorno
             var lista = new List<ProfissionalServicoModel>();
