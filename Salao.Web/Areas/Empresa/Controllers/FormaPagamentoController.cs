@@ -14,15 +14,15 @@ namespace Salao.Web.Areas.Empresa.Controllers
 {
     public class FormaPagamentoController : Controller
     {
-        ISalaoFormaPgto service;
-        IBaseService<FormaPgto> serviceForma;
-        IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao;
+        ISalaoFormaPgto _service;
+        IBaseService<FormaPgto> _serviceForma;
+        IBaseService<Salao.Domain.Models.Cliente.Salao> _serviceSalao;
 
-        public FormaPagamentoController()
+        public FormaPagamentoController(ISalaoFormaPgto service, IBaseService<FormaPgto> serviceForma, IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao)
         {
-            service = new SalaoFormaPgtoService();
-            serviceForma = new FormaPgtoService();
-            serviceSalao = new SalaoService();
+            _service = service;
+            _serviceForma = serviceForma;
+            _serviceSalao = serviceSalao;
         }
 
         // GET: Empresa/FormaPagamento
@@ -30,7 +30,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             if (idSalao == 0)
             {
-                var primeiroSalao = serviceSalao.Listar().FirstOrDefault();
+                var primeiroSalao = _serviceSalao.Listar().FirstOrDefault();
                 if (primeiroSalao != null)
                 {
                     idSalao = primeiroSalao.Id;
@@ -42,7 +42,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             }
 
             // salao
-            var salao = serviceSalao.Find(idSalao);
+            var salao = _serviceSalao.Find(idSalao);
 
             if (salao == null || salao.IdEmpresa != Identification.IdEmpresa)
             {
@@ -60,10 +60,10 @@ namespace Salao.Web.Areas.Empresa.Controllers
         public PartialViewResult FormasPagamento(int idSalao)
         {
             // salao
-            var salao = serviceSalao.Find(idSalao);
+            var salao = _serviceSalao.Find(idSalao);
 
             // formas de pagamento disponiveis
-            var formas = serviceForma.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
+            var formas = _serviceForma.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
 
             // lista retorno
             var lista = new List<SalaoFormasPagamento>();
@@ -73,7 +73,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 {
                     Descricao = item.Descricao,
                     Id = item.Id,
-                    Selecionado = (service.Listar().Where(x => x.IdSalao == idSalao && x.IdFormaPgto == item.Id).Count() > 0)
+                    Selecionado = (_service.Listar().Where(x => x.IdSalao == idSalao && x.IdFormaPgto == item.Id).Count() > 0)
                 });
             }
 
@@ -88,7 +88,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         private SelectList GetSaloes(int idSalao)
         {
             return new SelectList(
-                    serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa).OrderBy(x => x.Fantasia).ToList(),
+                    _serviceSalao.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa).OrderBy(x => x.Fantasia).ToList(),
                     "Id",
                     "Fantasia",
                     idSalao);

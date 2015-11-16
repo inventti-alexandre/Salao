@@ -13,13 +13,13 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class UsuarioClienteController : Controller
     {
-        IBaseService<CliUsuario> service;
-        ILogin login;
+        IBaseService<CliUsuario> _service;
+        ILogin _login;
 
-        public UsuarioClienteController()
+        public UsuarioClienteController(IBaseService<CliUsuario> service, ILogin login)
         {
-            service = new CliUsuarioService();
-            login = new CliUsuarioService();
+            _service = service;
+            _login = login;
         }
 
         // GET: Cliente/Usuario
@@ -30,7 +30,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var usuarios = service.Listar().Where(x => x.IdEmpresa == idEmpresa);
+            var usuarios = _service.Listar().Where(x => x.IdEmpresa == idEmpresa);
             ViewBag.IdEmpresa = idEmpresa;
             return View(usuarios);
         }
@@ -43,7 +43,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null)
             {
@@ -72,7 +72,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(usuario);
+                    _service.Gravar(usuario);
                     return RedirectToAction("Index", new { idEmpresa = usuario.IdEmpresa });
                 }
 
@@ -93,7 +93,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
             usuario.Password = string.Empty;
 
             if (usuario == null)
@@ -118,7 +118,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 usuario.Password = usuarioDb.Password;
                 TryUpdateModel(usuario);
 
-                service.Gravar(usuario);
+                _service.Gravar(usuario);
                 return RedirectToAction("Index", new { idEmpresa = usuario.IdEmpresa });
                 //return View(usuario);
             }
@@ -137,7 +137,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null)
             {
@@ -153,18 +153,18 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                if (login.GetIdUsuarioByNome(System.Web.HttpContext.Current.User.Identity.Name.ToUpper().Trim(), idEmpresa) == id)
+                if (_login.GetIdUsuarioByNome(System.Web.HttpContext.Current.User.Identity.Name.ToUpper().Trim(), idEmpresa) == id)
                 {
                     throw new ArgumentException("Não é permitido que o usuário corrente exclusa a si próprio");
                 }
 
-                var usuario = service.Excluir(id);
+                var usuario = _service.Excluir(id);
                 return RedirectToAction("Index", new { idEmpresa = usuario.IdEmpresa });
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var usuario = service.Find(id);
+                var usuario = _service.Find(id);
                 if (usuario == null)
                 {
                     return HttpNotFound();
@@ -183,7 +183,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null)
             {
@@ -198,7 +198,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult RedefinirSenha(int id)
         {
-            var usuario = service.Find(id);
+            var usuario = _service.Find(id);
 
             if (usuario == null)
             {

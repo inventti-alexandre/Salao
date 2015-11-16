@@ -13,16 +13,15 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class SubAreaController : Controller
     {
-        private IBaseService<SubArea> service;
-        private IBaseService<Area> serviceArea;
+        private IBaseService<SubArea> _service;
+        private IBaseService<Area> _serviceArea;
+        private ILogin _login;
 
-        private ILogin login;
-
-        public SubAreaController()
+        public SubAreaController(IBaseService<SubArea> service, IBaseService<Area> serviceArea, ILogin login)
         {
-            service = new SubAreaService();
-            serviceArea = new AreaService();
-            login = new UsuarioService();
+            _service = service;
+            _serviceArea = serviceArea;
+            _login = login;
         }
 
         //
@@ -30,10 +29,10 @@ namespace Salao.Web.Areas.Admin.Controllers
         public ActionResult Index(int idArea)
         {
             // area
-            var area = serviceArea.Find(idArea);
+            var area = _serviceArea.Find(idArea);
 
             // subareas cadastradas
-            var subAreas = service.Listar()
+            var subAreas = _service.Listar()
                 .Where(x => x.IdArea == idArea)
                 .OrderBy(x => x.Descricao);
 
@@ -47,7 +46,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/SubArea/Details/5
         public ActionResult Details(int id)
         {
-            var subArea = service.Find(id);
+            var subArea = _service.Find(id);
 
             if (subArea == null)
             {
@@ -61,7 +60,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/SubArea/Create
         public ActionResult Create(int IdArea)
         {
-            var area = serviceArea.Find(IdArea);
+            var area = _serviceArea.Find(IdArea);
             var subArea = new SubArea { IdArea = area.Id };
             ViewBag.Area = area.Descricao;
             return View(subArea);
@@ -75,16 +74,16 @@ namespace Salao.Web.Areas.Admin.Controllers
             try
             {
                 subArea.AlteradoEm = DateTime.Now;
-                subArea.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                subArea.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(subArea);
-                service.Gravar(subArea);
+                _service.Gravar(subArea);
 
                 return RedirectToAction("Index", new { idArea = subArea.IdArea });
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                ViewBag.NomeArea = serviceArea.Find(subArea.IdArea).Descricao;
+                ViewBag.NomeArea = _serviceArea.Find(subArea.IdArea).Descricao;
                 return View(subArea);
             }
         }
@@ -98,7 +97,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var subArea = service.Find((int)id);
+            var subArea = _service.Find((int)id);
             
             if (subArea == null)
             {
@@ -116,7 +115,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             try
             {
                 subArea.AlteradoEm = DateTime.Now;
-                subArea.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                subArea.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(subArea);
                 return RedirectToAction("Index", new { idArea = subArea.IdArea });
             }
@@ -136,7 +135,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var subArea = service.Find((int)id);
+            var subArea = _service.Find((int)id);
             
             if (subArea == null)
             {
@@ -153,12 +152,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                var subArea = service.Excluir(id);
+                var subArea = _service.Excluir(id);
                 return RedirectToAction("Index", new { idArea = subArea.IdArea });
             }
             catch
             {
-                var subArea = service.Find(id);
+                var subArea = _service.Find(id);
                 if (subArea == null)
                 {
                     return HttpNotFound();
@@ -172,7 +171,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             if (HttpContext.Request.IsAjaxRequest())
             {
-                IQueryable subs = service.Listar()
+                IQueryable subs = _service.Listar()
                     .Where(x => x.IdArea == idArea)
                     .OrderBy(x => x.Descricao);
 

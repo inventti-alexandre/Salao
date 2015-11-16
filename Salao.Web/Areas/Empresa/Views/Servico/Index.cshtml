@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Salao.Web.Common;
+@{
     ViewBag.Title = "Serviços oferecidos";
 }
 
@@ -7,14 +8,15 @@
 <div class="row top30">
     <div class="col-md-4">
         Selecione a matriz/filial:<br />
-        @Html.DropDownList("Saloes", (SelectList)ViewBag.ListaSaloes)
+        @Html.SelectSalao((int)ViewBag.IdSalao)
     </div>
     <div class="col-md-4">
-        Selecione a área:<br />@Html.DropDownList("Areas", (SelectList)ViewBag.ListaAreas)
+        Selecione a área:<br />
+        @Html.SelectArea((int)ViewBag.IdArea)
     </div>
     <div class="col-md-4">
         Selecione a sub área:<br />
-        @Html.DropDownList("SubAreas", (SelectList)ViewBag.ListaSubAreas)
+        @Html.SelectSubArea((int)ViewBag.IdArea)
     </div>
 </div>
 <div class="row top20" id="servicos">
@@ -72,7 +74,7 @@
                     $('#servicos').html(result);
                 },
                 error: function (ex) {
-                    alert('Falha ao listar serviços' + ex);
+                    alert('Falha ao listar serviços ' + ex);
                 }
             });
         }

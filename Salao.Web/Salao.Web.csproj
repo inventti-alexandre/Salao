@@ -179,9 +179,15 @@
     <Compile Include="Areas\Empresa\EmpresaAreaRegistration.cs" />
     <Compile Include="Areas\Empresa\Models\GruposUsuario.cs" />
     <Compile Include="Areas\Empresa\Models\LoginUsuario.cs" />
+    <Compile Include="Areas\Empresa\Models\ProfissionalServicoModel.cs" />
     <Compile Include="Areas\Empresa\Models\SalaoFormasPagamento.cs" />
     <Compile Include="Common\AreaAuthorizeAttribute.cs" />
+    <Compile Include="Common\BindAreaHelper.cs" />
     <Compile Include="Common\BindEstadosHelper.cs" />
+    <Compile Include="Common\BindSalaoHelper.cs" />
+    <Compile Include="Common\BindSubAreaHelper.cs" />
+    <Compile Include="Common\BindTipoEnderecoHelper.cs" />
+    <Compile Include="Common\BindTipoPessoaHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParceriaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -354,6 +360,7 @@
     <Content Include="Areas\Empresa\Views\Servico\Editar.cshtml" />
     <Content Include="Areas\Empresa\Views\Servico\Excluir.cshtml" />
     <Content Include="Areas\Empresa\Views\Servico\Incluir.cshtml" />
+    <Content Include="Areas\Empresa\Views\Colaborador\Servicos.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -11,13 +11,13 @@ namespace Salao.Web.Controllers
 {
     public class ParceriaController : Controller
     {
-        private IBaseService<PreContato> service;
-        private IBaseService<Salao.Domain.Models.Endereco.EnderecoEstado> serviceEstado;
+        private IBaseService<PreContato> _service;
+        private IBaseService<Salao.Domain.Models.Endereco.EnderecoEstado> _serviceEstado;
 
-        public ParceriaController()
+        public ParceriaController(IBaseService<PreContato> service, IBaseService<Salao.Domain.Models.Endereco.EnderecoEstado> serviceEstado)
 	    {
-            service = new PreContatoService();
-            serviceEstado = new Salao.Domain.Service.Endereco.EstadoService();
+            _service = service;
+            _serviceEstado = serviceEstado;
 	    }
 
         //
@@ -38,7 +38,7 @@ namespace Salao.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                service.Gravar(contato);
+                _service.Gravar(contato);
                 return View("_ContatoThanks");
             }
 
@@ -48,7 +48,7 @@ namespace Salao.Web.Controllers
 
         private List<SelectListItem> GetEstados(int? id)
         {
-            var estados = serviceEstado.Listar().Where(x => x.Ativo == true).OrderBy(x => x.UF).ToList();
+            var estados = _serviceEstado.Listar().Where(x => x.Ativo == true).OrderBy(x => x.UF).ToList();
             var items = new List<SelectListItem>();
             foreach (var item in estados)
 	        {

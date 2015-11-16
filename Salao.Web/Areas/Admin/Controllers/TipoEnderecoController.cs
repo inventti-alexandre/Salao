@@ -14,20 +14,20 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class TipoEnderecoController : Controller
     {
-        IBaseService<EnderecoTipoEndereco> service;
-        private ILogin login;
+        IBaseService<EnderecoTipoEndereco> _service;
+        private ILogin _login;
 
-        public TipoEnderecoController()
+        public TipoEnderecoController(IBaseService<EnderecoTipoEndereco> service, ILogin login)
         {
-            service = new TipoEnderecoService();
-            login = new UsuarioService();
+            _service = service;
+            _login = login;
         }
 
         //
         // GET: /Admin/TipoEndereco/
         public ActionResult Index()
         {
-            var tipos = service.Listar()
+            var tipos = _service.Listar()
                 .OrderBy(x => x.Descricao);
 
             return View(tipos);
@@ -37,7 +37,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/TipoEndereco/Details/5
         public ActionResult Details(int id)
         {
-            var tipo = service.Find(id);
+            var tipo = _service.Find(id);
 
             if (tipo == null)
             {
@@ -63,7 +63,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(tipo);
+                    _service.Gravar(tipo);
                     return RedirectToAction("Index");
                 }
 
@@ -85,7 +85,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var tipo = service.Find((int)id);
+            var tipo = _service.Find((int)id);
 
             if (tipo == null)
             {
@@ -104,7 +104,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(tipo);
+                    _service.Gravar(tipo);
                     return RedirectToAction("Index");                    
                 }
                 return View(tipo);
@@ -125,7 +125,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var tipo = service.Find((int)id);
+            var tipo = _service.Find((int)id);
 
             if (tipo == null)
             {
@@ -142,13 +142,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var tipo = service.Find(id);
+                var tipo = _service.Find(id);
                 if (tipo == null)
                 {
                     return HttpNotFound();

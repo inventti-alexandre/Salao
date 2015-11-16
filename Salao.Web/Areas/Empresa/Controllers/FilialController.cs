@@ -2,11 +2,9 @@
 using Salao.Domain.Abstract.Cliente;
 using Salao.Domain.Models.Cliente;
 using Salao.Domain.Service.Cliente;
-using Salao.Domain.Service.Endereco;
 using Salao.Web.Areas.Empresa.Common;
 using Salao.Web.Common;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -16,21 +14,21 @@ namespace Salao.Web.Areas.Empresa.Controllers
     [AreaAuthorize("Empresa", Roles = "salao_crud")]
     public class FilialController : Controller
     {
-        IBaseService<Salao.Domain.Models.Cliente.Salao> service;
-        IBaseService<Salao.Domain.Models.Cliente.Empresa> serviceEmpresa;
-        ICadastroSalao cadastro;
+        IBaseService<Salao.Domain.Models.Cliente.Salao> _service;
+        IBaseService<Salao.Domain.Models.Cliente.Empresa> _serviceEmpresa;
+        ICadastroSalao _cadastro;
 
-        public FilialController()
+        public FilialController(IBaseService<Salao.Domain.Models.Cliente.Salao> service, IBaseService<Salao.Domain.Models.Cliente.Empresa> serviceEmpresa, ICadastroSalao cadastro)
         {
-            service = new SalaoService();
-            serviceEmpresa = new EmpresaService();
-            cadastro = new CadastroSalaoService();
+            _service = service;
+            _serviceEmpresa = serviceEmpresa;
+            _cadastro = cadastro;
         }
 
         // GET: Empresa/Filial
         public ActionResult Index()
         {
-            var saloes = service.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa);
+            var saloes = _service.Listar().Where(x => x.IdEmpresa == Identification.IdEmpresa);
             return View(saloes);
         }
 
@@ -42,7 +40,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var salao = service.Find((int)id);
+            var salao = _service.Find((int)id);
 
             if (salao.IdEmpresa != Identification.IdEmpresa)
             {
@@ -68,9 +66,6 @@ namespace Salao.Web.Areas.Empresa.Controllers
             model.TipoPessoa = empresa.TipoPessoa;
             model.IdEmpresa = empresa.Id;
 
-            ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
-            ViewBag.TipoEndereco = GetTipoEndereco();
-            ViewBag.IdEstado = GetEstados();
             ViewBag.EmpresaFantasia = empresa.Fantasia;
 
             return View(model);
@@ -88,7 +83,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 model.CadastradoEm = DateTime.Now;
                 if (ModelState.IsValid)
                 {
-                    cadastro.Gravar(model);
+                    _cadastro.Gravar(model);
                     return RedirectToAction("Index");
                 }
 
@@ -97,9 +92,6 @@ namespace Salao.Web.Areas.Empresa.Controllers
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
-                ViewBag.TipoEndereco = GetTipoEndereco();
-                ViewBag.IdEstado = GetEstados();
                 ViewBag.EmpresaFantasia = Identification.EmpresaFantasia;
                 return View(model);
             }
@@ -113,7 +105,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var model = cadastro.Find((int)id);
+            var model = _cadastro.Find((int)id);
 
             if (model == null)
             {
@@ -125,9 +117,6 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
-            ViewBag.TipoEndereco = GetTipoEndereco();
-            ViewBag.IdEstado = GetEstados();
             return View(model);
         }
 
@@ -140,21 +129,15 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 model.AlteradoEm = DateTime.Now;
                 if (ModelState.IsValid)
                 {
-                    cadastro.Gravar(model);
+                    _cadastro.Gravar(model);
                     return RedirectToAction("Index");
                 }
 
-                ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
-                ViewBag.TipoEndereco = GetTipoEndereco();
-                ViewBag.IdEstado = GetEstados();
                 return View(model);
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                ViewBag.TipoPessoa = GetTipoPessoa(model.TipoPessoa);
-                ViewBag.TipoEndereco = GetTipoEndereco();
-                ViewBag.IdEstado = GetEstados();
                 return View(model);
             }
         }
@@ -167,7 +150,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var salao = service.Find((int)id);
+            var salao = _service.Find((int)id);
 
             if (salao == null || salao.IdEmpresa != Identification.IdEmpresa)
 	        {
@@ -183,13 +166,13 @@ namespace Salao.Web.Areas.Empresa.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var salao = service.Find(id);
+                var salao = _service.Find(id);
                 if (salao == null)
                 {
                     return HttpNotFound();
@@ -197,45 +180,5 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 return View(salao);
             }
         }
-
-        #region [ Privates ]
-
-        private List<SelectListItem> GetTipoPessoa(int tipo = 1)
-        {
-            var tipos = new List<SelectListItem>();
-            tipos.Add(new SelectListItem { Text = "FÍSICA", Value = "1", Selected = (tipo == 1) });
-            tipos.Add(new SelectListItem { Text = "JURÍDICA", Value = "2", Selected = (tipo == 2) });
-            return tipos;
-        }
-
-        private List<SelectListItem> GetTipoEndereco(int id = 0)
-        {
-            var tipos = new TipoEnderecoService().Listar()
-                .Where(x => x.Ativo == true).OrderBy(x => x.Descricao);
-
-            var lista = new List<SelectListItem>();
-            foreach (var item in tipos)
-            {
-                lista.Add(new SelectListItem { Text = item.Descricao, Value = item.Id.ToString(), Selected = (item.Id == id) });
-            }
-
-            return lista;
-        }
-
-        private List<SelectListItem> GetEstados(int id = 0)
-        {
-            var estados = new EstadoService().Listar()
-                .Where(x => x.Ativo == true)
-                .OrderBy(x => x.UF);
-
-            var lista = new List<SelectListItem>();
-            foreach (var item in estados)
-            {
-                lista.Add(new SelectListItem { Text = item.UF, Value = item.Id.ToString(), Selected = (item.Id == id) });
-            }
-            return lista;
-        }
-
-        #endregion
     }
 }

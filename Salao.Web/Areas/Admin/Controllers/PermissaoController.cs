@@ -13,20 +13,20 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class PermissaoController : Controller
     {
-        private IBaseService<Permissao> service;
-        private ILogin login;
+        private IBaseService<Permissao> _service;
+        private ILogin _login;
 
-        public PermissaoController()
+        public PermissaoController(IBaseService<Permissao> service, ILogin login)
         {
-            service = new PermissaoService();
-            login = new UsuarioService();
+            _service = service;
+            _login = login;
         }
 
         //
         // GET: /Admin/Permissao/
         public ActionResult Index()
         {
-            var permissoes = service.Listar()
+            var permissoes = _service.Listar()
                 .OrderBy(x => x.Descricao);
 
             return View(permissoes);
@@ -36,7 +36,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/Permissao/Details/5
         public ActionResult Details(int id)
         {
-            var permissao = service.Find(id);
+            var permissao = _service.Find(id);
 
             if (permissao == null)
             {
@@ -60,13 +60,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                permissao.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                permissao.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 permissao.AlteradoEm = DateTime.Now;
                 TryUpdateModel(permissao);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(permissao);
+                    _service.Gravar(permissao);
                     return RedirectToAction("Index");
                 }
 
@@ -88,7 +88,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var permissao = service.Find((int)id);
+            var permissao = _service.Find((int)id);
 
             if (permissao == null)
             {
@@ -105,12 +105,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                permissao.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                permissao.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(permissao);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(permissao);
+                    _service.Gravar(permissao);
                     return RedirectToAction("Index");
                 }
 
@@ -132,7 +132,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var permissao = service.Find((int)id);
+            var permissao = _service.Find((int)id);
 
             if (permissao == null)
             {
@@ -149,12 +149,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch
             {
-                var permissao = service.Find(id);
+                var permissao = _service.Find(id);
                 if (permissao == null)
                 {
                     return HttpNotFound();

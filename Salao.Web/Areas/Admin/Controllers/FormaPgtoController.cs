@@ -13,20 +13,20 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class FormaPgtoController : Controller
     {
-        private IBaseService<FormaPgto> service;
-        private ILogin login;
+        private IBaseService<FormaPgto> _service;
+        private ILogin _login;
 
-        public FormaPgtoController()
+        public FormaPgtoController(IBaseService<FormaPgto> service, ILogin login)
         {
-            service = new FormaPgtoService();
-            login = new UsuarioService();
+            _service = service;
+            _login = login;
         }
 
         //
         // GET: /Admin/FormaPgto/
         public ActionResult Index()
         {
-            var formas = service.Listar()
+            var formas = _service.Listar()
                 .OrderBy(x => x.Descricao);
 
             return View(formas);
@@ -36,7 +36,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/FormaPgto/Details/5
         public ActionResult Details(int id)
         {
-            var forma = service.Find(id);
+            var forma = _service.Find(id);
 
             if (forma == null)
             {
@@ -60,13 +60,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                forma.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                forma.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 forma.AlteradoEm = DateTime.Now;
                 TryUpdateModel(forma);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(forma);
+                    _service.Gravar(forma);
                     return RedirectToAction("Index");                    
                 }
 
@@ -88,7 +88,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var forma = service.Find((int)id);
+            var forma = _service.Find((int)id);
 
             if (forma == null)
             {
@@ -105,11 +105,11 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                forma.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                forma.AlteradoPor = _login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 forma.AlteradoEm = DateTime.Now;
                 TryUpdateModel(forma);
 
-                service.Gravar(forma);
+                _service.Gravar(forma);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException e)
@@ -128,7 +128,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var forma = service.Find((int)id);
+            var forma = _service.Find((int)id);
 
             if (forma == null)
             {
@@ -145,13 +145,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                var forma = service.Find(id);
+                var forma = _service.Find(id);
                 if (forma == null)
                 {
                     return HttpNotFound();

@@ -12,17 +12,17 @@ namespace Salao.Web.Areas.Admin.Controllers
     public class UsuarioController : Controller
     {
 
-        private IBaseService<Usuario> service;
+        private IBaseService<Usuario> _service;
 
-        public UsuarioController()
+        public UsuarioController(IBaseService<Usuario> service)
         {
-            service = new UsuarioService();
+            _service = service;
         }
 
         // GET: /Admin/Usuario/
         public ActionResult Index()
         {
-            var usuarios = service.Listar().Where(x => x.Ativo == true)
+            var usuarios = _service.Listar().Where(x => x.Ativo == true)
                 .OrderBy(x => x.Nome);
 
             return View(usuarios);
@@ -32,7 +32,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/Usuario/Details/5
         public ActionResult Details(int id)
         {
-            var usuario = service.Find(id);
+            var usuario = _service.Find(id);
 
             if (usuario == null)
             {
@@ -61,7 +61,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(usuario);
+                    _service.Gravar(usuario);
                     return RedirectToAction("Index");
                 }
                 
@@ -83,7 +83,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null)
             {
@@ -103,7 +103,7 @@ namespace Salao.Web.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(usuario);
+                    _service.Gravar(usuario);
                     return RedirectToAction("Index");
                 }
                 return View(usuario);
@@ -124,7 +124,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null)
             {
@@ -141,12 +141,12 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index");
             }
             catch
             {
-                var usuario = service.Find(id);
+                var usuario = _service.Find(id);
                 if (usuario == null)
                 {
                     return HttpNotFound();
@@ -159,7 +159,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         // GET: /Admin/Usuario/TrocarSenha
         public ActionResult TrocarSenha()
         {
-            var usuario = service.Listar().Where(x => x.Login == User.Identity.Name).FirstOrDefault();
+            var usuario = _service.Listar().Where(x => x.Login == User.Identity.Name).FirstOrDefault();
 
             if (usuario == null)
             {
@@ -204,7 +204,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var usuario = service.Find((int)id);
+            var usuario = _service.Find((int)id);
 
             if (usuario == null)
             {
@@ -219,7 +219,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult RedefinirSenha(int id)
         {
-            var usuario = service.Find(id);
+            var usuario = _service.Find(id);
 
             if (usuario == null)
             {

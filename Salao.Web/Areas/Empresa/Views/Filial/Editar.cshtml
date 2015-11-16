@@ -1,4 +1,5 @@
-﻿@model Salao.Domain.Models.Cliente.CadastroSalao
+﻿@using Salao.Web.Common;
+@model Salao.Domain.Models.Cliente.CadastroSalao
 
 @{
     ViewBag.Title = "Matriz/Filiais - edição";
@@ -31,7 +32,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TipoPessoa, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TipoPessoa", null, new { onChange = "exibirTipoPessoa();" })
+                @Html.SelectTipoPessoa(Model.TipoPessoa)
             </div>
         </div>
 
@@ -94,8 +95,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TipoEndereco, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TipoEndereco")
-                @Html.ValidationMessageFor(model => model.TipoEndereco)
+                @Html.SelectTipoEndereco(Model.TipoEndereco)
             </div>
         </div>
 
@@ -150,7 +150,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IdEstado, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IdEstado")
+                @Html.SelectUF(Model.IdEstado)
             </div>
         </div>
 
@@ -235,6 +235,10 @@
 
     $(document).ready(function () {
         exibirTipoPessoa();
+
+        $("#TipoPessoa").change(function () {
+            exibirTipoPessoa();
+        });
     });
 
     function exibirTipoPessoa() {

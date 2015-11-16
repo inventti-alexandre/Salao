@@ -15,31 +15,31 @@ namespace Salao.Web.Areas.Admin.Controllers
     [AreaAuthorizeAttribute("Admin", Roles="admin")]
     public class ServicoController : Controller
     {
-        IBaseService<Servico> service;
-        IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao;
-        IBaseService<Area> serviceArea;
-        IBaseService<SubArea> serviceSubArea;
+        IBaseService<Servico> _service;
+        IBaseService<Salao.Domain.Models.Cliente.Salao> _serviceSalao;
+        IBaseService<Area> _serviceArea;
+        IBaseService<SubArea> _serviceSubArea;
 
-        public ServicoController()
+        public ServicoController(IBaseService<Servico> service, IBaseService<Salao.Domain.Models.Cliente.Salao> serviceSalao, IBaseService<Area> serviceArea, IBaseService<SubArea> serviceSubArea)
         {
-            service = new ServicoService();
-            serviceSalao = new Salao.Domain.Service.Cliente.SalaoService();
-            serviceArea = new AreaService();
-            serviceSubArea = new SubAreaService();
+            _service = service;
+            _serviceSalao = serviceSalao;
+            _serviceArea = serviceArea;
+            _serviceSubArea = serviceSubArea;
         }
 
         //
         // GET: /Cliente/Servico/
         public ActionResult Index(int idSalao)
         {
-            var salao = serviceSalao.Find(idSalao);
+            var salao = _serviceSalao.Find(idSalao);
 
             if (salao == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var servicos = service.Listar()
+            var servicos = _service.Listar()
                 .Where(x => x.IdSalao == idSalao)
                 .OrderBy(x => x.Descricao);
 
@@ -59,9 +59,9 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var servico = service.Find((int)id);
+            var servico = _service.Find((int)id);
 
-            if (service == null)
+            if (_service == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -77,7 +77,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
             var areas = GetAreas();
             var area = areas.First().Text;
-            int idArea = serviceArea.Listar().FirstOrDefault(x => x.Descricao == area).Id;
+            int idArea = _serviceArea.Listar().FirstOrDefault(x => x.Descricao == area).Id;
             
             ViewBag.Areas = GetAreas();
             ViewBag.SubAreas = GetSubAreas(idArea);
@@ -98,7 +98,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(servico);
+                    _service.Gravar(servico);
                     return RedirectToAction("Index", new { idSalao = servico.IdSalao });
                 }
 
@@ -124,7 +124,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();    
             }
 
-            var servico = service.Find((int)id);
+            var servico = _service.Find((int)id);
 
             if (servico == null)
             {
@@ -150,7 +150,7 @@ namespace Salao.Web.Areas.Admin.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(servico);
+                    _service.Gravar(servico);
                     return RedirectToAction("Index", new { idSalao = servico.IdSalao });
                 }
 
@@ -177,9 +177,9 @@ namespace Salao.Web.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            var servico = service.Find((int)id);
+            var servico = _service.Find((int)id);
 
-            if (service == null)
+            if (_service == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -194,13 +194,13 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             try
             {
-                service.Excluir(id);
+                _service.Excluir(id);
                 return RedirectToAction("Index", new { idSalao = idSalao });
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var servico = service.Find(id);
+                var servico = _service.Find(id);
                 if (servico == null)
                 {
                     return HttpNotFound();   
@@ -215,7 +215,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             var lista = new List<SelectListItem>();
 
-            var areas = serviceArea.Listar()
+            var areas = _serviceArea.Listar()
                 .OrderBy(x => x.Descricao);
 
             foreach (var item in areas)
@@ -230,7 +230,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         {
             var lista = new List<SelectListItem>();
 
-            var subs = serviceSubArea.Listar()
+            var subs = _serviceSubArea.Listar()
                 .Where(x => idArea == 0 || x.IdArea == idArea)
                 .OrderBy(x => x.Descricao);
 

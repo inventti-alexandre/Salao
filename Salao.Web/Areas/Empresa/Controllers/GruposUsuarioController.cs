@@ -14,15 +14,15 @@ namespace Salao.Web.Areas.Empresa.Controllers
     [AreaAuthorize("Empresa", Roles = "permissao")]
     public class GruposUsuarioController : Controller
     {
-        IBaseService<CliUsuario> serviceUsuario;
-        IBaseService<CliGrupo> serviceGrupo;
-        ICliUsuarioGrupo service;
+        IBaseService<CliUsuario> _serviceUsuario;
+        IBaseService<CliGrupo> _serviceGrupo;
+        ICliUsuarioGrupo _service;
 
-        public GruposUsuarioController()
+        public GruposUsuarioController(IBaseService<CliUsuario> serviceUsuario,IBaseService<CliGrupo> serviceGrupo, ICliUsuarioGrupo service)
         {
-            serviceUsuario = new CliUsuarioService();
-            serviceGrupo = new CliGrupoService();
-            service = new CliUsuarioGrupoService();
+            _serviceUsuario = serviceUsuario;
+            _serviceGrupo = serviceGrupo;
+            _service = service;
         }
 
         // GET: Empresa/GruposUsuario
@@ -34,7 +34,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             }
 
             // usuario
-            var usuario = serviceUsuario.Find((int)id);
+            var usuario = _serviceUsuario.Find((int)id);
 
             if (usuario == null)
             {
@@ -42,7 +42,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
             }
 
             // grupos disponiveis
-            var grupos = serviceGrupo.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
+            var grupos = _serviceGrupo.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
 
             // lista retorno
             var gruposUsuario = new List<GruposUsuario>();
@@ -52,7 +52,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
                 {
                     Descricao = item.Descricao,
                     Id = item.Id,
-                    Selecionado = (service.Listar().Where(x => x.IdGrupo == item.Id && x.IdUsuario == id).Count() > 0)
+                    Selecionado = (_service.Listar().Where(x => x.IdGrupo == item.Id && x.IdUsuario == id).Count() > 0)
                 });
             }
 
@@ -67,7 +67,7 @@ namespace Salao.Web.Areas.Empresa.Controllers
         public ActionResult Index(int[] selecionado, int idUsuario, int idEmpresa)
         {
             // grava grupos do usuario
-            service.Gravar(idUsuario, selecionado);
+            _service.Gravar(idUsuario, selecionado);
 
             return RedirectToAction("Index", "Usuario");
         }

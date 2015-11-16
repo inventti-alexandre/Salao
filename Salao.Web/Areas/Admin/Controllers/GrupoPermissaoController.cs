@@ -14,15 +14,15 @@ namespace Salao.Web.Areas.Admin.Controllers
     public class GrupoPermissaoController : Controller
     {
 
-        IBaseService<Grupo> serviceGrupo;
-        IBaseService<Permissao> servicePermissao;
-        IGrupoPermissao serviceGrupoPermissao;
+        IBaseService<Grupo> _serviceGrupo;
+        IBaseService<Permissao> _servicePermissao;
+        IGrupoPermissao _serviceGrupoPermissao;
 
-        public GrupoPermissaoController()
+        public GrupoPermissaoController(IBaseService<Grupo> serviceGrupo, IBaseService<Permissao> servicePermissao, IGrupoPermissao serviceGrupoPermissao)
         {
-            serviceGrupo = new GrupoService();
-            servicePermissao = new PermissaoService();
-            serviceGrupoPermissao = new GrupoPermissaoService();
+            _serviceGrupo = serviceGrupo;
+            _servicePermissao = servicePermissao;
+            _serviceGrupoPermissao = serviceGrupoPermissao;
         }
 
         //
@@ -30,10 +30,10 @@ namespace Salao.Web.Areas.Admin.Controllers
         public ActionResult Index(int id)
         {
             // grupo selecionado
-            var grupo = serviceGrupo.Find(id);
+            var grupo = _serviceGrupo.Find(id);
             
             // permissoes disponiveis
-            var permissoes = servicePermissao.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
+            var permissoes = _servicePermissao.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
 
             // lista retorno
             var permissoesGrupo = new List<PermissoesGrupo>();
@@ -43,7 +43,7 @@ namespace Salao.Web.Areas.Admin.Controllers
                 {
                     Descricao = item.Descricao,
                     Id = item.Id,
-                    Selecionado = (serviceGrupoPermissao.Listar().Where(x => x.IdPermissao == item.Id && x.IdGrupo == id).Count() > 0)
+                    Selecionado = (_serviceGrupoPermissao.Listar().Where(x => x.IdPermissao == item.Id && x.IdGrupo == id).Count() > 0)
                 });
             }
 
@@ -57,7 +57,7 @@ namespace Salao.Web.Areas.Admin.Controllers
         public ActionResult Index(int idGrupo, int[] selecionado)
         {
             // grava permissoes do grupo
-            serviceGrupoPermissao.Gravar(idGrupo, selecionado);
+            _serviceGrupoPermissao.Gravar(idGrupo, selecionado);
 
             return RedirectToAction("Index", "Grupo");
         }
